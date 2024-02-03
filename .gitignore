@@ -28,6 +28,7 @@ yarn-error.log*
 .env*.local
 .env
 
+frontend/package-lock.json
 db*
 __pycache__
 
