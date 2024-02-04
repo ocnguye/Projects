@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const baseURL = 'http://localhost:8000/api/';
-const baseURL = 'https://angel-backend.fly.dev/api/';
+const baseURL = 'http://localhost:8000/api/';
+// const baseURL = 'https://angel-backend.fly.dev/api/';
 
 
 const get = async (url: string, token: any) => {
