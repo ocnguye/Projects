@@ -1,11 +1,8 @@
 import axios from 'axios';
 
-const mode = 'development';
-const baseURL = 'http://localhost:8000/api/';
-// @ts-ignore
-if (mode === 'production') {
-    const baseURL = 'https://api.example.com';
-}
+// const baseURL = 'http://localhost:8000/api/';
+const baseURL = 'https://angel-backend.fly.dev/api/';
+
 
 const get = async (url: string, token: any) => {
     const apiUrl = `${baseURL}${url}`;
@@ -14,12 +11,10 @@ const get = async (url: string, token: any) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        maxContentLength: 100000000,
-        maxBodyLength: 1000000000,
       });
       return response;
     } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
+      console.log(err);
     }
   };
   

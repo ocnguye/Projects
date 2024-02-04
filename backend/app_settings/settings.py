@@ -12,25 +12,29 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import environ, os
-
+from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
+env = Env()  # new
+env.read_env()  # new
+env = environ.Env()
+DEBUG = env.bool("DEBUG", default=True)
+MODE = env("MODE", default="dev")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+SECRET_KEY = env.str(
+  "SECRET_KEY", 
+  default='django-insecure-4tw-x%0h29rbdu313023*0t@2n()2222g287_d$*=9(978e6@4',
+)
+ALLOWED_HOSTS = ["angel-backend.fly.dev", "localhost", "127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://angel-backend.fly.dev/"]
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4tw-x%0h29rbdu313023*0t@2n()2222g287_d$*=9(978e6@4'
+APP_NAME = os.environ.get("FLY_APP_NAME")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -43,9 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'collectibles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -80,12 +86,8 @@ WSGI_APPLICATION = 'app_settings.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": env.db_url("DATABASE_URL", default="sqlite:///db.sqlite3"),
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
