@@ -76,8 +76,8 @@ class ClerkSDK:
             data = response.json()
             return {
                 "email_address": data["email_addresses"][0]["email_address"],
-                "first_name": data["first_name"],
-                "last_name": data["last_name"],
+                "first_name": data["first_name"] if data["first_name"] else "",
+                "last_name": data["last_name"] if data["last_name"] else "",
                 "last_login": datetime.datetime.fromtimestamp(
                     data["last_sign_in_at"] / 1000, tz=pytz.UTC
                 ),
