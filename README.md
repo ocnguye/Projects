@@ -10,25 +10,6 @@
 
 Angel Trading Co. is a project that seeks to provide collectors with a place to trade and find others who are also interested in trading. We want to give collectors and enthusiasts a centralized place where they can find other local collectors to trade with. Currently, we are focusing on supporting Smiski and Sonny Angel communities!
 
-## Running the app
-
-```bash
-git clone https://github.com/AustinWheel/angel-trading-co.git
-```
-
-To run the app locally, you need to:
-
-1. Sign up for a Clerk account at [https://clerk.com](https://dashboard.clerk.com/sign-up?utm_source=DevRel&utm_medium=docs&utm_campaign=templates&utm_content=10-24-2023&utm_term=clerk-nextjs-app-quickstart).
-
-2. Go to the [Clerk dashboard](https://dashboard.clerk.com?utm_source=DevRel&utm_medium=docs&utm_campaign=templates&utm_content=10-24-2023&utm_term=clerk-nextjs-app-quickstart) and create an application.
-
-3. Set the required Clerk environment variables for Next as shown in `./frontend/.env.local`.
-
-4. `npm install` the required dependencies.
-
-5. `npm run dev` to launch the development server.
-
-
 ## Found an issue?
 
 If you have found an issue with the quickstart, please create an [issue](https://github.com/AustinWheel/angel-trading-co/issues).
