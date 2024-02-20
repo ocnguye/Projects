@@ -8,7 +8,7 @@
 
 ## Introduction
 
-Angel Trading Co. is a project that seeks to provide collectors with a place to trade and find others who are also interested in trading. We want to give collectors and enthusiasts a centralized place where they can find other local collectors to trade with. Currently, we are focusing on supporting Smiski and Sonny Angel communities!
+Angel Trading Co. is a project that seeks to provide collectors with a place to trade online. We want to give enthusiasts and new hobbyists alike a centralized place where they can find other local collectors to trade with. Currently, we are focusing on supporting Smiski and Sonny Angel communities!
 
 ## Running the app
 
