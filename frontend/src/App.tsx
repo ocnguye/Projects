@@ -12,6 +12,7 @@ function App() {
       <SignedIn>
         <Header />
         <UserButton afterSignOutUrl="/" />
+        <img src="https://smiski.com/e/wp-content/uploads/2016/03/s1_06.png" alt="Clerk.dev" />
         <Example />
       </SignedIn>
     </div>

@@ -17,10 +17,6 @@ export default function Example() {
             return resp!.data;
         } 
     });
-    const send = async () => {
-        const token = await getToken();
-        await postCollectible({"name": "one", "series": "one", "description": "desc"}, token);
-    }
     
     return (
         <div className="text-blue-600">
@@ -36,7 +32,6 @@ export default function Example() {
             ))
         : 
         (<></>)}
-        <Button onClick={() => send()} variant="contained">Click me</Button>
         </div>
     );
 }

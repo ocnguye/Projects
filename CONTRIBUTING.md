@@ -31,6 +31,10 @@ To run the app locally, you need to:
 
 6. Run `python manage.py migrate` to perform the database migrations.
 
+7. In your terminal run `python manage.py shell < scripts/upload_smiski.py`.
+
+    This is to load in the valid smiski objects that we have.
+
 7. Run `python manage.py runserver` to start the development server.
 
 8. Congrats your backend and frontend are communicating like best buddies.
