@@ -1,10 +1,11 @@
 from django.db import models
 
 # Create your models here.
-class Collectible(models.Model):
-    product = models.CharField(max_length=100, default='')
-    series = models.CharField(max_length=100, default='')
+class Featured(models.Model):
     name = models.CharField(max_length=100)
+    description = models.TextField(default="")
+    link = models.TextField(default="")
+    address = models.TextField(default="")
     image = models.TextField(default="")
 
     def __str__(self):

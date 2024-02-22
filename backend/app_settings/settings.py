@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'collectibles',
     'corsheaders',
+    'profiles',
+    'trades',
+    'featured',
 ]
 
 MIDDLEWARE = [

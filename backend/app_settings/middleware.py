@@ -9,6 +9,7 @@ from django.core.cache import cache
 from jwt.algorithms import RSAAlgorithm
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
+from profiles.models import Profile
 
 env = environ.Env()
 
@@ -63,6 +64,7 @@ class JWTAuthenticationMiddleware(BaseAuthentication):
         user_id = payload.get("sub")
         if user_id:
             user, created = User.objects.get_or_create(username=user_id)
+            Profile.objects.get_or_create(user=user)
             return user
         return None
 
