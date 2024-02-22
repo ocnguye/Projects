@@ -9,7 +9,7 @@ from rest_framework.response import Response
 class CollectibleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collectible
-        fields = ['product', 'series', 'name', 'image']
+        fields = ['product', 'series', 'name', 'image', 'id']
 
 class CollectibleViewSet(APIView):
     permission_classes = [IsAuthenticated]

@@ -18,10 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from collectibles.views import CollectibleViewSet
+from profiles.views import ProfileViewSet, ProfileCollection, ProfileWishlist
 
 router = routers.DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/collectibles/', CollectibleViewSet.as_view(), name="collectibles"),
+    path('api/profiles/', ProfileViewSet.as_view(), name="profiles"),
+    path('api/profiles/collection/', ProfileCollection.as_view(), name="collection"),
+    path('api/profiles/wishlist/', ProfileWishlist.as_view(), name="wishlist"),
 ]

@@ -35,9 +35,9 @@ To run the app locally, you need to:
 
     This is to load in the valid smiski objects that we have.
 
-7. Run `python manage.py runserver` to start the development server.
+8. Run `python manage.py runserver` to start the development server.
 
-8. Congrats your backend and frontend are communicating like best buddies.
+9. Congrats your backend and frontend are communicating like best buddies.
 
 ## Making Changes
 

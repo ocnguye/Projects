@@ -1,10 +1,11 @@
 // Where we will define our API calls to the backend
-import { get, post } from './api';
+import { get } from './api';
 
 const getCollectibles = async (token: any) => get('collectibles/', token);
-const postCollectible = async (payload: any, token: any) => post('collectibles/', payload, token);
+
+const getProfile = async (token: any) => get('profiles/', token);
 
 export {
     getCollectibles,
-    postCollectible,
+    getProfile,
 }

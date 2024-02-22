@@ -2,7 +2,7 @@
 // Where we will define most of the apps components
 import React from 'react';
 import { useAuth } from "@clerk/clerk-react";
-import { getCollectibles, postCollectible } from '../api/example';
+import { getCollectibles, getProfile } from '../api/example';
 import { useQuery } from '@tanstack/react-query';
 import Button from '@mui/material/Button'
 
@@ -27,7 +27,7 @@ export default function Example() {
                 <li className='border-4 border-light-blue-500' key={item.id}>
                     <p>{item.series}</p>
                     <p>{item.name}</p>
-                    <p>{item.description}</p>
+                    <p>{item.id}</p>
                 </li>
             ))
         : 
