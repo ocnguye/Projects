@@ -4,8 +4,20 @@ from rest_framework.permissions import IsAuthenticated
 from django.utils.crypto import get_random_string
 from rest_framework import status
 import boto3
+from environ import Env
 
-s3_client = boto3.client('s3')
+env = Env()
+env.read_env()
+access = env.str('AWS_ACCESS_KEY_ID')
+secret = env.str('AWS_SECRET_KEY')
+region = env.str('AWS_REGION')
+
+s3_client = boto3.client('s3', 
+                      aws_access_key_id=access, 
+                      aws_secret_access_key=secret, 
+                      region_name=region,
+            )
+
 Bucket = 'angel-trading-direct-upload'
 Expiration = 60
 
