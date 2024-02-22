@@ -1,8 +1,7 @@
-import React from 'react';
+// A test component to test the various APIs calls
 import { useAuth } from "@clerk/clerk-react";
-import { getCollectibles, getProfile } from '../api/example';
+import { getProfile } from '../api/example';
 import { useQuery } from '@tanstack/react-query';
-import Button from '@mui/material/Button'
 
 export default function Test() {
     const { getToken } = useAuth();
@@ -15,15 +14,12 @@ export default function Test() {
             return resp!.data;
         } 
     });
-    console.log(data);
     return (
         <div>
             <h1>Testing</h1>
             <p>This is an test component.</p>
             { !isLoading && !isError ?
                 <div>
-                    {/* <p>{data}</p> */}
-                    {/* <p>{data.wishlist}</p> */}
                 </div>
             : 
             (<></>)}
