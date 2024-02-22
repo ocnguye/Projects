@@ -39,9 +39,9 @@ class MFCRecommendations(APIView):
         # QUERY:
         #    SELECT * FROM Trade
         #    WHERE id NOT IN Profile.trades
-        #    AND id IN Profile.collection
+        #    AND id NOT IN Profile.collection
 
         profile = Profile.objects.get(user=request.user)
-        trades = Trade.objects.exclude(id__in=profile.trades.all()).filter(id__in=profile.collection.all())
+        trades = Trade.objects.exclude(id__in=profile.trades.all()).exclude(id__in=profile.collection.all())
         serializer = TradeSerializer(trades, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
