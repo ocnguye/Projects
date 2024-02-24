@@ -10,6 +10,7 @@ function App() {
       </SignedOut>
       <SignedIn>
         <Header />
+        <Header />
         <UserButton afterSignOutUrl="/" />
       </SignedIn>
     </div>
