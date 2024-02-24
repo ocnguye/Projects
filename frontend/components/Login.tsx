@@ -20,7 +20,9 @@ const Login: React.FC = () => {
     return (
         <div style={containerStyle}>
             <h1 style={headingStyle}>Angel Trading Co.</h1>
+            <p className="text-red-900"> test</p>
         </div>
+        
     );
 };
 
