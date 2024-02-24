@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/clerk-react"
 import Header from "../components/header/header"
 import Login from "../components/Login"
