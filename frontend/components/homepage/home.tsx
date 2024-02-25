@@ -18,9 +18,7 @@ const Home: React.FC = () => {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-                <Grid xs={2}>
-                </Grid>
-                <Grid xs={8}>
+                <Grid xs={10}>
                         <Featured />
                 </Grid>
                 <Grid xs={2}>

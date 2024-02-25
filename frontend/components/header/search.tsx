@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function useDebounce(value: string, delay: number) {
@@ -29,7 +29,7 @@ const Search: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        navigate(`/search/:${debouncedSearchTerm}`);
+        navigate(`/search`, { state: { searchTerm: debouncedSearchTerm } });
     };
 
     const [isFirstRun, setIsFirstRun] = useState(true);
@@ -44,15 +44,18 @@ const Search: React.FC = () => {
     
 
     return (
-        <Link to={`/search`} state={{searchTerm: debouncedSearchTerm}}>
-            <form onSubmit={handleSubmit}>
+        <Link to={`/search`} state={{searchTerm: debouncedSearchTerm}} >
+            <form onSubmit={handleSubmit} >
             <input
+                style={{background: "white", borderRadius: 15, borderWidth: 0, paddingTop: 5, paddingBottom: 5, 
+                paddingLeft: 10, paddingRight: 10, backgroundColor: "#D9D9D9", width: 400, height: 30,
+                color: "black", fontSize: 15,
+                }}
                 type="text"
-                placeholder="Search..."
+                placeholder="What are you looking for?"
                 value={searchTerm}
                 onChange={handleSearch}
             />
-            <p>Search Term: {debouncedSearchTerm}</p>
             </form>
         </Link>
     );
