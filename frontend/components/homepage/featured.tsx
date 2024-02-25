@@ -13,7 +13,7 @@ const Featured = () => {
     }, [texts.length]);
 
     return (
-        <div style={{ display: "flex",flexDirection: "column", justifyContent: "center", alignItems: "center", width: "100%", height: 300, background: "#F2DEDE", borderRadius: 20 }}>
+        <div style={{ display: "flex",flexDirection: "column", justifyContent: "center", alignItems: "center", width: "100%", height: 400, background: "#F2DEDE", borderRadius: 20 }}>
             <p>{texts[currentIndex]}</p>
             <div style={{ position: "relative", top: 120, display: "flex", justifyContent: "center", }}>
                 {texts.map((_, index) => (

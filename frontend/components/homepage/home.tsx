@@ -12,6 +12,8 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import InventoryIcon from '@mui/icons-material/Inventory';
 import CachedIcon from '@mui/icons-material/Cached';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import Wishlist from './wishlist';
+import Missing from './missing';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -30,13 +32,15 @@ const Home: React.FC = () => {
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
                             <Grid xs={12}>
-                                    <Featured />
+                                <Featured />
                             </Grid>
-                            <Grid xs={12}>
-                                <Item>xs=4</Item>
+                            <Grid xs={12} style={{overflowX: 'auto', overflowY: 'hidden'}}>
+                                <p>Wishlist Recommendations</p>
+                                <Wishlist />
                             </Grid>
-                            <Grid xs={12}>
-                                <Item>xs=4</Item>
+                            <Grid xs={12} style={{overflowX: 'auto', overflowY: 'hidden'}}>
+                                <p>Missing From Your Collection</p>
+                                <Missing />
                             </Grid>
                         </Grid>
                     </Box>
