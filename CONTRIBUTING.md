@@ -12,7 +12,7 @@ To run the app locally, you need to:
 
 2. `cd frontend`
 
-3. `npm install` the required dependencies.
+3. `pnpm install` the required dependencies.
 
 4. `npm run dev` to launch the development server.
 

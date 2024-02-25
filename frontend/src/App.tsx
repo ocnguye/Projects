@@ -3,7 +3,6 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/clerk-reac
 import Header from "../components/header/header"
 import Login from "../components/Login"
 
-
 function App() {
 
   return (
@@ -15,7 +14,6 @@ function App() {
       </SignedOut>
       <SignedIn>
         <Header />
-        <UserButton afterSignOutUrl="/" />
       </SignedIn>
     </div>
   )
