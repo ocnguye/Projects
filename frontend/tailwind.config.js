@@ -6,8 +6,19 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+      extend: {
+          colors: {
+            green : {
+                150: "#D4FFB2",
+                350: "#BBF670",
+            },
+            yellow:  {
+                350: "#FEF98C",
+            },
+          }
+        },
   },
+
   plugins: [],
 }
 
