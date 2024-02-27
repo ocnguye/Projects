@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <SignedOut>
-        {/* <SignInButton /> */}
+        <SignInButton />
         <Login />
 
       </SignedOut>
