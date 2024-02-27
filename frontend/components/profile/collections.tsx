@@ -1,6 +1,3 @@
-import React from 'react';
-
-
 const Collection = () => {
     // load data from the api
     // need bubbled 'Collection' header

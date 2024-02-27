@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@clerk/clerk-react';
 import { getFeatured } from '../../api/featured';
-import { useNavigate } from 'react-router-dom';
 
 const Featured = () => {
     const { getToken } = useAuth();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const navigate = useNavigate();
 
     const {data, isLoading, isError }: any = useQuery({
         queryKey: ['featured'],
