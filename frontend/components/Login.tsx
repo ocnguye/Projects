@@ -30,11 +30,7 @@ const Login: React.FC = () => {
                             <p className = ""> Email Address </p>
                             <p className = ""> Password </p>
                         </div>
-                    </div>
-
-                    
-
-                        
+                    </div>         
                 </div>
             </div>
         </div>
