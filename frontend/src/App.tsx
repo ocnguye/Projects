@@ -8,8 +8,8 @@ function App() {
   return (
     <div>
       <SignedOut>
-        {/* <SignInButton /> */}
-        <Login />
+        <SignInButton />
+        {/* <Login /> */}
 
       </SignedOut>
       <SignedIn>
