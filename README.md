@@ -2,8 +2,6 @@
   <h1>
     Angel Trading Co.
   </h1>
-  <br />
-  <br />
 </div>
 
 ## Introduction
@@ -15,7 +13,7 @@ Angel Trading Co. is a project that seeks to provide collectors with a place to 
 If you have found an issue with the quickstart, please create an [issue](https://github.com/AustinWheel/angel-trading-co/issues).
 
 If it's a quick fix, such as a misspelled word or a broken link, feel free to skip creating an issue.  
-Go ahead and create a [pull request](https://github.com/clerkinc/clerk-nextjs-app-quickstart/pulls) with the solution. :rocket:
+Go ahead and create a [pull request](https://github.com/clerkinc/clerk-nextjs-app-quickstart/pulls) with the solution.
 
 ## Want to leave feedback?
 

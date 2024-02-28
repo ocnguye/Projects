@@ -13,18 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import environ, os
 from environ import Env
-import sentry_sdk
-
-sentry_sdk.init(
-    dsn="https://296856c5576e928d498f646db235c933@o4506817391034368.ingest.sentry.io/4506817391165440",
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    traces_sample_rate=1.0,
-    # Set profiles_sample_rate to 1.0 to profile 100%
-    # of sampled transactions.
-    # We recommend adjusting this value in production.
-    profiles_sample_rate=1.0,
-)
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
