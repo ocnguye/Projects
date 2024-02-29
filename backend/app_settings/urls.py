@@ -19,6 +19,8 @@ from django.urls import path, include
 from rest_framework import routers
 from collectibles.views import CollectibleViewSet
 from profiles.views import ProfileViewSet, ProfileCollection, ProfileWishlist
+from trades.views import WishListRecommendations, MFCRecommendations
+from featured.views import FeaturedViewSet
 
 router = routers.DefaultRouter()
 urlpatterns = [
@@ -28,4 +30,7 @@ urlpatterns = [
     path('api/profiles/', ProfileViewSet.as_view(), name="profiles"),
     path('api/profiles/collection/', ProfileCollection.as_view(), name="collection"),
     path('api/profiles/wishlist/', ProfileWishlist.as_view(), name="wishlist"),
+    path('api/recommendations/wishlist/', WishListRecommendations.as_view(), name="wishlist-recommendations"),
+    path('api/recommendations/mfc/', MFCRecommendations.as_view(), name="mfc-recommendations"),
+    path('api/featured/', FeaturedViewSet.as_view(), name="featured"),
 ]

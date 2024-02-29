@@ -14,6 +14,7 @@ from pathlib import Path
 import environ, os
 from environ import Env
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(DEBUG=(bool, False))
@@ -26,7 +27,7 @@ DEBUG = env.bool("DEBUG", default=True)
 MODE = env("MODE", default="dev")
 
 SECRET_KEY = env.str(
-  "SECRET_KEY", 
+  "SECRET_KEY",
   default='django-insecure-4tw-x%0h29rbdu313023*0t@2n()2222g287_d$*=9(978e6@4',
 )
 ALLOWED_HOSTS = ["angel-backend.fly.dev", "localhost", "127.0.0.1"]
