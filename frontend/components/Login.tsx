@@ -1,8 +1,13 @@
 import React from 'react';
-import image from './image.png';
+import { useState } from 'react';
+import image1 from './image1.png';
+// import image2 from './image2.png';
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 //import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
+
+    const [visibility, setVisibility] = useState(false);
 
     const goToLogin = () => {
         //navigate('/');
@@ -14,7 +19,7 @@ const Login: React.FC = () => {
             <div className="flex flex-row items-center bg-transparent h-3/4 w-4/5">
                 <div className="bg-green-350 flex flex-col justify-between h-full w-1/3 shadow-2xl">
                     <h1 className="text-3xl font-bold pl-4 pt-4"> Angel Trading Co. </h1>
-                    <img src = { image } alt = "img" className = "h-4/5 w-11/12 pl-4"></img>
+                    <img src = { image1 } alt = "img" className = "h-4/5 w-11/12 pl-4"></img>
 
                     <div className="flex flex-col justify-end items-center w-full">
                         <p className="text-gray-800 text-l p-4 text-center"> The premier Smiski trading platform. </p>
@@ -31,6 +36,9 @@ const Login: React.FC = () => {
                         Sign in
                         </button>
                     </div>
+                    {/* <div className = "absolute bottom-1 right-2">
+                        <img src = { image2 } alt = "img" className = "h-1/5 w-1/5 pl-4"></img>
+                    </div> */}
 
                     <div className="flex flex-col h-3/5 pr-40">
                         <h1 className="text-4xl font-bold"> Welcome to </h1>
@@ -49,18 +57,30 @@ const Login: React.FC = () => {
                             </label>
 
                             <p className = "pt-4"> Password </p>
-                            <label>
-                                <input name = "Password" className = "bg-gray-200 w-96 rounded-lg"/>
+                            <label className="relative block">
+                                <input name="Password" type={(visibility === false) ? "password" : "text"} className="bg-gray-200 w-96 rounded-lg"/>
+                                <div onClick={() => setVisibility(!visibility)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
+                                    {
+                                        visibility ?
+                                        <AiFillEyeInvisible />
+                                        :
+                                        <AiFillEye />
+                                    }
+                                </div>
                             </label>
 
+                            {/* Can add confirm password here if needed/desired */}
+                            
                             <div className="flex justify-center mt-6"> 
                                 <button className="hover:scale-110 w-32 bg-green-350 text-black py-2 px-4 rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" onClick={goToLogin}>
                                     Register
                                 </button>
                             </div>
 
-                        </div>
-                    </div>         
+                        </div>  
+                    </div>     
+
+
                 </div>
             </div>
         </div>
