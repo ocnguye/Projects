@@ -3,49 +3,41 @@ import { useState } from 'react';
 import image1 from './image1.png';
 import image2 from './image2.png';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useSignIn } from '@clerk/clerk-react';
+import { useSignUp } from '@clerk/clerk-react';
 import { useNavigate } from "react-router-dom";
-import Header from "../components/header/header"
 
-const Login: React.FC = () => {
+const SignUp: React.FC = () => {
 
     const [visibility, setVisibility] = useState(false);
+    const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
+    const [userConfirmPassword, setUserConfirmPassword] = useState("");
 
-    const { signIn, isLoaded, setActive } = useSignIn();
+    const { isLoaded, signUp } = useSignUp();
 
     let navigate = useNavigate();
 
-    const onSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!isLoaded) {
-          return;
+            return;
         }
-     
-        try {
-          const result = await signIn.create({
-            identifier: userEmail,
-            password: userPassword,
-          });
-     
-          if (result.status === "complete") {
-            console.log(result);
-            await setActive({ session: result.createdSessionId });
-            <Header />
-          }
-          else {
-            /*Investigate why the login hasn't completed */
-            console.log(result);
-          }
-     
-        } catch (err: any) {
-          console.error("error", err.errors[0].longMessage)
-        }
-      };
 
-    const goToSignUp = () => {
-        navigate('/SignUp');
+        try {
+            await signUp.create({
+                firstName: userName,
+                emailAddress: userEmail,
+                password: userPassword,
+            });
+        } catch (err: any) {
+            console.error(JSON.stringify(err, null, 2));
+          }
+        
+    };
+
+    const goToLogin = () => {
+        navigate('/Login');
     };
 
     return (
@@ -63,12 +55,12 @@ const Login: React.FC = () => {
                 <div className="bg-yellow-350 flex justify-center items-center relative h-full w-2/3 shadow-2xl">
                     
                     <div className="absolute top-4 right-32"> 
-                        <p className = "text-s"> Don't have an account? </p>
+                        <p className = "text-s"> Already have an account? </p>
                     </div>
 
                     <div className="absolute top-4 right-4"> 
                         <button className="flex justify-center items-center text-s hover:scale-110 h-6 w-24 px-4 py-1 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" onClick={goToLogin}>
-                        Register
+                        Sign in
                         </button>
                     </div>
 
@@ -111,6 +103,31 @@ const Login: React.FC = () => {
                                         }
                                     </div>
                                 </label>
+
+                                {/* confirm password input field - does NOT get passed to Clerk signUp */}
+                                <p className = "pt-4"> Confirm Password </p>
+                                <label className="relative block">
+                                    <input name="ConfirmPassword" type={(visibility === false) ? "password" : "text"} value = {userConfirmPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserConfirmPassword(e.target.value)}className="bg-gray-200 w-96 rounded-lg"/>
+                                    <div onClick={() => setVisibility(!visibility)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
+                                        {
+                                            visibility ?
+                                            <AiFillEyeInvisible />
+                                            :
+                                            <AiFillEye />
+                                        }
+                                    </div>
+                                </label>
+
+                                {/* if password field is non-empty, check if passwords match or not */}
+                                <p className = "pt-1 text-xs">  
+                                    {
+                                        userPassword !== "" ? 
+                                        (userPassword === userConfirmPassword ) ?
+                                        <p className = "text-green-600"> Passwords match! </p>  : <p className = "text-red-500"> ERROR: Passwords do not match. </p> 
+                                        :
+                                        <p className = "text-yellow-350"> btn gap placeholder </p>
+                                    }   
+                                </p>
                                 
                                 {/* register button */}
                                 <div className="flex justify-center mt-4">
@@ -127,4 +144,4 @@ const Login: React.FC = () => {
     );
 };
 
-export default Login;
+export default SignUp;

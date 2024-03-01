@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/clerk-react"
 import Header from "../components/header/header"
-import Login from "../components/Login"
+import SignUp from "../components/SignUp"
 
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
     <div>
       <SignedOut>
         {/* <SignInButton /> */}
-        <Login />
+        <SignUp />
 
       </SignedOut>
       <SignedIn>
