@@ -4,7 +4,8 @@ import image1 from './image1.png';
 import image2 from './image2.png';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useSignUp } from '@clerk/clerk-react';
-import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const SignUp: React.FC = () => {
 
@@ -16,7 +17,7 @@ const SignUp: React.FC = () => {
 
     const { isLoaded, signUp } = useSignUp();
 
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,9 +37,10 @@ const SignUp: React.FC = () => {
         
     };
 
-    const goToLogin = () => {
-        navigate('/Login');
-    };
+    // const goToLogin = () => {
+    //     console.log("login pressed");
+    //     navigate("/login");
+    // };
 
     return (
         <div className="bg-green-150 flex justify-center items-center h-screen w-screen">
@@ -59,10 +61,11 @@ const SignUp: React.FC = () => {
                     </div>
 
                     <div className="absolute top-4 right-4"> 
-                        <button className="flex justify-center items-center text-s hover:scale-110 h-6 w-24 px-4 py-1 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" onClick={goToLogin}>
-                        Sign in
-                        </button>
+                        <Link to = "/login" className="flex justify-center items-center text-s hover:scale-110 h-6 w-24 px-4 py-1 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" >
+                        Log in
+                        </Link>
                     </div>
+                    
 
                     <div className = "absolute bottom-0 right-4">
                         <img src = { image2 } alt = "img" className = "h-96 w-64"></img>
@@ -119,7 +122,7 @@ const SignUp: React.FC = () => {
                                 </label>
 
                                 {/* if password field is non-empty, check if passwords match or not */}
-                                <p className = "pt-1 text-xs">  
+                                <h4 className = "pt-1 text-xs">  
                                     {
                                         userPassword !== "" ? 
                                         (userPassword === userConfirmPassword ) ?
@@ -127,11 +130,11 @@ const SignUp: React.FC = () => {
                                         :
                                         <p className = "text-yellow-350"> btn gap placeholder </p>
                                     }   
-                                </p>
+                                </h4>
                                 
                                 {/* register button */}
                                 <div className="flex justify-center mt-4">
-                                    <input type = "submit" value = "submit" className="hover:scale-110 w-32 bg-green-350 text-black py-2 px-4 rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" /> 
+                                    <input type = "submit" value = "Register!" className="hover:scale-110 w-32 bg-green-350 text-black py-2 px-4 rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" /> 
                                 </div>
                             </form>
                         </div>  
@@ -140,6 +143,7 @@ const SignUp: React.FC = () => {
 
                 </div>
             </div>
+            
         </div>
     );
 };
