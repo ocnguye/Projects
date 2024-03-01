@@ -3,15 +3,48 @@ import { useState } from 'react';
 import image1 from './image1.png';
 // import image2 from './image2.png';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useSignIn, useSignUp } from '@clerk/clerk-react';
 //import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
 
     const [visibility, setVisibility] = useState(false);
+    const [userName, setUserName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [userPassword, setUserPassword] = useState("");
+
+    const { signIn } = useSignIn();
+    const { isLoaded, signUp } = useSignUp();
+
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!isLoaded) {
+            return;
+        }
+
+        try {
+            await signUp.create({
+                username: userName,
+                emailAddress: userEmail,
+                password: userPassword,
+            });
+        } catch (err: any) {
+            console.error(JSON.stringify(err, null, 2));
+          }
+        
+    };
 
     const goToLogin = () => {
         //navigate('/');
     };
+
+    // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     console.log(userName);
+    //     console.log(userEmail);
+    //     console.log(userPassword);
+    // };
+
 
 
     return (
@@ -47,35 +80,40 @@ const Login: React.FC = () => {
 
                         <div className = "flex flex-col justify-between h-2/5 pt-12">
                             <p className = ""> Username </p>
-                            <label>
-                                <input name = "Username" className = "bg-gray-200 w-96 rounded-lg"/>
-                            </label>
+                            <form onSubmit = {onSubmit}>
+                                <label>
+                                    <input name = "Username" value = {userName} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className = "bg-gray-200 w-96 rounded-lg"/>
+                                </label>
 
-                            <p className = "pt-4"> Email Address </p>
-                            <label>
-                                <input name = "Email" className = "bg-gray-200 w-96 rounded-lg"/>
-                            </label>
+                                <p className = "pt-4"> Email Address </p>
+                                <label>
+                                    <input name = "Email" type = "email" value = {userEmail} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className = "bg-gray-200 w-96 rounded-lg"/>
+                                </label>
 
-                            <p className = "pt-4"> Password </p>
-                            <label className="relative block">
-                                <input name="Password" type={(visibility === false) ? "password" : "text"} className="bg-gray-200 w-96 rounded-lg"/>
-                                <div onClick={() => setVisibility(!visibility)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
-                                    {
-                                        visibility ?
-                                        <AiFillEyeInvisible />
-                                        :
-                                        <AiFillEye />
-                                    }
-                                </div>
-                            </label>
+                                <p className = "pt-4"> Password </p>
+                                <label className="relative block">
+                                    <input name="Password" type={(visibility === false) ? "password" : "text"} value = {userPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserPassword(e.target.value)} className="bg-gray-200 w-96 rounded-lg"/>
+                                    <div onClick={() => setVisibility(!visibility)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
+                                        {
+                                            visibility ?
+                                            <AiFillEyeInvisible />
+                                            :
+                                            <AiFillEye />
+                                        }
+                                    </div>
+                                </label>
 
-                            {/* Can add confirm password here if needed/desired */}
+                                {/* Can add confirm password here if needed/desired */}
                             
-                            <div className="flex justify-center mt-6"> 
-                                <button className="hover:scale-110 w-32 bg-green-350 text-black py-2 px-4 rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" onClick={goToLogin}>
-                                    Register
-                                </button>
-                            </div>
+                                {/* <div className="flex justify-center mt-6"> 
+                                    <button className="hover:scale-110 w-32 bg-green-350 text-black py-2 px-4 rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" onClick={goToLogin}>
+                                        Register
+                                    </button>
+                                </div> */}
+                                <div className="flex justify-center mt-6">
+                                    <input type = "submit" value = "submit" className="hover:scale-110 w-32 bg-green-350 text-black py-2 px-4 rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" /> 
+                                </div>
+                            </form>
 
                         </div>  
                     </div>     
