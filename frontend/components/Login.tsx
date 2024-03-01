@@ -24,7 +24,7 @@ const Login: React.FC = () => {
 
         try {
             await signUp.create({
-                username: userName,
+                firstName: userName,
                 emailAddress: userEmail,
                 password: userPassword,
             });
@@ -37,15 +37,6 @@ const Login: React.FC = () => {
     const goToLogin = () => {
         //navigate('/');
     };
-
-    // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     console.log(userName);
-    //     console.log(userEmail);
-    //     console.log(userPassword);
-    // };
-
-
 
     return (
         <div className="bg-green-150 flex justify-center items-center h-screen w-screen">
@@ -79,10 +70,10 @@ const Login: React.FC = () => {
                         <h3 className = "text-lg font-bold pt-6"> Please register your account. </h3>
 
                         <div className = "flex flex-col justify-between h-2/5 pt-12">
-                            <p className = ""> Username </p>
                             <form onSubmit = {onSubmit}>
+                                <p className = ""> Username </p>
                                 <label>
-                                    <input name = "Username" value = {userName} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className = "bg-gray-200 w-96 rounded-lg"/>
+                                    <input name = "Username" type = "username" value = {userName} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className = "bg-gray-200 w-96 rounded-lg"/>
                                 </label>
 
                                 <p className = "pt-4"> Email Address </p>
@@ -103,21 +94,33 @@ const Login: React.FC = () => {
                                     </div>
                                 </label>
 
-                                {/* Can add confirm password here if needed/desired */}
+                                <p className = "pt-4"> Confirm Password </p>
+                                <label className="relative block">
+                                    <input name="ConfirmPassword" type={(visibility === false) ? "password" : "text"}  className="bg-gray-200 w-96 rounded-lg"/>
+                                    <div onClick={() => setVisibility(!visibility)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
+                                        {
+                                            visibility ?
+                                            <AiFillEyeInvisible />
+                                            :
+                                            <AiFillEye />
+                                        }
+                                    </div>
+                                </label>
+
+                                <p className = "pt-1 text-xs">
+                                    Passwords do not match.
+                                    {
+                                        
+                                    }
+                                </p>
                             
-                                {/* <div className="flex justify-center mt-6"> 
-                                    <button className="hover:scale-110 w-32 bg-green-350 text-black py-2 px-4 rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" onClick={goToLogin}>
-                                        Register
-                                    </button>
-                                </div> */}
                                 <div className="flex justify-center mt-6">
                                     <input type = "submit" value = "submit" className="hover:scale-110 w-32 bg-green-350 text-black py-2 px-4 rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" /> 
                                 </div>
                             </form>
-
                         </div>  
-                    </div>     
 
+                    </div>     
 
                 </div>
             </div>
