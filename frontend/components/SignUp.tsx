@@ -5,7 +5,6 @@ import image2 from './image2.png';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useSignUp } from '@clerk/clerk-react';
 import { Link } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 
 const SignUp: React.FC = () => {
 
@@ -14,33 +13,36 @@ const SignUp: React.FC = () => {
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
     const [userConfirmPassword, setUserConfirmPassword] = useState("");
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
-    const { isLoaded, signUp } = useSignUp();
-
-    // let navigate = useNavigate();
+    const { isLoaded, setActive, signUp } = useSignUp();
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setFormSubmitted(true); // Set form as submitted
+        
+        if (!userName || !userEmail || !userPassword || !userConfirmPassword) {
+            // Don't proceed if any field is empty
+            return;
+        }
+
         if (!isLoaded) {
             return;
         }
 
         try {
-            await signUp.create({
+            const completeSignUp = await signUp.create({
+                username: userName,
                 firstName: userName,
                 emailAddress: userEmail,
                 password: userPassword,
             });
+
+            await setActive({ session: completeSignUp.createdSessionId });
         } catch (err: any) {
             console.error(JSON.stringify(err, null, 2));
-          }
-        
+        }
     };
-
-    // const goToLogin = () => {
-    //     console.log("login pressed");
-    //     navigate("/login");
-    // };
 
     return (
         <div className="bg-green-150 flex justify-center items-center h-screen w-screen">
@@ -73,7 +75,7 @@ const SignUp: React.FC = () => {
 
 
 
-                    <div className="flex flex-col h-3/5 pr-40">
+                    <div className="flex flex-col h-4/5 pr-40">
                         <h1 className="text-4xl font-bold"> Welcome to </h1>
                         <h1 className="text-4xl font-bold"> Angel Trading Co.! </h1>
                         <h3 className = "text-lg font-bold pt-6"> Please register your account. </h3>
@@ -85,18 +87,21 @@ const SignUp: React.FC = () => {
                                 <p className = ""> Username </p>
                                 <label>
                                     <input name = "Username" type = "username" value = {userName} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className = "bg-gray-200 w-96 rounded-lg"/>
+                                    {formSubmitted && !userName && <p className="text-red-500 text-xs"> Please enter a username. </p>}
                                 </label>
 
                                 {/* email input field */}
-                                <p className = "pt-4"> Email Address </p>
+                                <p className = "pt-2"> Email Address </p>
                                 <label>
                                     <input name = "Email" type = "email" value = {userEmail} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className = "bg-gray-200 w-96 rounded-lg"/>
+                                    {formSubmitted && !userEmail && <p className="text-red-500 text-xs"> Please enter an email. </p>}
                                 </label>
 
                                 {/* password input field */}
-                                <p className = "pt-4"> Password </p>
+                                <p className = "pt-2"> Password </p>
                                 <label className="relative block">
                                     <input name="Password" type={(visibility === false) ? "password" : "text"} value = {userPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserPassword(e.target.value)} className="bg-gray-200 w-96 rounded-lg"/>
+                                    {formSubmitted && !userPassword && <p className="text-red-500 text-xs"> Please enter a password. </p>}
                                     <div onClick={() => setVisibility(!visibility)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
                                         {
                                             visibility ?
@@ -108,9 +113,10 @@ const SignUp: React.FC = () => {
                                 </label>
 
                                 {/* confirm password input field - does NOT get passed to Clerk signUp */}
-                                <p className = "pt-4"> Confirm Password </p>
+                                <p className = "pt-2"> Confirm Password </p>
                                 <label className="relative block">
                                     <input name="ConfirmPassword" type={(visibility === false) ? "password" : "text"} value = {userConfirmPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserConfirmPassword(e.target.value)}className="bg-gray-200 w-96 rounded-lg"/>
+                                    {formSubmitted && !userConfirmPassword && <p className="text-red-500 text-xs"> Please enter a password. </p>}
                                     <div onClick={() => setVisibility(!visibility)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
                                         {
                                             visibility ?

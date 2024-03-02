@@ -17,7 +17,8 @@ export const router = createBrowserRouter([
         {path: 'contactus', element: <div>Contact Us</div>},
         {path: 'profile', element: <Profile />},
         {path: 'product/:id', element: <TradeListing />},
-        {path: 'login', element: <Login />},
-        {path: 'signup', element: <SignUp />},
     ]},
+
+    {path : '/login', element: <Login />, },
+    {path : '/signup', element: <SignUp />, }
 ])

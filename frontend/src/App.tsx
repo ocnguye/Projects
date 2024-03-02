@@ -11,7 +11,7 @@ function App() {
       <SignedOut>
         {/* <SignInButton /> */}
         <SignUp />
-        {/* <Login /> */}
+        <Login />
 
       </SignedOut>
 

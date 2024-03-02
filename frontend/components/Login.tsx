@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
-// import image1 from './image1.png';
-// import image2 from './image2.png';
+import image1 from './image1.png';
+import image2 from './image2.png';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useSignIn } from '@clerk/clerk-react';
+import { Link } from 'react-router-dom';
 import Header from "../components/header/header"
-import SignUp from "./SignUp"
 
 const Login: React.FC = () => {
 
@@ -42,16 +42,12 @@ const Login: React.FC = () => {
         }
       };
 
-    const goToSignUp = () => {
-        <SignUp />
-    };
-
     return (
         <div className="bg-green-150 flex justify-center items-center h-screen w-screen">
             <div className="flex flex-row items-center bg-transparent h-3/4 w-4/5">
                 <div className="bg-green-350 flex flex-col justify-between h-full w-1/3 shadow-2xl">
                     <h1 className="text-3xl font-bold pl-4 pt-4"> Angel Trading Co. </h1>
-                    {/* <img src = { image1 } alt = "img" className = "h-4/5 w-11/12 pl-4"></img> */}
+                    <img src = { image1 } alt = "img" className = "h-4/5 w-11/12 pl-4"></img>
 
                     <div className="flex flex-col justify-end items-center w-full">
                         <p className="text-gray-800 text-l p-4 text-center"> The premier Smiski trading platform. </p>
@@ -65,13 +61,13 @@ const Login: React.FC = () => {
                     </div>
 
                     <div className="absolute top-4 right-4"> 
-                        <button className="flex justify-center items-center text-s hover:scale-110 h-6 w-24 px-4 py-1 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" onClick={goToSignUp}>
+                        <Link to = "/signup" className="flex justify-center items-center text-s hover:scale-110 h-6 w-24 px-4 py-1 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" >
                         Register
-                        </button>
+                        </Link>
                     </div>
 
                     <div className = "absolute bottom-0 right-4">
-                        {/* <img src = { image2 } alt = "img" className = "h-96 w-64"></img> */}
+                        <img src = { image2 } alt = "img" className = "h-96 w-64"></img>
                     </div>
 
 
