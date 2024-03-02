@@ -4,11 +4,12 @@ import image1 from './image1.png';
 import image2 from './image2.png';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useSignUp } from '@clerk/clerk-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp: React.FC = () => {
 
     const [visibility, setVisibility] = useState(false);
+    const [visibilityConfirm, setVisibilityConfirm] = useState(false);
     const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
@@ -16,6 +17,8 @@ const SignUp: React.FC = () => {
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const { isLoaded, setActive, signUp } = useSignUp();
+
+    let navigate = useNavigate();
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -39,8 +42,11 @@ const SignUp: React.FC = () => {
             });
 
             await setActive({ session: completeSignUp.createdSessionId });
+            navigate("/");  // navigate to home page on successful signup
+            
         } catch (err: any) {
             console.error(JSON.stringify(err, null, 2));
+            alert("There was an error signing up.");
         }
     };
 
@@ -136,10 +142,10 @@ const SignUp: React.FC = () => {
                                 {/* confirm password input field - does NOT get passed to Clerk signUp */}
                                 <p className = "pt-1"> Confirm Password </p>
                                 <label className="relative block">
-                                    <input name="ConfirmPassword" type={(visibility === false) ? "password" : "text"} value = {userConfirmPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserConfirmPassword(e.target.value)}className="bg-gray-200 w-96 rounded-lg"/>
-                                    <div onClick={() => setVisibility(!visibility)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <input name="ConfirmPassword" type={(visibilityConfirm === false) ? "password" : "text"} value = {userConfirmPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserConfirmPassword(e.target.value)}className="bg-gray-200 w-96 rounded-lg"/>
+                                    <div onClick={() => setVisibilityConfirm(!visibilityConfirm)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
                                         {
-                                            visibility ?
+                                            visibilityConfirm ?
                                             <AiFillEyeInvisible />
                                             :
                                             <AiFillEye />

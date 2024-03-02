@@ -4,19 +4,22 @@ import image1 from './image1.png';
 import image2 from './image2.png';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useSignIn } from '@clerk/clerk-react';
-import { Link } from 'react-router-dom';
-import Header from "../components/header/header"
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
 
     const [visibility, setVisibility] = useState(false);
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const { signIn, isLoaded, setActive } = useSignIn();
 
+    let navigate = useNavigate();
+
     const onSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setFormSubmitted(true);
         if (!isLoaded) {
           return;
         }
@@ -28,17 +31,17 @@ const Login: React.FC = () => {
           });
      
           if (result.status === "complete") {
-            console.log(result);
             await setActive({ session: result.createdSessionId });
-            <Header />
+            navigate("/");      // navigate to home page on successful login
+            
           }
           else {
-            /*Investigate why the login hasn't completed */
             console.log(result);
           }
      
         } catch (err: any) {
-          console.error("error", err.errors[0].longMessage)
+            alert("Account not found, please try again.")
+            console.error("error", err.errors[0].longMessage)
         }
       };
 
@@ -81,16 +84,32 @@ const Login: React.FC = () => {
                             <form onSubmit = {onSignIn}>
 
                                 {/* email input field */}
-                                <p className = "pt-4"> Email Address </p>
+                                <p className = ""> Email Address </p>
                                 <label>
                                     <input name = "Email" type = "email" value = {userEmail} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className = "bg-gray-200 w-96 rounded-lg"/>
+                                    <h4 className = "pt-1 text-xs">  
+                                    {
+                                        userEmail === "" && formSubmitted ? 
+                                        <p className = "text-red-500"> Please enter an email. </p> 
+                                        :
+                                        <p className = "text-yellow-350"> text placeholder </p>
+                                    }   
+                                    </h4>
                                 </label>
 
                                 {/* password input field */}
-                                <p className = "pt-4"> Password </p>
+                                <p className = "pt-1"> Password </p>
                                 <label className="relative block">
                                     <input name="Password" type={(visibility === false) ? "password" : "text"} value = {userPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserPassword(e.target.value)} className="bg-gray-200 w-96 rounded-lg"/>
-                                    <div onClick={() => setVisibility(!visibility)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <h4 className = "pt-1 text-xs">  
+                                    {
+                                        userPassword === "" && formSubmitted ? 
+                                        <p className = "text-red-500"> Please enter a password. </p> 
+                                        :
+                                        <p className = "text-yellow-350"> text placeholder </p>
+                                    }   
+                                    </h4>
+                                    <div onClick={() => setVisibility(!visibility)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pb-5 c pr-3">
                                         {
                                             visibility ?
                                             <AiFillEyeInvisible />
