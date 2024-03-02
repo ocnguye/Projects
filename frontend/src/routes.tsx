@@ -7,6 +7,7 @@ import TradeListing from '../components/trade-listing/tradeListing';
 import About from '../components/about/about';
 import SignUp from '../components/SignUp'
 import Login from '../components/Login'
+import ErrorPage from '../components/ErrorPage'
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, children: [
@@ -20,5 +21,7 @@ export const router = createBrowserRouter([
     ]},
 
     {path : '/login', element: <Login />, },
-    {path : '/signup', element: <SignUp />, }
+    {path : '/signup', element: <SignUp />, },
+    {path : '*', element: <ErrorPage />}
+    
 ])
