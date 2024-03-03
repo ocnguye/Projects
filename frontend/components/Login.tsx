@@ -86,7 +86,7 @@ const Login: React.FC = () => {
                                 {/* email input field */}
                                 <p className = ""> Email Address </p>
                                 <label>
-                                    <input name = "Email" type = "email" value = {userEmail} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className = "bg-gray-200 w-96 rounded-lg"/>
+                                    <input name = "Email" type = "email" value = {userEmail} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className = "bg-gray-200 w-96 rounded-lg pl-1"/>
                                     <h4 className = "pt-1 text-xs">  
                                     {
                                         userEmail === "" && formSubmitted ? 
@@ -100,7 +100,7 @@ const Login: React.FC = () => {
                                 {/* password input field */}
                                 <p className = "pt-1"> Password </p>
                                 <label className="relative block">
-                                    <input name="Password" type={(visibility === false) ? "password" : "text"} value = {userPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserPassword(e.target.value)} className="bg-gray-200 w-96 rounded-lg"/>
+                                    <input name="Password" type={(visibility === false) ? "password" : "text"} value = {userPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserPassword(e.target.value)} className="bg-gray-200 w-96 rounded-lg pl-1"/>
                                     <h4 className = "pt-1 text-xs">  
                                     {
                                         userPassword === "" && formSubmitted ? 

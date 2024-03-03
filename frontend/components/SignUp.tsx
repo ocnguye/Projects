@@ -92,7 +92,7 @@ const SignUp: React.FC = () => {
                                 {/* username input field */}
                                 <p className = ""> Username </p>
                                 <label>
-                                    <input name = "Username" type = "username" value = {userName} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className = "bg-gray-200 w-96 rounded-lg"/>
+                                    <input name = "Username" type = "username" value = {userName} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className = "bg-gray-200 w-96 rounded-lg pl-1"/>
                                     <h4 className = "pt-1 text-xs">  
                                     {
                                         userName === "" && formSubmitted ? 
@@ -106,7 +106,7 @@ const SignUp: React.FC = () => {
                                 {/* email input field */}
                                 <p className = "pt-1"> Email Address </p>
                                 <label>
-                                    <input name = "Email" type = "email" value = {userEmail} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className = "bg-gray-200 w-96 rounded-lg"/>
+                                    <input name = "Email" type = "email" value = {userEmail} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className = "bg-gray-200 w-96 rounded-lg pl-1"/>
                                     <h4 className = "pt-1 text-xs">  
                                     {
                                         userEmail === "" && formSubmitted ? 
@@ -120,7 +120,7 @@ const SignUp: React.FC = () => {
                                 {/* password input field */}
                                 <p className = "pt-1"> Password </p>
                                 <label className="relative block">
-                                    <input name="Password" type={(visibility === false) ? "password" : "text"} value = {userPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserPassword(e.target.value)} className="bg-gray-200 w-96 rounded-lg"/>
+                                    <input name="Password" type={(visibility === false) ? "password" : "text"} value = {userPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserPassword(e.target.value)} className="bg-gray-200 w-96 rounded-lg pl-1"/>
                                     <h4 className = "pt-1 text-xs">  
                                     {
                                         userPassword === "" && formSubmitted ? 
@@ -142,7 +142,7 @@ const SignUp: React.FC = () => {
                                 {/* confirm password input field - does NOT get passed to Clerk signUp */}
                                 <p className = "pt-1"> Confirm Password </p>
                                 <label className="relative block">
-                                    <input name="ConfirmPassword" type={(visibilityConfirm === false) ? "password" : "text"} value = {userConfirmPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserConfirmPassword(e.target.value)}className="bg-gray-200 w-96 rounded-lg"/>
+                                    <input name="ConfirmPassword" type={(visibilityConfirm === false) ? "password" : "text"} value = {userConfirmPassword} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserConfirmPassword(e.target.value)}className="bg-gray-200 w-96 rounded-lg pl-1"/>
                                     <div onClick={() => setVisibilityConfirm(!visibilityConfirm)} className="text-2xl text-gray-700 absolute inset-y-0 right-0 flex items-center pr-3">
                                         {
                                             visibilityConfirm ?
