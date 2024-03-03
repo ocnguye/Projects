@@ -13,7 +13,7 @@ from trades.views import TradeSerializer
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['bio', 'collection', 'wishlist', 'trades']
+        fields = ['bio', 'collection', 'wishlist', 'trades', 'rating', 'raters', 'username', 'profile_img']
 
 class ProfileViewSet(APIView):
     permission_classes = [IsAuthenticated]
@@ -26,6 +26,10 @@ class ProfileViewSet(APIView):
         trades = TradeSerializer(profile.trades, many=True)
         data = {
             "url": serializer.data["bio"],
+            "username": serializer.data["username"],
+            "profile_img": serializer.data["profile_img"],
+            "rating": serializer.data["rating"],
+            "raters": serializer.data["raters"],
             "collection": collection.data,
             "wishlist": wishlist.data,
             "trades": trades.data,

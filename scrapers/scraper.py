@@ -54,7 +54,7 @@ def main():
 
             for div in soup.find_all('div', class_='centered-image-holder'):
                 content[series]['names'].append(div.find('h5').text) if div.find('h5') else "NONE"
-                content[series]['images'].append(imgBase + div.find('img')['src']) if div.find('img') else "NONE"
+                content[series]['images'].append(imgBase + div.find('img')['src']) if div.find('img')['src'][0] != 'h' else content[series]['images'].append(div.find('img')['src'])
         except Exception as e:
             print(e)
             print(f"Error with {url}")

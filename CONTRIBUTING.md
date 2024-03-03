@@ -12,7 +12,7 @@ To run the app locally, you need to:
 
 2. `cd frontend`
 
-3. `npm install` the required dependencies.
+3. `pnpm install` the required dependencies.
 
 4. `npm run dev` to launch the development server.
 
@@ -35,9 +35,13 @@ To run the app locally, you need to:
 
     This is to load in the valid smiski objects that we have.
 
-8. Run `python manage.py runserver` to start the development server.
+8. In your terminal run `python manage.py shell < scripts/upload_featured.py`.
 
-9. Congrats your backend and frontend are communicating like best buddies.
+    This is to load in the valid featured objects that currently have we have.
+
+9. Run `python manage.py runserver` to start the development server.
+
+10. Congrats your backend and frontend are communicating like best buddies.
 
 ## Making Changes
 
