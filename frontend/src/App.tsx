@@ -1,20 +1,21 @@
 //@ts-nocheck
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/clerk-react"
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react"
 import Header from "../components/header/header"
-import Login from "../components/Login"
+import SignUp from "../components/SignUp"
 
 function App() {
 
   return (
     <div>
       <SignedOut>
-        <SignInButton />
-        {/* <Login /> */}
-
+        <SignUp />
       </SignedOut>
+
       <SignedIn>
         <Header />
       </SignedIn>
+
+      
     </div>
   )
 }

@@ -5,6 +5,8 @@ import Searched from '../components/homepage/searched';
 import Profile from '../components/profile/profile';
 import TradeListing from '../components/trade-listing/tradeListing';
 import About from '../components/about/about';
+import SignUp from '../components/SignUp'
+import Login from '../components/Login'
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, children: [
@@ -16,4 +18,7 @@ export const router = createBrowserRouter([
         {path: 'profile', element: <Profile />},
         {path: 'product/:id', element: <TradeListing />},
     ]},
+
+    {path : '/login', element: <Login />, },
+    {path : '/signup', element: <SignUp />, }
 ])

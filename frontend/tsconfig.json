@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "components/Login.tsx"],
+  "include": ["src", "components/SignUp.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

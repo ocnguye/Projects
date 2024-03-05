@@ -40,7 +40,7 @@ const Profile = () => {
 
     return (
         <div style={{ height: 500, width: "100%", backgroundColor: "#dff0d8",}}>
-            <UserButton />
+            <UserButton afterSignOutUrl = "/login" />
             { !isLoading && !isError ? (
                 <>
                     <h1>{data.username}({data.raters})</h1>
