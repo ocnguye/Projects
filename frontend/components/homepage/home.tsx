@@ -12,17 +12,20 @@ import CachedIcon from '@mui/icons-material/Cached';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Wishlist from './wishlist';
 import Missing from './missing';
-
+import useWindowDimensions from '../../utils/window';
 
 const Home: React.FC = () => {
+    const { width } = useWindowDimensions();
     return (
         <Box sx={{ flexGrow: 1}} >
             <Grid container spacing={2}>
-                <Grid xs={10.5}>
+                <Grid xs={ width < 800 ? 8 : ( width < 1300 ? 9.5 : 10.25) }>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
                             <Grid xs={12}>
-                                <Featured />
+                                <div className='hover:scale-101 ease-in-out duration-300'>
+                                    <Featured />
+                                </div>
                             </Grid>
                             <Grid xs={12} style={{overflowX: 'auto', overflowY: 'hidden'}}>
                                 <p>Wishlist Recommendations</p>
@@ -34,47 +37,46 @@ const Home: React.FC = () => {
                             </Grid>
                         </Grid>
                     </Box>
-
                 </Grid>
-                <Grid xs={1.5}>
+                <Grid xs={ width < 800 ? 4.0 : ( width < 1300 ? 2.5 : 1.75)  }>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
                             <Grid xs={2}>
                                 <Divider orientation="vertical"/>
                             </Grid>
                             <Grid xs={10}>
-                                <div className='flex flex-row items-center my-6'>
+                                <div className='flex flex-row items-center my-6 hover:scale-110 ease-in-out duration-300'>
                                     <Badge className="mr-4" badgeContent={4} color="primary">
-                                        <InboxIcon/>
+                                        <InboxIcon style={{ zIndex:0 }}/>
                                     </Badge>
                                     <Link to="/messages">
-                                        <p className='text-xl text-black'>Messages</p>
+                                        <p className='md:text-md lg:text-xl xl:text-xl text-black'>Messages</p>
                                     </Link>
                                 </div>
-                                <div className='flex flex-row items-center my-6'>
+                                <div className='flex flex-row items-center my-6 hover:scale-110 ease-in-out duration-300'>
                                     <FavoriteBorderOutlinedIcon className='mr-4'/>
                                     <Link to="/favorites">
-                                        <p className='text-xl text-black'>Favorites</p>
+                                        <p className='md:text-md lg:text-xl xl:text-xl text-black'>Favorites</p>
                                     </Link>
                                 </div>
-                                <div className='flex flex-row items-center my-6'>
+                                <div className='flex flex-row items-center my-6 hover:scale-110 ease-in-out duration-300'>
                                     <InventoryIcon className='mr-4'/>
                                     <Link to="/collection">
-                                        <p className='text-xl text-black'>Collection</p>
+                                        <p className='md:text-md lg:text-xl xl:text-xl text-black'>Collection</p>
                                     </Link>
                                 </div>
-                                <div className='flex flex-row items-center my-6'>
+                                <div className='flex flex-row items-center my-6 hover:scale-110 ease-in-out duration-300'>
                                     <CachedIcon className='mr-4'/>
                                     <Link to="/trades">
-                                        <p className='text-xl text-black'>Trades</p>
+                                        <p className='md:text-md lg:text-xl xl:text-xl text-black'>Trades</p>
                                     </Link>
                                 </div>
-                                <div className='flex flex-row items-center my-6'>
+                                <div className='flex flex-row items-center my-6 hover:scale-110 ease-in-out duration-300'>
                                     <Badge className="mr-4" badgeContent={2} color="primary">
                                         <CalendarMonthIcon />
                                     </Badge>
                                     <Link to="/events">
-                                        <p className='text-xl text-black'>Events</p>
+                                        <p className='md:text-md lg:text-xl xl:text-xl text-black'>Events</p>
                                     </Link>
                                 </div>
                             </Grid>
