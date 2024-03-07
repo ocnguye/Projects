@@ -23,7 +23,6 @@ const Missing = () => {
         <>
         { !isLoading && !isError ? (
             Object.keys(data).length === 0 ? (
-            // If there are no items in the wishlist, display a message
             <>
             <div
                 className="bg-green-100
@@ -39,11 +38,10 @@ const Missing = () => {
             </div>
             </> 
             ) : (
-            // If there are items in the wishlist, display them
             <div style={{ display: 'flex', width: width*Object.keys(data).length }}>
                 {Object.keys(data).map((key: any, index: any) => (
                     <div
-                        className="bg-green-100
+                        className="pt-2 bg-yellow-200 hover:scale-110 ease-in-out duration-300
                         flex flex-col items-center justify-center"
                         key={index}
                         onClick={() => navigate(`/product/${key}`)}
