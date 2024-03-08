@@ -24,17 +24,13 @@ class WishListRecommendations(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        # QUERY:
-        #    SELECT * FROM Trade
-        #    WHERE id NOT IN Profile.trades
-        #    AND id IN Profile.wishlist
         profile = Profile.objects.get(user=request.user)
         collectibles = Collectible.objects.filter(id__in=profile.wishlist.all())
         collectibles = list(collectibles)
 
         results = defaultdict(list)
         for collectible in collectibles:
-            trades = Trade.objects.filter(trading=collectible)
+            trades = Trade.objects.filter(trading=collectible).exclude(id__in=profile.trades.all())
             results[collectible.id].append(f"{len(trades)}, {collectible.image}")
         return Response(results, status=status.HTTP_200_OK)
     
@@ -42,18 +38,13 @@ class MFCRecommendations(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        # QUERY:
-        #    SELECT * FROM Trade
-        #    WHERE id NOT IN Profile.trades
-        #    AND id NOT IN Profile.collection
-
         profile = Profile.objects.get(user=request.user)
         collectibles = Collectible.objects.exclude(id__in=profile.collection.all())
         collectibles = list(collectibles)
 
         results = defaultdict(list)
         for collectible in collectibles:
-            trades = Trade.objects.filter(trading=collectible)
+            trades = Trade.objects.filter(trading=collectible).exclude(id__in=profile.trades.all())
             if trades: results[collectible.id].append(f"{len(trades)}, {collectible.image}")
 
         return Response(results, status=status.HTTP_200_OK)
