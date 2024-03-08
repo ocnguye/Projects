@@ -19,16 +19,24 @@ s3_client = boto3.client('s3',
             )
 
 Bucket = 'angel-trading-direct-upload'
-Expiration = 60
+Expiration = 3600
 
 
 class S3URLView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         image_name = get_random_string(16)
-        resp = s3_client.generate_presigned_url('put_object', Params={
-            'Bucket': Bucket,
-            'Key': image_name,
-            'Expires': Expiration
-        })
-        return Response({'url': resp}, status=status.HTTP_200_OK)
+        resp = s3_client.generate_presigned_post(Bucket,
+                                                 image_name,
+                                                 Fields=None,
+                                                 Conditions=None,
+                                                 ExpiresIn=Expiration)
+        print(resp)
+        # resp = s3_client.generate_presigned_url('put_object', Params={
+        #     'Bucket': Bucket,
+        #     'Key': image_name,
+        #     'Expires': Expiration,
+        #     'ContentType': 'image/*'
+        # },
+        # )
+        return Response({'url': resp['url'], 'fields': resp['fields']}, status=status.HTTP_200_OK)

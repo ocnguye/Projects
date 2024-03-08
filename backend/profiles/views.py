@@ -76,14 +76,20 @@ class ProfileTrade(APIView):
 
     def post(self, request):
         profile = Profile.objects.get(user=request.user)
+        if request.data['requesting1']: r1Id = Collectible.objects.get(id=request.data['requesting1'])
+        else: r1Id = None
+        if request.data['requesting2']: r2Id = Collectible.objects.get(id=request.data['requesting2'])
+        else: r2Id = None
+        if request.data['requesting3']: r3Id = Collectible.objects.get(id=request.data['requesting3'])
+        else: r3Id = None
         trade = Trade.objects.create(
             trading=Collectible.objects.get(id=request.data['trading']),
-            requesting1=Collectible.objects.get(id=request.data['requesting1']),
-            requesting2=Collectible.objects.get(id=request.data['requesting2']),
-            requesting3=Collectible.objects.get(id=request.data['requesting3']),
-            price=request.data['price'],
+            requesting1=r1Id,
+            requesting2=r2Id,
+            requesting3=r3Id,
+            price=(float(request.data['price'])),
             description=request.data['description'],
-            image=request.data['image'],
+            images=request.data['images'],
         )
         profile.trades.add(trade)
         profile.save()

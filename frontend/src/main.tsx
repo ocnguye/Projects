@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { ClerkProvider } from '@clerk/clerk-react'
 import { RouterProvider } from 'react-router-dom';
-import { router } from './routes'
+import { router } from './routes';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 import {
     QueryClient,
@@ -19,12 +20,22 @@ if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
 }
 
+const theme = createTheme({
+    typography: {
+      fontFamily: [
+        'Syne Mono',
+      ].join(','),
+    },
+});
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
+<ThemeProvider theme={theme}>
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
         <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
             <RouterProvider router={router} />
         </ClerkProvider>
     </QueryClientProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
+</ThemeProvider>
 )

@@ -18,7 +18,7 @@ class TradeSerializer(serializers.ModelSerializer):
     requesting3 = CollectibleSerializer(read_only=True)
     class Meta:
         model = Trade
-        fields = ['trading', 'requesting1', 'requesting2', 'requesting3', 'price', 'description', 'image', 'id']
+        fields = ['trading', 'requesting1', 'requesting2', 'requesting3', 'price', 'description', 'images', 'id']
 
 class WishListRecommendations(APIView):
     permission_classes = [IsAuthenticated]
