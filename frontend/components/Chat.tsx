@@ -5,8 +5,8 @@ import io from 'socket.io-client';
 const socket = io.connect('http://localhost:3001');
 
 const Chat: React.FC = () => {
-    const [message, setMessage] = useState("");
-    const [messageReceived, setMessageReceived] = useState("");
+    const [messages, setMessages] = useState([]);
+    const [messageText, setMessageText] = useState("");
     const [room, setRoom] = useState("");
 
     const joinRoom = () => {
@@ -17,15 +17,23 @@ const Chat: React.FC = () => {
     }
 
     const sendMessage = () => {
-        socket.emit("send_msg", { message, room });
+        socket.emit("send_msg", { text: messageText, room });
+        setMessageText("");
+        console.log("msg sent");
+    };
+
+    const receiveMessage = (message) => {
+        setMessages((prevMessages) => [...prevMessages, message]);
+        console.log("msg received");
     };
 
     useEffect(() => {
-        socket.on("receive_msg", (data) => {
-            setMessageReceived(data.message);
-        })
+        socket.on("receive_msg", receiveMessage);
 
-    }, [socket])
+        return () => {
+            socket.off("receive_msg", receiveMessage);
+        };
+    }, []);
 
     return (
         <div className = "bg-yellow-200 w-96 h-screen flex flex-col">
@@ -37,7 +45,15 @@ const Chat: React.FC = () => {
                     <button className="text-m bg-transparent"> Requests </button>
                 </div>
 
-                <p>{messageReceived}</p>
+                {/* Main chat area with messages */}
+                <div className="messages">
+                    {messages.map((message, index) => (
+                        <div key={index} className="message bg-gray-100 m-2 p-2 rounded">
+                            {message.text}
+                        </div>
+                    ))}
+                </div>
+
             </div>
 
             {/* Main chat area with messages */}
@@ -54,10 +70,16 @@ const Chat: React.FC = () => {
                 <div className="flex items-center">
                     <input 
                         placeholder='Type a message...' 
-                        onChange={(event) => {setMessage(event.target.value)}} 
+                        value = {messageText}
+                        onChange={(event) => {setMessageText(event.target.value)}} 
                         className="flex-grow bg-gray-200 p-2 rounded-lg rounded-r-none"
                     />
-                    <button onClick={sendMessage} className="bg-green-150 p-2 rounded-lg rounded-l-none hover:bg-green-250 active:bg-green-350 "> Send </button>
+                    {
+                        messageText !== "" ?
+                        <button onClick={sendMessage} className="bg-green-150 p-2 rounded-lg rounded-l-none hover:bg-green-250 active:bg-green-350 "> Send </button>
+                        :
+                        <button className="bg-gray-100 p-2 rounded-lg rounded-l-none "> Send </button>
+                    }
                 </div>
             </div>
         </div>
