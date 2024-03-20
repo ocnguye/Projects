@@ -72,6 +72,12 @@ const Chat: React.FC = () => {
                         placeholder='Type a message...' 
                         value = {messageText}
                         onChange={(event) => {setMessageText(event.target.value)}} 
+                        onKeyDown={(event) => {
+                            if (event.key === "Enter" && messageText !== "") {
+                                sendMessage();
+                                event.preventDefault(); // Prevent the default action to avoid form submission or newline.
+                            }
+                        }}
                         className="flex-grow bg-gray-200 p-2 rounded-lg rounded-r-none"
                     />
                     {
