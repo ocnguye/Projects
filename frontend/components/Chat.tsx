@@ -6,7 +6,7 @@ const socket = io.connect('http://localhost:3001');
 
 const Chat: React.FC = () => {
     const [messages, setMessages] = useState([]);
-    const [messageText, setMessageText] = useState("");
+    const [messageText, setMessageText] = useState(""); // possibly turn into length 2 array [text, "me" or "other"]?
     const [room, setRoom] = useState("");
 
     const joinRoom = () => {
@@ -19,12 +19,10 @@ const Chat: React.FC = () => {
     const sendMessage = () => {
         socket.emit("send_msg", { text: messageText, room });
         setMessageText("");
-        console.log("msg sent");
     };
 
     const receiveMessage = (message) => {
         setMessages((prevMessages) => [...prevMessages, message]);
-        console.log("msg received");
     };
 
     useEffect(() => {
@@ -46,9 +44,10 @@ const Chat: React.FC = () => {
                 </div>
 
                 {/* Main chat area with messages */}
-                <div className="messages">
+                <div className="messages flex flex-col">
                     {messages.map((message, index) => (
-                        <div key={index} className="message bg-gray-100 m-2 p-2 rounded">
+                        // Conditional alignment: Adjust the condition based on your message properties
+                        <div key={index} className={`message bg-green-150 m-2 p-2 rounded inline-block max-w-xs break-words ${message.isOutgoing ? 'self-end' : 'self-start'}`}>
                             {message.text}
                         </div>
                     ))}
