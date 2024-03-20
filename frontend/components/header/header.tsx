@@ -10,7 +10,7 @@ const Header: React.FC = () => {
                 <div className='flex items-center justify-start mr-4'>
                     <h1 className=''>
                         <Link to="/">
-                            <strong className='text-green-800'>Angel Trading Co</strong>
+                            <strong className='text-green-600'>Angel Trading Co</strong>
                         </Link>
                     </h1>
                 </div>

@@ -33,7 +33,7 @@ const Featured = () => {
             alignItems: "center", width: "100%", height: 600, background: "#F2DEDE", 
             borderRadius: 20,  backgroundImage:`url(${data[currentIndex].image})`, backgroundSize: 'cover',
             borderWidth: 3, }}
-            className='border-green-800'
+            className='border-green-600'
             // onClick={ () => navigate(data[currentIndex].link) }
             >
                 </div>
