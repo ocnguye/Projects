@@ -6,7 +6,6 @@ import realpicofpookies from './realpicofpookies.png';
 const About: React.FC = () => {
     return(
         <div className="bg-[#DFF0D8] flex justify-evenly items-center h-screen w-screen px-10 py-4 space-x-8">
-            {/* TODO change to transparent */}
             <div className="bg-transparent flex flex-col justify-evenly h-full w-1/2 px-15 space-y-4">
 
                 <img src = {realpicofpookies} alt = "Real picture of The Pookies" className="bg-yellow-100 rounded-xl flex h-1/3 w-full"></img>
