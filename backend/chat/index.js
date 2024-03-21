@@ -19,10 +19,12 @@ io.on("connection", (socket) => {
         socket.join(data);
     });
 
-    socket.on("send_msg", ({ text, room }) => {
-        io.to(room).emit("receive_msg", { text }); 
+    socket.on("send_msg", ({ messageText, room }) => {
+        // Emit the message to all clients in the room except the sender
+        socket.to(room).emit("receive_msg", { text: messageText });
     });
-})
+});
+
 
 server.listen(3001, () => {
     console.log("Server is running");

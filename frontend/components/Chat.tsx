@@ -17,14 +17,16 @@ const Chat: React.FC = () => {
     }
 
     const sendMessage = () => {
-        socket.emit("send_msg", { text: messageText, room });
+        const newMessage = { text: messageText, isOutgoing: true, room: room };
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        socket.emit("send_msg", { messageText, room });
         setMessageText("");
     };
-
+    
     const receiveMessage = (message) => {
-        setMessages((prevMessages) => [...prevMessages, message]);
+        const incomingMessage = { ...message, isOutgoing: false };
+        setMessages((prevMessages) => [...prevMessages, incomingMessage]);
     };
-
     useEffect(() => {
         socket.on("receive_msg", receiveMessage);
 
@@ -39,15 +41,14 @@ const Chat: React.FC = () => {
             <div className="flex-grow overflow-auto">
                 <div className="bg-gray-200 w-full flex flex-row items-center text-black justify-between">
                     <button className="text-m bg-transparent"> &lt; Back </button>
-                    <h2 className="text-xl"> PookiEpstein </h2>
+                    <h2 className="text-xl"> Dr. Epstein </h2>
                     <button className="text-m bg-transparent"> Requests </button>
                 </div>
 
                 {/* Main chat area with messages */}
                 <div className="messages flex flex-col">
                     {messages.map((message, index) => (
-                        // Conditional alignment: Adjust the condition based on your message properties
-                        <div key={index} className={`message bg-green-150 m-2 p-2 rounded inline-block max-w-xs break-words ${message.isOutgoing ? 'self-end' : 'self-start'}`}>
+                        <div key={index} className={`message m-2 p-2 rounded inline-block max-w-xs break-words ${message.isOutgoing ? 'self-end bg-green-150' : 'self-start bg-gray-200 '}`}>
                             {message.text}
                         </div>
                     ))}
@@ -55,7 +56,6 @@ const Chat: React.FC = () => {
 
             </div>
 
-            {/* Main chat area with messages */}
             <div className="flex flex-col space-y-2 p-2">
                 <div className="flex items-center">
                     {/* Temporary room input for testing purposes, will be replaced later */}
@@ -74,7 +74,7 @@ const Chat: React.FC = () => {
                         onKeyDown={(event) => {
                             if (event.key === "Enter" && messageText !== "") {
                                 sendMessage();
-                                event.preventDefault(); // Prevent the default action to avoid form submission or newline.
+                                event.preventDefault(); 
                             }
                         }}
                         className="flex-grow bg-gray-200 p-2 rounded-lg rounded-r-none"
