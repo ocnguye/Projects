@@ -2,11 +2,14 @@ import { UserButton } from "@clerk/clerk-react"
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Unstable_Grid2';
 import { useQuery } from "@tanstack/react-query";
-import Collection from './collections';
+
 import { getProfile } from "../../api/profile";
 import { useAuth } from "@clerk/clerk-react";
-import Wishlist from './wishlist';
+
+
 
 
 type ProfileData = {
@@ -35,6 +38,8 @@ const Profile = () => {
     const getStars = (rate: number) => {
         let rating = rate;
         const stars = [];
+        
+
         for (let i = 0; i < 5; i++) {
             if (rating >= 1) {
                 stars.push(<StarIcon/>)
@@ -51,33 +56,54 @@ const Profile = () => {
     }
 
     return (
-        <div style={{ height: 800, width: "100%", backgroundColor: "#dff0d8",}}>
-            <UserButton afterSignOutUrl = "/" />
+        <Box sx={{ flexGrow: 1}} className = "bg-green-100 w-screen">
+            
             { !isLoading && !isError && data ? (
                 <>
-                    <h1>{data.username}</h1>
-                    {getStars(data.rating)}({data.raters})
+                     <Box sx={{ flexGrow: 1}} >
+                        <Grid container spacing={2}>
+                            <Grid xs = {2.5}>
+                                <button className={`bg-[url('${data.profile_img}')] rounded-full mt-4 ml-4`} style={{ width: '18vw', height: '18vw' }}>
+                                </button>
+                            </Grid>
+                            <Grid xs={7}>
+                                <Box sx={{ flexGrow: 1}}>
+                                <Grid xs ={12}> 
+                                    <p className='text-3xl text-black mt-6'>{data.username}</p>
+                                </Grid>
+                                <Grid xs={12} className = 'flex items-center'>
+                                    {getStars(data.rating)} <p className = 'ml-2 inline text-xs text-black'> ({data.raters})</p>
+                                </Grid>
+                                <Grid container spacing={0}>
+                                    <Grid xs={4} className = 'flex '>
+                                        <p className='text-l text-black truncate'>{data.bio}</p>
 
-                    <div>
-                        <p>profile img: {data.profile_img}</p>
-                        <img src={data.profile_img} />
-                    </div>
-                    <div>
-                        <p> username: {data.username} </p>
-                    </div>
-                    <div>
-                        <p> bio: {data.bio} </p>
-                    </div>
+                                    </Grid>
+                                    <Grid xs={8}>
+                                        <p className='ml-2 inline text-l text-green-600 hover:text-red-500'>Edit bio</p>
 
-                    <Collection/>
-                    <Wishlist/>
+                                    </Grid>
+                                </Grid>
+                                </Box>
+                            </Grid>
+                                
+                                
+                            <Grid xs = {2.5}>
+                                <p className='text-s text-black mt-6'> Date Joined: API Call</p>
+                            </Grid>
+                            
+
+
+                        </Grid>
+                    </Box>
+                    
+                    
                 </>
                 ) 
                 : 
                 (<></>)}
-                
+        </Box>
             
-        </div>
     );
 };
 
