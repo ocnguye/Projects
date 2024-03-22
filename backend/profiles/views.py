@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from collectibles.models import Collectible
 from collectibles.views import CollectibleSerializer
-from trades.models import Trade
+from trades.models import Trade, Image
 from trades.views import TradeSerializer
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -82,6 +82,9 @@ class ProfileTrade(APIView):
         else: r2Id = None
         if request.data['requesting3']: r3Id = Collectible.objects.get(id=request.data['requesting3'])
         else: r3Id = None
+        if request.data['verifyImage']: vImg = Image.objects.get(url=request.data['verifyImage'])
+        else: vImg = None
+
         trade = Trade.objects.create(
             trading=Collectible.objects.get(id=request.data['trading']),
             requesting1=r1Id,
@@ -90,6 +93,7 @@ class ProfileTrade(APIView):
             price=(float(request.data['price'])),
             description=request.data['description'],
             images=request.data['images'],
+            verified= vImg.verified if vImg else False,
         )
         profile.trades.add(trade)
         profile.save()

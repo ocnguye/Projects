@@ -13,11 +13,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getCollectibles } from "../../api/collectibles";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { Input } from '@mui/material';
+import { CircularProgress, Input } from '@mui/material';
 import { postImgToS3 } from '../../utils/s3utils';
 import LinearProgress from '@mui/material/LinearProgress';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { postTrade } from '../../api/profile';
+import {submitForVerificaiton, submitForVerification} from '../../api/verify';
 
 type Collectible = {
     id: string;
@@ -76,6 +77,10 @@ const NewTrade = () => {
     const [images, setImages] = React.useState<Image[]>([]);
     const [isUploading, setIsUploading] = React.useState(false);
     const [disabled, setDisabled] = React.useState(true);
+    const [verifyImage, setVerifyImage] = React.useState<Image>(undefined);
+    const [verified, setVerified] = React.useState(undefined);
+    const [verifying, setVerifying] = React.useState(false);
+    const [status, setStatus] = React.useState("Verify");
 
     const onImageChange = (event: any) => {
         if (event.target.files && event.target.files[0]) {
@@ -87,6 +92,24 @@ const NewTrade = () => {
             reader.readAsDataURL(file);
         }
     };
+    
+    const onVerifyChange = (event: any) => {
+        if (event.target.files && event.target.files[0]) {
+            let reader = new FileReader();
+            let file = event.target.files[0];
+            reader.onloadend = () => {
+                setVerifyImage({ imagePreview: reader.result as string, file: file });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    const onClearVerify = () => {
+        setVerifyImage(undefined);
+        setVerified(undefined);
+        document.getElementById('verifyInput').value = '';
+    }
+
 
     const onClearImage = (i: Image) => {
         setImages(images.filter((image) => image !== i));
@@ -94,13 +117,23 @@ const NewTrade = () => {
     }
     
     React.useEffect(() => {
-        setDisabled(!(trading !== undefined && description !== undefined && images.length !== 0));
-    }, [images, trading, description]);
+        setDisabled(!(trading !== undefined && description !== '' && images.length !== 0 && verifying !== true));
+    }, [images, trading, description, verifying]);
+
+
+    React.useEffect(() => {
+        if (verified !== undefined) {
+            if (verified) setStatus("Verified!");
+            else setStatus("Could not verify!");
+        }
+        else setStatus("Verify"); 
+      }, [verified, verifying])
 
     const handleCreate = async () => {
         if (disabled) {
             return;
         };
+        setIsUploading(true);
         const form = {
             trading: trading.id,
             requesting1: requestingOne ? requestingOne.id : '',
@@ -109,8 +142,8 @@ const NewTrade = () => {
             description: description,
             price: 0.0,
             images: [],
+            verifyImage: verifyImage.imagePreview
         };
-        setIsUploading(true);
         const token = await getToken();
         for (let i = 0; i < images.length; i++) {
             const imgUrl = await postImgToS3(images[i].file, token);
@@ -127,10 +160,20 @@ const NewTrade = () => {
         }
     };
 
+    const verify = async () => {
+        setVerifying(true);
+        const token = await getToken();
+        const imgUrl = await postImgToS3(verifyImage.file, token);
+        verifyImage.imagePreview = imgUrl;
+        const resp = await submitForVerification(token, {image: verifyImage.imagePreview})
+        setVerified(resp?.data.verified);
+        setVerifying(false);
+    }
+
     return (
         <>
             <div className="fixed bottom-10 right-10" onClick={handleClickOpen}> 
-                <div className="flex justify-center items-center text-xl hover:scale-110 h-6 w-50 px-5 py-6 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" >
+                <div className="flex justify-center items-center text-xl hover:scale-110 h-6 w-50 px-5 py-6 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 hover:cursor-pointer" >
                     New Trade
                 </div>
             </div>
@@ -215,7 +258,7 @@ const NewTrade = () => {
                                         color="success"
                                         style={{
                                             width: 400,
-                                            marginBottom: 10,
+                                            marginBottom: 15,
                                         }}
                                     />
                                     <label htmlFor="input" >
@@ -239,18 +282,14 @@ const NewTrade = () => {
                                             <div style={{display: 'flex', width: 150*images.length}}>
                                                 {images.map((i: Image) => 
                                                     <div
-                                                    className="pt-2 hover:scale-101 ease-in-out duration-300
+                                                    className=" mr-1 mt-2 hover:scale-101 ease-in-out duration-300
                                                     flex items-center justify-end"
                                                     key={i.imagePreview}
-                                                    style={{
-                                                        width: '150px',
-                                                        height: '150px',
-                                                    }}
                                                 >
                                                     <CancelIcon className='relative z-10' fontSize="medium" onClick={() => onClearImage(i)} 
                                                     style={{
-                                                        top: 55,
-                                                        left: 145,
+                                                        top: "40%",
+                                                        left: "95%",
                                                         zIndex: 1,
                                                         cursor: 'pointer',
                                                     }}
@@ -261,6 +300,61 @@ const NewTrade = () => {
                                             </div>
                                         ) : (<></>)
                                     }
+                                    <div className="mt-5" style={{display: 'flex', flexDirection: "row",}}>
+                                        <div style={{flex: 0.5-0.025}}>
+                                            Please submit a photo of the bottom of your smiski containing the SMISKI copyright. An example is provided below. Verification is optional but recommended.
+                                            <div
+                                                className="pt-2 hover:scale-101 ease-in-out duration-300
+                                                grid items-center justify-end"
+                                            >
+                                                <img src="https://angel-trading-direct-upload.s3.us-east-2.amazonaws.com/imgjpq.jpg" alt={"Example Verification Image"} className="grid-rows-1 grid-cols-1" style={{borderRadius: 10}} />
+                                            </div>
+                                        </div>
+                                        <div style={{flex:0.05}}/>
+                                        <div style={{flex: 0.5-0.025}}>
+                                        <label htmlFor="verifyInput" >
+                                            <div className="hover:cursor-pointer flex justify-center items-center text-md hover:scale-101 w-50 px-2 py-1 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3">
+                                                Add image to verify
+                                            </div>
+                                        </label>
+                                        <input
+                                            accept="image/*"
+                                            onChange={onVerifyChange}
+                                            id="verifyInput"
+                                            type="file"
+                                            style={{
+                                                opacity: 0,
+                                                position: "absolute",
+                                                zIndex: -1
+                                            }}
+                                        />
+                                        {verifyImage !== undefined ? (
+                                            <div style={{flex:1, zIndex: 10}}>
+                                                <div
+                                                    className="mt-2 mb-2 hover:scale-101 ease-in-out duration-300
+                                                    grid"
+                                                >
+                                                    <img src={ verifyImage.imagePreview } alt={"Submitted Image"} className="row-start-1 col-start-1" style={{width: '100%', borderRadius: 10}} />
+                                                    <CancelIcon className='row-start-1 col-start-1' fontSize="medium" onClick={() => onClearVerify()} 
+                                                    style={{
+                                                        margin: 5,
+                                                        cursor: 'pointer',
+                                                    }}
+                                                    />
+                                                </div>
+                                                <div className="hover:cursor-pointer flex justify-center items-center text-md hover:scale-101 w-50 px-2 py-1 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3"
+                                                    onClick={verify}
+                                                >
+                                                    {verifying ? 
+                                                        <CircularProgress color="success" /> : 
+                                                        status
+                                                    }
+                                                </div>
+                                            </div>
+                                        ) : (<></>)
+                                    }
+                                        </div>
+                                    </div>
                                 </div>
                             ) 
                             : 

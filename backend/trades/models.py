@@ -1,5 +1,4 @@
 from django.db import models
-from profiles.models import Profile
 
 class Trade(models.Model):
     trading = models.ForeignKey('collectibles.Collectible', on_delete=models.CASCADE, related_name="trading")
@@ -9,7 +8,11 @@ class Trade(models.Model):
     price = models.DecimalField(decimal_places=2, default=0.00, max_digits=10, blank=True, null=True)
     description = models.TextField(default="", blank=True, null=True)
     images = models.TextField(default="", blank=True, null=True)
+    verified = models.BooleanField(default=False, blank=True)
 
-    
     def __str__(self):
         return self.trading.name
+
+class Image(models.Model):
+    url = models.CharField(max_length=255, default="", blank=True)
+    verified = models.BooleanField(default=False, blank=True)

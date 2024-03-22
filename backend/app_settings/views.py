@@ -5,6 +5,8 @@ from django.utils.crypto import get_random_string
 from rest_framework import status
 import boto3
 from environ import Env
+from openai import OpenAI
+from trades.models import Image
 
 env = Env()
 env.read_env()
@@ -31,12 +33,37 @@ class S3URLView(APIView):
                                                  Fields=None,
                                                  Conditions=None,
                                                  ExpiresIn=Expiration)
-        print(resp)
-        # resp = s3_client.generate_presigned_url('put_object', Params={
-        #     'Bucket': Bucket,
-        #     'Key': image_name,
-        #     'Expires': Expiration,
-        #     'ContentType': 'image/*'
-        # },
-        # )
         return Response({'url': resp['url'], 'fields': resp['fields']}, status=status.HTTP_200_OK)
+
+openai_key = env('OPENAI_KEY')
+client = OpenAI(api_key=openai_key)
+class ImageVerification(APIView):
+    permission_classes=[IsAuthenticated]
+
+    def post(self, request):
+        image = request.data['image']
+        response = client.chat.completions.create(
+            model='gpt-4-vision-preview',
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": "Does this image contain the SMISKI company signature? Return a 'y' for yes, or 'n' for no."},
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": image
+                            },
+                        },
+                    ],
+                }
+            ],
+            max_tokens=100,
+        )
+        if response.choices[0].message.content == 'y':
+            Image.objects.get_or_create(url=image, verified=True)
+            resp = True
+        else:
+            Image.objects.get_or_create(url=image, verified=False)
+            resp = False
+        return Response({'verified': resp}, status=status.HTTP_200_OK)

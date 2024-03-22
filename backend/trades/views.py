@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from trades.models import Trade
+from trades.models import Trade, Image
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -19,6 +19,11 @@ class TradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trade
         fields = ['trading', 'requesting1', 'requesting2', 'requesting3', 'price', 'description', 'images', 'id']
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ['url', 'verified']
 
 class WishListRecommendations(APIView):
     permission_classes = [IsAuthenticated]

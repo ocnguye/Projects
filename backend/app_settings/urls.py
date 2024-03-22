@@ -21,7 +21,7 @@ from collectibles.views import CollectibleViewSet
 from profiles.views import ProfileViewSet, ProfileCollection, ProfileWishlist, ProfileTrade
 from trades.views import WishListRecommendations, MFCRecommendations
 from featured.views import FeaturedViewSet
-from app_settings.views import S3URLView
+from app_settings.views import S3URLView, ImageVerification
 
 router = routers.DefaultRouter()
 urlpatterns = [
@@ -36,4 +36,5 @@ urlpatterns = [
     path('api/recommendations/mfc/', MFCRecommendations.as_view(), name="mfc-recommendations"),
     path('api/featured/', FeaturedViewSet.as_view(), name="featured"),
     path('api/s3', S3URLView.as_view(), name="s3"),
+    path('api/verify/', ImageVerification.as_view(), name="verify"),
 ]
