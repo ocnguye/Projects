@@ -18,9 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from collectibles.views import CollectibleViewSet
-from profiles.views import ProfileViewSet, ProfileCollection, ProfileWishlist
+from profiles.views import ProfileViewSet, ProfileCollection, ProfileWishlist, ProfileTrade
 from trades.views import WishListRecommendations, MFCRecommendations
 from featured.views import FeaturedViewSet
+from app_settings.views import S3URLView, ImageVerification
 
 router = routers.DefaultRouter()
 urlpatterns = [
@@ -28,9 +29,12 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/collectibles/', CollectibleViewSet.as_view(), name="collectibles"),
     path('api/profiles/', ProfileViewSet.as_view(), name="profiles"),
+    path('api/profiles/trades/', ProfileTrade.as_view(), name="trades"),
     path('api/profiles/collection/', ProfileCollection.as_view(), name="collection"),
     path('api/profiles/wishlist/', ProfileWishlist.as_view(), name="wishlist"),
     path('api/recommendations/wishlist/', WishListRecommendations.as_view(), name="wishlist-recommendations"),
     path('api/recommendations/mfc/', MFCRecommendations.as_view(), name="mfc-recommendations"),
     path('api/featured/', FeaturedViewSet.as_view(), name="featured"),
+    path('api/s3', S3URLView.as_view(), name="s3"),
+    path('api/verify/', ImageVerification.as_view(), name="verify"),
 ]
