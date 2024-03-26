@@ -73,6 +73,7 @@ const NewTrade = () => {
     const [requestingTwo, setRequestingTwo] = React.useState<Collectible | null>(null);
     const [requestingThree, setRequestingThree] = React.useState<Collectible | null>(null);
     const [description, setDescription] = React.useState<string>('');
+    const [price, setPrice] = React.useState(0.0);
     
     const [images, setImages] = React.useState<Image[]>([]);
     const [isUploading, setIsUploading] = React.useState(false);
@@ -117,8 +118,8 @@ const NewTrade = () => {
     }
     
     React.useEffect(() => {
-        setDisabled(!(trading !== undefined && description !== '' && images.length !== 0 && verifying !== true));
-    }, [images, trading, description, verifying]);
+        setDisabled(!(trading !== undefined && description !== '' && images.length !== 0 && verifying !== true && isUploading !== true));
+    }, [images, trading, description, verifying, isUploading]);
 
 
     React.useEffect(() => {
@@ -140,9 +141,9 @@ const NewTrade = () => {
             requesting2: requestingTwo ? requestingTwo.id : '',
             requesting3: requestingThree ? requestingThree.id : '',
             description: description,
-            price: 0.0,
+            price: price,
             images: [],
-            verifyImage: verifyImage.imagePreview
+            verifyImage: verifyImage !== undefined ? verifyImage.imagePreview : '',
         };
         const token = await getToken();
         for (let i = 0; i < images.length; i++) {
@@ -210,8 +211,8 @@ const NewTrade = () => {
                                             setTrading(newValue);
                                         }}
                                         id="controllable-states-demo"
-                                        sx={{ width: 400, marginBottom: 2, }}
-                                        renderInput={(params) => <TextField {...params} label="Select a Smiski to trade" />}
+                                        sx={{ width: "100%", marginBottom: 2, }}
+                                        renderInput={(params) => <TextField {...params} color="success" label="Select a Smiski to trade" />}
                                     />
                                     <Autocomplete
                                         {...getOptions(data)}
@@ -220,8 +221,8 @@ const NewTrade = () => {
                                             setRequestingOne(newValue);
                                         }}
                                         id="controllable-states-demo"
-                                        sx={{ width: 400, marginBottom: 2 }}
-                                        renderInput={(params) => <TextField {...params} label="[Optional] Select a Smiski to receive" />}
+                                        sx={{ width: "100%", marginBottom: 2 }}
+                                        renderInput={(params) => <TextField {...params} color="success" label="[Optional] Select a Smiski to receive" />}
                                         color="success"
                                     />
                                     <Autocomplete
@@ -231,9 +232,8 @@ const NewTrade = () => {
                                             setRequestingTwo(newValue);
                                         }}
                                         id="controllable-states-demo"
-                                        sx={{ width: 400, marginBottom: 2, color: 'success'}}
-                                        renderInput={(params) => <TextField {...params} label="[Optional] Select a Smiski to receive" />}
-                                        color="success"
+                                        sx={{ width: "100%", marginBottom: 2, color: 'success'}}
+                                        renderInput={(params) => <TextField {...params} color="success" label="[Optional] Select a Smiski to receive" />}
                                         />
                                         <Autocomplete
                                         {...getOptions(data)}
@@ -241,10 +241,20 @@ const NewTrade = () => {
                                         onChange={(_: any, newValue: Collectible | null) => {
                                             setRequestingThree(newValue);
                                         }}
-                                        id="controllable-states-demo"
-                                        sx={{ width: 400, marginBottom: 2 }}
-                                        renderInput={(params) => <TextField {...params} label="[Optional] Select a Smiski to receive" />}
+                                        id=""
+                                        sx={{ width: "100%", marginBottom: 2 }}
+                                        renderInput={(params) => <TextField color="success" {...params} label="[Optional] Select a Smiski to receive" />}
+                                    />
+                                    <TextField 
+                                        type="number" 
+                                        min="0.0" 
+                                        label='[Optional] Price (if selling)'
+                                        style={{ backgroundColor: "#FFF", width: "100%", marginBottom: 15, borderWidth: 1, borderRadius: 5, borderColor: ""}}
+                                        value={price}
                                         color="success"
+                                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                            setPrice(event.target.value);
+                                        }}
                                     />
                                     <TextField
                                         id="outlined-multiline-static"
@@ -257,7 +267,7 @@ const NewTrade = () => {
                                         rows={4}
                                         color="success"
                                         style={{
-                                            width: 400,
+                                            width: "100%",
                                             marginBottom: 15,
                                         }}
                                     />
