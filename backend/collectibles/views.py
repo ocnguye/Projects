@@ -29,11 +29,12 @@ class SearchCollectibles(APIView):
         direct_trades = Trade.objects.filter(trading__in=direct_collectibles)
 
         series_list = [collectible.series for collectible in direct_collectibles]
-        related_trades = Trade.objects.filter(collectible__series__in=series_list)
+        related_trades = Trade.objects.filter(trading__series__in=series_list)
 
         direct_trades_serializer = TradeSerializer(direct_trades, many=True)
         related_trades_serializer = TradeSerializer(related_trades, many=True)
-        trades = direct_trades_serializer.data + related_trades_serializer.data
+        related_trades_serializer = [ trade for trade in related_trades_serializer.data if trade not in direct_trades_serializer.data ]
+        trades = direct_trades_serializer.data + related_trades_serializer
 
         return Response({
             'results': len(trades),
