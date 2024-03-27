@@ -8,7 +8,6 @@ import About from '../components/about/about';
 import SignUp from '../components/SignUp'
 import Login from '../components/Login'
 import Help from '../components/Help'
-import React from 'react';
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, children: [
