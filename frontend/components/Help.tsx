@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React from 'react';
-// import Contact from './Contact';
+ import Contact from './Contact';
+ import { Link, Outlet } from 'react-router-dom';
 
 const Help: React.FC = () => {
     return (
@@ -28,7 +29,9 @@ const Help: React.FC = () => {
                         <a href="#" className="text-black text-xl font-bold"> Report </a>
                     </div>
                     <div className="bg-green-150 h-48 rounded-xl flex items-center justify-center shadow-md">
-                        <a href="#" className="text-black text-xl font-bold"> Contact Us </a>
+                        <Link to ='/contactus' className="text-black text-xl font-bold"> 
+                            <strong> Contact Us </strong>
+                        </Link>
                     </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ import About from '../components/about/about';
 import SignUp from '../components/SignUp'
 import Login from '../components/Login'
 import Help from '../components/Help'
+import Contact from '../components/Contact'
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, children: [
@@ -15,7 +16,7 @@ export const router = createBrowserRouter([
         {path: 'search', element: <Searched />},
         {path: 'about', element: <About />},
         {path: 'help', element: <Help />},
-        {path: 'contactus', element: <div>Contact Us</div>},
+        {path: 'contactus', element: <Contact />},
         {path: 'profile', element: <Profile />},
         {path: 'product/:id', element: <TradeListing />},
     ]},
