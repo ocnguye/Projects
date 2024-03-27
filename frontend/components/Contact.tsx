@@ -10,16 +10,16 @@ const Contact: React.FC = () => {
         e.preventDefault();
         setFormSubmitted(true);
      
-        try {
-          const result = await .create({
-            identifier: userEmail,
-            password: userPassword,
-          });
+        // try {
+        //   const result = await .create({
+        //     identifier: userEmail,
+        //     password: userPassword,
+        //   });
 
-        } catch (err: any) {
-            alert("Account not found, please try again.")
-            console.error("error", err.errors[0].longMessage)
-        }
+        // } catch (err: any) {
+        //     alert("Account not found, please try again.")
+        //     console.error("error", err.errors[0].longMessage)
+        // }
       };
 
     return (
