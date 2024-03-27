@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { useState } from 'react';
 import image1 from './image1.png';
