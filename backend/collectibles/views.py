@@ -1,11 +1,11 @@
-from rest_framework import serializers, status
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .models import Collectible
 from rest_framework.response import Response
 from django.db.models import Q
-from trades.models import Trade
-from trades.views import TradeSerializer
+from trades.models import Listing
+from trades.serializers import ListingSerializer
 from .serializers import CollectibleSerializer
 
 class CollectibleViewSet(APIView):
@@ -26,13 +26,13 @@ class SearchCollectibles(APIView):
             Q(name__icontains=search_query) | 
             Q(series__icontains=search_query)
         )
-        direct_trades = Trade.objects.filter(trading__in=direct_collectibles)
+        direct_trades = Listing.objects.filter(collectible__in=direct_collectibles)
 
         series_list = [collectible.series for collectible in direct_collectibles]
-        related_trades = Trade.objects.filter(trading__series__in=series_list)
+        related_trades = Listing.objects.filter(collectible__series__in=series_list)
 
-        direct_trades_serializer = TradeSerializer(direct_trades, many=True)
-        related_trades_serializer = TradeSerializer(related_trades, many=True)
+        direct_trades_serializer = ListingSerializer(direct_trades, many=True)
+        related_trades_serializer = ListingSerializer(related_trades, many=True)
         related_trades_serializer = [ trade for trade in related_trades_serializer.data if trade not in direct_trades_serializer.data ]
         trades = direct_trades_serializer.data + related_trades_serializer
 
