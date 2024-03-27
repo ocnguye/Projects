@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from collectibles.models import Collectible
-from collectibles.views import CollectibleSerializer
+from collectibles.serializers import CollectibleSerializer
 from trades.models import Trade, Image
 from trades.views import TradeSerializer
 

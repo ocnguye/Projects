@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from profiles.models import Profile
-from collectibles.views import CollectibleSerializer
+from collectibles.serializers import CollectibleSerializer
 from collectibles.models import Collectible
 from collections import defaultdict
 
