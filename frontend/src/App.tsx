@@ -10,12 +10,9 @@ function App() {
       <SignedOut>
         <SignUp />
       </SignedOut>
-
       <SignedIn>
         <Header />
       </SignedIn>
-
-      
     </div>
   )
 }

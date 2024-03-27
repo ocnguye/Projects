@@ -8,6 +8,7 @@ import About from '../components/about/about';
 import SignUp from '../components/SignUp'
 import Login from '../components/Login'
 import ErrorPage from '../components/ErrorPage'
+import Trades from '../components/trades/trades';
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, errorElement: <ErrorPage />,
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
         {path: 'contactus', element: <div>Contact Us</div>},
         {path: 'profile', element: <Profile />},
         {path: 'product/:id', element: <TradeListing />},
+        {path: 'trades', element: <Trades />}
     ]},
 
     {path : '/login', element: <Login />, },
