@@ -9,8 +9,7 @@ function App() {
   return (
     <div>
       <SignedOut>
-        {/* <SignUp /> */}
-        <Chat />
+        <SignUp />
       </SignedOut>
 
       <SignedIn>

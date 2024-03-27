@@ -7,13 +7,15 @@ import TradeListing from '../components/trade-listing/tradeListing';
 import About from '../components/about/about';
 import SignUp from '../components/SignUp'
 import Login from '../components/Login'
+import Help from '../components/Help'
+import React from 'react';
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, children: [
         {path: '', element: <Home />},
         {path: 'search', element: <Searched />},
         {path: 'about', element: <About />},
-        {path: 'help', element: <div>Help</div>},
+        {path: 'help', element: <Help />},
         {path: 'contactus', element: <div>Contact Us</div>},
         {path: 'profile', element: <Profile />},
         {path: 'product/:id', element: <TradeListing />},
