@@ -8,12 +8,10 @@ export type Collectible = {
     product: string,
 }
 
-export type Trade = {
+export type Listing = {
     id: number,
-    trading: Collectible,
-    requesting1: Collectible,
-    requesting2: Collectible,
-    requesting3: Collectible,
+    collectible: Collectible,
+    available: boolean,
     price: number,
     description: string,
     images: string,
@@ -22,7 +20,7 @@ export type Trade = {
 
 export type SearchData = {
     results: number,
-    trades: Trade[],
+    listings: Listing[],
     series: string[],
 }
 

@@ -38,7 +38,7 @@ class SearchCollectibles(APIView):
 
         return Response({
             'results': len(trades),
-            'trades': trades,
+            'listings': trades,
             'series': series_list,
         }, status=status.HTTP_200_OK)
 
