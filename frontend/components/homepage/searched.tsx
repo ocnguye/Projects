@@ -22,6 +22,18 @@ const Searched = () => {
         },
     });
 
+    const cleanImage = ( image: string ) => {
+        image = image.replace("[", "").replace("]", "").replace("'", "").replace("'", "").split(" ")[0].replace(",", "");
+        return image;
+    }
+
+    const formatSeries = ( series: string ) => {
+        if (series.includes("-")) {
+            return series.split("-")[0].toUpperCase()[0] + series.split("-")[0].substring(1) + " " + series.split("-")[1].toUpperCase()[0] + series.split("-")[1].substring(1);
+        }
+        return series.toUpperCase()[0] + series.substring(1) + " Series";
+    }
+
     return (
         <div>
             <p>Showing results for "{searched ? searched : "All"}"</p>
@@ -33,14 +45,14 @@ const Searched = () => {
                     padding: '10px',
                 }}
             >
-            { !isLoading && !isError && data? 
+            { !isLoading && !isError && data ? 
                 data?.listings.map((listing: Listing) => (
                     <div
                         className="m-1 p-1 bg-yellow-200 hover:scale-105 ease-in-out duration-300
                         flex"
                         key={listing.id}
                         style={{
-                            width: '200px',
+                            width: '220px',
                             borderRadius: '10px',
                         }}
                     >   
@@ -54,11 +66,11 @@ const Searched = () => {
                                 <div
                                     style={{
                                         height: '200px',
-                                        width: '190px',
+                                        width: '210px',
                                         padding: 5
                                     }}
                                     >
-                                    <img src={ data?.listings[0].images.split("', ")[0].split("['")[1] } alt={listing.collectible.name} 
+                                    <img src={ cleanImage(listing.images) } alt={listing.collectible.name} 
                                     style={{
                                         width: '100%',
                                         height: '100%',
@@ -73,7 +85,7 @@ const Searched = () => {
                                 <VerifiedIcon color="success" fontSize='large'/>
                             </Grid>
                             <Grid xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }} >
-                                <div className='flex'>{listing.collectible.series.split("-")[0].toUpperCase()[0] + listing.collectible.series.split("-")[0].substring(1) + " " + listing.collectible.series.split("-")[1].toUpperCase()[0] + listing.collectible.series.split("-")[1].substring(1)}</div>
+                                <div className='flex'>{formatSeries(listing.collectible.series)}</div>
                             </Grid>
                             <Grid xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }} >
                                 <div className='flex'>{listing.collectible.name}</div>
