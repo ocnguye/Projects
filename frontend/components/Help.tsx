@@ -5,7 +5,7 @@ import React from 'react';
 
 const Help: React.FC = () => {
     return (
-        <div className="bg-green-100 h-4/5 flex flex-col items-center justify-center px-4 py-8">
+        <div className="bg-green-100 h-11/12 flex flex-col items-center justify-center px-4 py-8">
             <div className="bg-green-150 w-3/4 md:w-1/2 lg:w-2/5 h-24 rounded-3xl flex items-center justify-center mb-24 shadow-lg">
                 <p className="text-pink-300 text-3xl font-bold">Hi Pookie, how may we help?</p>
             </div>
