@@ -1,5 +1,3 @@
-import React from 'react';
-
 type PriceProps = {
     data: number;
 }
