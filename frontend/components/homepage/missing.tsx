@@ -17,7 +17,6 @@ const Missing = () => {
     });
 
     const width = 150;
-    console.log(data);
 
     return (
         <>

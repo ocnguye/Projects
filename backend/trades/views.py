@@ -18,7 +18,7 @@ class WishListRecommendations(APIView):
         results = defaultdict(list)
         for collectible in collectibles:
             listings = Listing.objects.filter(collectible=collectible).exclude(id__in=profile.collection.all())
-            results[collectible.id].append(f"{len(listings)}, {collectible.image}")
+            if listings: results[collectible.id].append(f"{len(listings)}, {collectible.image}")
         return Response(results, status=status.HTTP_200_OK)
     
 class MFCRecommendations(APIView):
