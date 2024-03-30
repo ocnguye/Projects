@@ -24,6 +24,13 @@ const Featured = () => {
         return () => clearInterval(interval);
     }, [data]);
 
+    const cleanImage = ( image: string ) => {
+        const cdn = "https://d3jvwclgjetaaw.cloudfront.net/";
+        image = cdn + image.split("/")[image.split("/").length - 1];
+        return image;
+    }
+
+
 
     return (
         <>
@@ -31,12 +38,17 @@ const Featured = () => {
             <a href={data[currentIndex].link}>
             <div style={{ display: "flex",flexDirection: "column", justifyContent: "center", 
             alignItems: "center", width: "100%", height: 600, background: "#F2DEDE", 
-            borderRadius: 20,  backgroundImage:`url(${data[currentIndex].image})`, backgroundSize: 'cover',
+            borderRadius: 20, backgroundSize: 'cover',
             borderWidth: 3, }}
             className='border-green-800'
-            // onClick={ () => navigate(data[currentIndex].link) }
             >
-                </div>
+                <img src={ cleanImage(data[currentIndex].image) } alt={data[currentIndex].name} 
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderRadius: '10px', }} />
+            </div>
                 <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
                 >
                     {data.map((_: any, index: any) => (
