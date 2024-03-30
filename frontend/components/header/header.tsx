@@ -11,6 +11,7 @@ const Header: React.FC = () => {
                 position: 'fixed',
                 top: 0,
                 zIndex: 100,
+                height: 90,
             }}
             >
                 <div className='flex items-center justify-start mr-4 hover:scale-105 ease-in-out duration-300'>
