@@ -15,6 +15,21 @@ class CollectibleViewSet(APIView):
         collectibles = Collectible.objects.all()
         serializer = CollectibleSerializer(collectibles, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class CollectiblesByID(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        id = request.query_params.get('id')
+        collectible = Collectible.objects.get(id=id)
+        listings = Listing.objects.filter(collectible=collectible)
+        listings_serializer = ListingSerializer(listings, many=True)
+        collectible_serializer = CollectibleSerializer(collectible)
+        return Response({
+            'collectible': collectible_serializer.data,
+            'listings': listings_serializer.data,
+            'results': len(listings_serializer.data),
+        }, status=status.HTTP_200_OK)
 
 class SearchCollectibles(APIView):
     permission_classes = [IsAuthenticated]
