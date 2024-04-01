@@ -28,7 +28,6 @@ const Searched = () => {
                     display: 'flex',
                     flexDirection: 'row',
                     flexWrap: 'wrap',
-                    padding: '10px',
                 }}
             >
             { !isLoading && !isError && data ? 

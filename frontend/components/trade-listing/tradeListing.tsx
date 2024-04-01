@@ -30,34 +30,20 @@ const TradeListing = () => {
     return (
         <div>
             { !isLoading && !isError && data ? (
-                <div>
-                    <Grid container >
-                        <Grid xs={1}
-                            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}
-                        >
-                            <div
-                                className="pt-2 hover:scale-105 ease-in-out duration-300
-                                flex flex-col items-center justify-center"
-                                style={{
-                                    width: '150px',
-                                    height: '150px',
-                                    borderRadius: '10px',
-                                    margin: '5px',
-                                }}
-                            >
-                                <img src={ data.collectible.image } style={{height: '100%'}} />
-                            </div>
-                        </Grid>
-                        <Grid xs={11}
-                            style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
-                        >
+                <div className='grid justify-start grid-cols-3 space-y-2'>
+                    <div
+                        className="pt-2 hover:scale-105 ease-in-out duration-300
+                        flex flex-row justify-start items-center col-span-3"
+                    >
+                        <img src={ data.collectible.image } className='object-cover h-32 rounded-xl col-span-1' />
+                        <div className='col-span-2'>
                             <h1>{formatSeries(data.collectible.series)}</h1>
                             <p>{data.collectible.name}</p>
-                        </Grid>
-                        <Grid xs={12}>
-                            <RenderListings data={data.listings} />
-                        </Grid>
-                    </Grid>
+                        </div>
+                    </div>
+                    <div className='col-span-3'>
+                        <RenderListings data={data.listings} />
+                    </div>
                 </div>
             ) : (<><CircularProgress></CircularProgress></>) }
         </div>

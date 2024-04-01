@@ -82,7 +82,7 @@ const ItemListing = () => {
                         <h2 className='text-gray-500'>{listing.collectible.name}</h2>
                         <div className='flex space-x-1'>
                             <p>{listing.price ? "$" + listing.price : ""}</p>
-                            <VerifiedIcon color="success"/>
+                            { listing.verified ? <VerifiedIcon color="success"/> : <></>}
                         </div>
                     </div>
                     <p>

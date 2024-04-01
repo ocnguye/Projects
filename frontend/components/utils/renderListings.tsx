@@ -3,6 +3,7 @@ import { Grid } from '@mui/material';
 import Price from '../search/price';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { useNavigate } from 'react-router-dom';
+import useWindowDimensions from '../../utils/window';
 
 type ListingsParams = {
     data: Listing[],
@@ -24,59 +25,60 @@ const RenderListings = ({data}: ListingsParams) => {
         }
         return series.toUpperCase()[0] + series.substring(1) + " Series";
     }
-
+    const { width } = useWindowDimensions();
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-        }}>
+        <div className='grid grid-cols-2 gap-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 w-full'
+        >
             {
                 data.map((listing) => (
-                <div
-                    className="m-1 p-1 bg-yellow-200 hover:scale-102 ease-in-out duration-300 flex"
-                    key={listing.id}
-                    onClick={() => navigate(`/listing/${listing.id}`, { state: listing })}
-                    style={{
-                        width: '220px',
-                        borderRadius: '10px',
-                    }}
-                >   
-                    <Grid container>
-                        <Grid xs={12}
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    height: '200px',
-                                    width: '210px',
-                                    padding: 5
-                                }}
-                                >
-                                <img src={ cleanImage(listing.images) } alt={listing.collectible.name} 
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                    borderRadius: '10px',
-                                }} />
+                    <div className='bg-yellow-200 rounded-lg p-2 space-y-2'>
+                        <img src={cleanImage(listing.images)} alt="" className='rounded-2xl object-cover h-44 w-full'
+                        onClick={() => navigate(`/listing/${listing.id}`, { state: listing })}
+                        />
+                        <div className=''>
+                            <div className='flex justify-between items-center'>
+                                <div className='flex'>${<Price data={listing.price} />}</div>
+                                {listing.verified ? <VerifiedIcon color="success" fontSize='large'/> : null}
                             </div>
-                        </Grid>
-                        <Grid xs={3} style={{ display: 'flex', justifyContent: 'center' }} />
-                        <Grid xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }} >
-                            <div className='flex pr-1'>$<Price data={listing.price} /></div>
-                            {listing.verified ? <VerifiedIcon color="success" fontSize='large'/> : null}
-                        </Grid>
-                        <Grid xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }} >
                             <div className='flex'>{formatSeries(listing.collectible.series)}</div>
-                        </Grid>
-                        <Grid xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }} >
-                            <div className='flex'>{listing.collectible.name}</div>
-                        </Grid>
-                    </Grid>
-                </div>
+                            <div className='flex opacity-70'>{listing.collectible.name}</div>
+                        </div>
+                    </div>
+                // <div
+                //     className="bg-yellow-200 hover:scale-102 ease-in-out duration-300"
+                //     key={listing.id}
+                    // onClick={() => navigate(`/listing/${listing.id}`, { state: listing })}
+                //     style={{
+                //         borderRadius: '10px',
+                //     }}
+                // >   
+                //     <Grid container>
+                //         <Grid xs={12}
+                //             style={{
+                //                 display: 'flex',
+                //                 justifyContent: 'center',
+                //             }}
+                //         >
+                //             <div
+                //                 style={{
+                //                 }}
+                //                 >
+                //                 <img src={ cleanImage(listing.images) } alt={listing.collectible.name}
+                //                 className='object-cover rounded-lg'/>
+                //             </div>
+                //         </Grid>
+                //         <Grid xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }} >
+                //             <div className='flex'>$<Price data={listing.price} /></div>
+                //             {listing.verified ? <VerifiedIcon color="success" fontSize='large'/> : null}
+                //         </Grid>
+                //         <Grid xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }} >
+                //             <div className='flex'>{formatSeries(listing.collectible.series)}</div>
+                //         </Grid>
+                //         <Grid xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }} >
+                //             <div className='flex'>{listing.collectible.name}</div>
+                //         </Grid>
+                //     </Grid>
+                // </div>
             ))}
         </div>
     )
