@@ -1,25 +1,60 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 const Help: React.FC = () => {
-    // Initialize row open/closed state as an array of boolean values, all set to false initially
     const [openRows, setOpenRows] = useState<boolean[]>(new Array(6).fill(false));
 
     const toggleRow = (index: number) => {
-        // Toggle the open state for the clicked row
         const updatedOpenRows = openRows.map((isOpen, i) => 
             i === index ? !isOpen : isOpen
         );
         setOpenRows(updatedOpenRows);
     };
 
+    // Modify each row to include a question and answer
     const rows = [
-        { title: 'Trading', content: 'Information about trading.' },
-        { title: 'Trade Listing', content: 'Details on trade listings.' },
-        { title: 'Collections', content: 'Explore collections.' },
-        { title: 'Verifications', content: 'Verification processes.' },
-        { title: 'Report', content: 'Report issues or concerns.' },
-        { title: 'Contact Us', content: <Link to='/contactus' className="text-black">Contact Us</Link> }
+        { 
+            title: 'Trading', 
+            content: {
+                question: 'Q: How do I make a trade?',
+                answer: 'A: To make a trade, navigate to the Trading page, select the assets you want to trade, and follow the instructions.'
+            }
+        },
+        { 
+            title: 'Trade Listing', 
+            content: {
+                question: 'Q: How can I list a trade?',
+                answer: 'A: To list a trade, go to the Trade Listing section, fill out the form with your trade details, and submit.'
+            }
+        },
+        { 
+            title: 'Collections', 
+            content: {
+                question: 'Q: How do I make a trade?',
+                answer: 'A: To make a trade, navigate to the Trading page, select the assets you want to trade, and follow the instructions.'
+            }
+        },
+        { 
+            title: 'Verifications', 
+            content: {
+                question: 'Q: How do I make a trade?',
+                answer: 'A: To make a trade, navigate to the Trading page, select the assets you want to trade, and follow the instructions.'
+            }
+        },
+        { 
+            title: 'Report', 
+            content: {
+                question: 'Q: How do I make a trade?',
+                answer: 'A: To make a trade, navigate to the Trading page, select the assets you want to trade, and follow the instructions.'
+            }
+        },
+        { 
+            title: 'Contact Us', 
+            content: {
+                question: 'Q: How do I make a trade?',
+                answer: 'A: To make a trade, navigate to the Trading page, select the assets you want to trade, and follow the instructions.'
+            }
+        },
     ];
 
     return (
@@ -41,7 +76,9 @@ const Help: React.FC = () => {
                             className={`transition-max-height duration-700 ease-in-out ${openRows[index] ? 'max-h-96' : 'max-h-0'} overflow-hidden`}
                         >
                             <div className="p-4 text-black">
-                                {typeof row.content === 'string' ? row.content : row.content}
+                                {/* Display the question and answer */}
+                                <p>{row.content.question}</p>
+                                <p className="pt-2">{row.content.answer}</p>
                             </div>
                         </div>
                     </div>
