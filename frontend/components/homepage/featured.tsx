@@ -30,8 +30,6 @@ const Featured = () => {
         return image;
     }
 
-
-
     return (
         <>
         { !isLoading && !isError ? (

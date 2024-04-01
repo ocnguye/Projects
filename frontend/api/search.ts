@@ -16,6 +16,30 @@ export type Listing = {
     description: string,
     images: string,
     verified: boolean,
+    user: Profile,
+}
+
+export type Trade = {
+    id: number,
+    profileOne: Profile,
+    profileTwo: Profile,
+    givingOne: Listing[],
+    givingTwo: Listing[],
+    status: number,
+    profileOneAccepted: boolean,
+    profileTwoAccepted: boolean,
+}
+
+export type Profile = {
+    id: number,
+    bio: string,
+    collection: Listing[],
+    wishlist: Collectible[],
+    trades: Trade[],
+    rating: number,
+    raters: number,
+    username: string,
+    profile_img: string,
 }
 
 export type SearchData = {

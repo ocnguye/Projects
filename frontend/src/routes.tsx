@@ -4,6 +4,7 @@ import Home from '../components/homepage/home'
 import Searched from '../components/homepage/searched';
 import Profile from '../components/profile/profile';
 import TradeListing from '../components/trade-listing/tradeListing';
+import ItemListing from '../components/trade-listing/itemListing';
 import About from '../components/about/about';
 import SignUp from '../components/SignUp'
 import Login from '../components/Login'
@@ -20,7 +21,8 @@ export const router = createBrowserRouter([
         {path: 'contactus', element: <div>Contact Us</div>},
         {path: 'profile', element: <Profile />},
         {path: 'product/:id', element: <TradeListing />},
-        {path: 'trades', element: <Trades />}
+        {path: 'trades', element: <Trades />},
+        {path: 'listing/:id', element: <ItemListing />},
     ]},
 
     {path : '/login', element: <Login />, },

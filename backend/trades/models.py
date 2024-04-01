@@ -7,9 +7,10 @@ class Listing(models.Model):
     description = models.TextField(default="", blank=True, null=True)
     images = models.TextField(default="", blank=True, null=True)
     verified = models.BooleanField(default=False, blank=True)
+    user = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, related_name="listings", blank=True, null=True)
 
     def __str__(self):
-        return self.trading.name
+        return self.collectible.name
     
 class Trade(models.Model):
     profileOne = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, related_name="profileOne", blank=True, null=True)
@@ -19,6 +20,9 @@ class Trade(models.Model):
     status = models.IntegerField(default=0, blank=True)
     profileOneAccepted = models.BooleanField(default=False, blank=True)
     profileTwoAccepted = models.BooleanField(default=False, blank=True)
+
+    def __str__(self):
+        return self.profileOne.username + " and " + self.profileTwo.username
 
 class Image(models.Model):
     url = models.CharField(max_length=255, default="", blank=True)

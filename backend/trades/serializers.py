@@ -2,12 +2,14 @@ from rest_framework import serializers
 from trades.models import Trade, Image, Listing
 from profiles.serializers import ProfileSerializer
 from collectibles.serializers import CollectibleSerializer
+from profiles.models import Profile
 
 class ListingSerializer(serializers.ModelSerializer):
     collectible = CollectibleSerializer(read_only=True)
+    user = ProfileSerializer(read_only=True)
     class Meta:
         model = Listing
-        fields = ['collectible', 'available', 'price', 'description', 'images', 'verified']
+        fields = ['collectible', 'available', 'price', 'description', 'images', 'verified', 'id', 'user']
 
 class TradeSerializer(serializers.ModelSerializer):
     profileOne = ProfileSerializer(read_only=True)

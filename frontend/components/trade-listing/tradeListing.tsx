@@ -3,8 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@clerk/clerk-react';
 import { getCollectible, CollectibleIdData } from '../../api/collectibles';
 import { Grid } from '@mui/material';
-import Price from '../search/price';
-import VerifiedIcon from '@mui/icons-material/Verified';
 import CircularProgress from '@mui/material/CircularProgress';
 import RenderListings from '../utils/renderListings';
 

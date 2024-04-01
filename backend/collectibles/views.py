@@ -20,16 +20,21 @@ class CollectiblesByID(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        id = request.query_params.get('id')
-        collectible = Collectible.objects.get(id=id)
-        listings = Listing.objects.filter(collectible=collectible)
-        listings_serializer = ListingSerializer(listings, many=True)
-        collectible_serializer = CollectibleSerializer(collectible)
-        return Response({
-            'collectible': collectible_serializer.data,
-            'listings': listings_serializer.data,
-            'results': len(listings_serializer.data),
-        }, status=status.HTTP_200_OK)
+        try:
+            id = request.query_params.get('id')
+            collectible = Collectible.objects.get(id=id)
+            listings = Listing.objects.filter(collectible=collectible)
+            listings_serializer = ListingSerializer(listings, many=True)
+            collectible_serializer = CollectibleSerializer(collectible)
+            return Response({
+                'collectible': collectible_serializer.data,
+                'listings': listings_serializer.data,
+                'results': len(listings_serializer.data),
+            }, status=status.HTTP_200_OK)
+        except:
+            return Response({
+                'error': 'Collectible not found'
+            }, status=status.HTTP_404_NOT_FOUND)
 
 class SearchCollectibles(APIView):
     permission_classes = [IsAuthenticated]

@@ -56,6 +56,7 @@ class ProfileListing(APIView):
             description=request.data['description'],
             images=request.data['images'],
             verified= vImg.verified if vImg else False,
+            user=profile,
         )
         profile.collection.add(listing)
         profile.save()
