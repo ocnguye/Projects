@@ -38,7 +38,7 @@ const Contact: React.FC = () => {
                             <input name = "Name" type = "name" value = {userName} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className = "bg-gray-200 w-96 rounded-lg pl-1"/>
                             <h4 className = "pt-1 text-xs">  
                             {
-                                userEmail === "" && formSubmitted ? 
+                                userName === "" && formSubmitted ? 
                                 <p className = "text-red-500"> Please enter a name. </p> 
                                 :
                                 <p className = "text-green-150"> text placeholder </p>
@@ -63,10 +63,10 @@ const Contact: React.FC = () => {
                         {/* message input field */}
                         <p className = ""> What can we do to help? </p>
                         <label>
-                            <input name = "Email" type = "message" value = {userMessage} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserMessage(e.target.value)} className = "bg-gray-200 h-48 w-96 rounded-lg pl-1"/>
+                            <input name = "Message" type = "message" value = {userMessage} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserMessage(e.target.value)} className = "bg-gray-200 h-48 w-96 rounded-lg pl-1"/>
                             <h4 className = "pt-1 text-xs">  
                             {
-                                userEmail === "" && formSubmitted ? 
+                                userMessage === "" && formSubmitted ? 
                                 <p className = "text-red-500"> Please enter a message. </p> 
                                 :
                                 <p className = "text-green-150"> text placeholder </p>
