@@ -20,10 +20,7 @@ const Contact: React.FC = () => {
             return;
         }
     
-        emailjs
-          .sendForm('service_dlcpzh2', 'contact_form', form.current, {
-            publicKey: 'wcJAzk8f9yfdnurFy',
-          })
+        emailjs.sendForm(import.meta.env.VITE_EMAILJS_SERVICE_ID, 'contact_form', form.current, import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
           .then(
             () => {
                 console.log('SUCCESS!');
@@ -96,7 +93,7 @@ const Contact: React.FC = () => {
                         </h4>
                         </label>
                         
-                        {/* login button */}
+                        {/* submit button */}
                         <div className="flex justify-center mt-4">
                             <input type = "submit" value = "Send" className="hover:scale-110 w-32 bg-green-350 text-black py-2 px-4 rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" /> 
                         </div>
