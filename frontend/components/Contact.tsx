@@ -1,26 +1,43 @@
+//@ts-nocheck
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 const Contact: React.FC = () => {
     const [userEmail, setUserEmail] = useState("");
     const [userName, setUserName] = useState("");
     const [userMessage, setUserMessage] = useState("");
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const form = useRef();
 
-    const onSend = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+        
         setFormSubmitted(true);
-     
-        // try {
-        //   const result = await .create({
-        //     identifier: userEmail,
-        //     password: userPassword,
-        //   });
+        e.preventDefault();
 
-        // } catch (err: any) {
-        //     alert("Account not found, please try again.")
-        //     console.error("error", err.errors[0].longMessage)
-        // }
+        if (!userName || !userEmail || !userMessage) {
+            // Don't proceed if any field is empty
+            return;
+        }
+    
+        emailjs
+          .sendForm('service_dlcpzh2', 'contact_form', form.current, {
+            publicKey: 'wcJAzk8f9yfdnurFy',
+          })
+          .then(
+            () => {
+                console.log('SUCCESS!');
+                // Clear the input fields 
+                setUserEmail("");
+                setUserName("");
+                setUserMessage("");
+                setFormSubmitted(false); 
+                alert("Message sent!")
+            },
+            (error) => {
+                console.log('FAILED...', error.text);
+            },
+          );
       };
 
     return (
@@ -30,12 +47,12 @@ const Contact: React.FC = () => {
                 <h3 className = "text-lg font-bold pt-6"> Our team will get back to you within 48 hours. </h3>
 
                 <div className = "flex flex-col justify-between h-3/5 pt-8">
-                    <form onSubmit = {onSend}>
+                    <form ref = {form} onSubmit = {sendEmail}>
 
                         {/* name input field */}
                         <p className = ""> Name </p>
                         <label>
-                            <input name = "Name" type = "name" value = {userName} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className = "bg-gray-200 w-96 rounded-lg pl-1"/>
+                            <input name = "user_name" type = "name" value = {userName} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className = "bg-gray-200 w-96 rounded-lg pl-1"/>
                             <h4 className = "pt-1 text-xs">  
                             {
                                 userName === "" && formSubmitted ? 
@@ -49,7 +66,7 @@ const Contact: React.FC = () => {
                         {/* email input field */}
                         <p className = ""> Email Address </p>
                         <label>
-                            <input name = "Email" type = "email" value = {userEmail} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className = "bg-gray-200 w-96 rounded-lg pl-1"/>
+                            <input name = "user_email" type = "email" value = {userEmail} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className = "bg-gray-200 w-96 rounded-lg pl-1"/>
                             <h4 className = "pt-1 text-xs">  
                             {
                                 userEmail === "" && formSubmitted ? 
@@ -63,15 +80,20 @@ const Contact: React.FC = () => {
                         {/* message input field */}
                         <p className = ""> What can we do to help? </p>
                         <label>
-                            <input name = "Message" type = "message" value = {userMessage} onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setUserMessage(e.target.value)} className = "bg-gray-200 h-48 w-96 rounded-lg pl-1"/>
-                            <h4 className = "pt-1 text-xs">  
-                            {
-                                userMessage === "" && formSubmitted ? 
-                                <p className = "text-red-500"> Please enter a message. </p> 
-                                :
-                                <p className = "text-green-150"> text placeholder </p>
-                            }   
-                            </h4>
+                        <textarea
+                            name="message"
+                            value={userMessage}
+                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setUserMessage(e.target.value)}
+                            className="bg-gray-200 h-48 w-96 rounded-lg pl-1"
+                        />
+                        <h4 className="pt-1 text-xs">  
+                        {
+                            userMessage === "" && formSubmitted ? 
+                            <p className="text-red-500"> Please enter a message. </p> 
+                            :
+                            <p className="text-green-150"> text placeholder </p>
+                        }   
+                        </h4>
                         </label>
                         
                         {/* login button */}

@@ -75,7 +75,7 @@ const Help: React.FC = () => {
                         <div
                             className={`transition-max-height duration-700 ease-in-out ${openRows[index] ? 'max-h-96' : 'max-h-0'} overflow-hidden`}
                         >
-                            <div className="p-4 text-black">
+                            <div className="p-4 text-black bg-white">
                                 {/* Display the question and answer */}
                                 <p>{row.content.question}</p>
                                 <p className="pt-2">{row.content.answer}</p>
