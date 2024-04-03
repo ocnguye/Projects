@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@clerk/clerk-react';
 import { getFeatured } from '../../api/featured';
+import { Skeleton } from '../utils/Skeleton';
 
 const Featured = () => {
     const { getToken } = useAuth();
@@ -24,37 +25,55 @@ const Featured = () => {
         return () => clearInterval(interval);
     }, [data]);
 
+    const cleanImage = ( image: string ) => {
+        const cdn = "https://d3jvwclgjetaaw.cloudfront.net/";
+        image = cdn + image.split("/")[image.split("/").length - 1];
+        return image;
+    }
 
     return (
         <>
         { !isLoading && !isError ? (
             <a href={data[currentIndex].link}>
-            <div style={{ display: "flex",flexDirection: "column", justifyContent: "center", 
-            alignItems: "center", width: "100%", height: 600, background: "#F2DEDE", 
-            borderRadius: 20,  backgroundImage:`url(${data[currentIndex].image})`, backgroundSize: 'cover',
-            borderWidth: 3, }}
-            className='border-green-800'
-            // onClick={ () => navigate(data[currentIndex].link) }
+            <div style={{  
+                borderWidth: 3,
+                borderColor: '#79BD44',
+            }}
+            className='h-[250px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[550px] xl:h-[650px] 2xl:h-[750px] overflow-hidden rounded-[20px]'
             >
-                </div>
-                <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
-                >
-                    {data.map((_: any, index: any) => (
-                        <div
-                        key={index}
-                        style={{
-                            width: 10,
-                            height: 10,
-                            borderRadius: "50%",
-                            margin: "0 5px",
-                            background: index === currentIndex ? "black" : "gray",
-                        }}
-                        />
-                        ))}
-                </div>
+                <img src={ cleanImage(data[currentIndex].image) } alt={data[currentIndex].name} 
+                    style={{
+                        objectFit: 'cover',
+                        borderRadius: 18,
+                    }}
+                    className='w-full h-full object-cover'
+                />
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
+            >
+                {data.map((_: any, index: any) => (
+                    <div
+                    key={index}
+                    style={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: "50%",
+                        margin: "0 5px",
+                        background: index === currentIndex ? "black" : "gray",
+                    }}
+                    />
+                    ))}
+            </div>
             </a>
             ) : (
-                <></>
+                <div>
+                    <Skeleton className='h-[250px] w-full xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[550px] xl:h-[650px] 2xl:h-[750px] overflow-hidden rounded-[20px] bg-gray-300'>
+                        <div className='h-full w-full'/>
+                    </Skeleton>
+                    <div className='flex justify-center'>
+                        <Skeleton className='h-4 w-1/3 my-2 bg-gray-300'/>
+                    </div>
+                </div>
                 )}
             </>
     );

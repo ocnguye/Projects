@@ -6,7 +6,21 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+        'xs': '470px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',  
+        'xl': '1280px',
+        '2xl': '1536px',
+      },
       extend: {
+         scale: {
+            '101': '1.01',
+            '102': '1.02',
+            '103': '1.03',
+            '104': '1.04',
+         },
           colors: {
             green : {
                 100: "#DFF0D8",

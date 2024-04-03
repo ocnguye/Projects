@@ -44,15 +44,12 @@ const Search: React.FC = () => {
     
 
     return (
-        <Link to={`/search`} state={{searchTerm: debouncedSearchTerm}} >
+        <Link to={`/search`} state={{searchTerm: debouncedSearchTerm}} className='flex'>
             <form onSubmit={handleSubmit} >
             <input
-                style={{background: "white", borderRadius: 15, borderWidth: 0, paddingTop: 5, paddingBottom: 5, 
-                paddingLeft: 10, paddingRight: 10, backgroundColor: "#D9D9D9", width: 400, height: 30,
-                color: "black", fontSize: 15,
-                }}
+                className='rounded-lg border-none bg-gray-300 p-1 text-black text-md h-8'
                 type="text"
-                placeholder="What are you looking for?"
+                placeholder="Search..."
                 value={searchTerm}
                 onChange={handleSearch}
             />
