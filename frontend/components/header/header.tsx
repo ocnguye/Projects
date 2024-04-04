@@ -74,7 +74,6 @@ const Header: React.FC = () => {
         <div className='bg-green-100'>
             <div className='flex justify-between grid-cols-3 items-center bg-yellow-200 fixed top-0 left-0 right-0 z-10 h-20 w-full gap-2 p-3'
             >
-
                 <Link to="/">
                     <strong className='text-green-800 font-extrabold text-2xl pr-2 md:text-3xl md:w-full'>Angel Trading</strong>
                 </Link>
