@@ -31,6 +31,7 @@ export default {
                 900: "#2B542C",
             },
             yellow:  {
+                300: "FFFCB9",
                 350: "#FEF98C",
             },
             pink: {
@@ -48,6 +49,9 @@ export default {
                 800: "#333333",
                 900: "#1A1A1A",
             },
+            white: {
+                100: "FFFFFF",
+            }
           }
         },
   },
