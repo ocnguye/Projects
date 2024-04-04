@@ -32,7 +32,7 @@ const Featured = () => {
     }
 
     return (
-        <>
+        <div className=''>
         { !isLoading && !isError ? (
             <a href={data[currentIndex].link}>
             <div style={{  
@@ -43,10 +43,9 @@ const Featured = () => {
             >
                 <img src={ cleanImage(data[currentIndex].image) } alt={data[currentIndex].name} 
                     style={{
-                        objectFit: 'cover',
                         borderRadius: 18,
                     }}
-                    className='w-full h-full object-cover'
+                    className='object-cover w-full h-full'
                 />
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
@@ -66,16 +65,14 @@ const Featured = () => {
             </div>
             </a>
             ) : (
-                <div>
-                    <Skeleton className='h-[250px] w-full xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[550px] xl:h-[650px] 2xl:h-[750px] overflow-hidden rounded-[20px] bg-gray-300'>
-                        <div className='h-full w-full'/>
-                    </Skeleton>
+                <div className='w-full'>
+                    <Skeleton className='w-full h-[250px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[550px] xl:h-[650px] 2xl:h-[750px] overflow-hidden rounded-[20px] bg-gray-300' />
                     <div className='flex justify-center'>
-                        <Skeleton className='h-4 w-1/3 my-2 bg-gray-300'/>
+                        <Skeleton className='h-4 w-10 my-2 bg-gray-300'/>
                     </div>
                 </div>
                 )}
-            </>
+            </div>
     );
 };
 

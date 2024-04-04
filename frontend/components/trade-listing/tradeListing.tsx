@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@clerk/clerk-react';
 import { getCollectible, CollectibleIdData } from '../../api/collectibles';
-import { Grid } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import RenderListings from '../utils/renderListings';
 
@@ -32,7 +31,7 @@ const TradeListing = () => {
             { !isLoading && !isError && data ? (
                 <div className='grid justify-start grid-cols-3 space-y-2'>
                     <div
-                        className="pt-2 hover:scale-105 ease-in-out duration-300
+                        className="pt-2 hover:scale-101 ease-in-out duration-300
                         flex flex-row justify-start items-center col-span-3"
                     >
                         <img src={ data.collectible.image } className='object-cover h-32 rounded-xl col-span-1' />

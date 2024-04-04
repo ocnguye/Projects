@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import Search from './search';
-import useWindowDimensions from '../../utils/window';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Drawer } from '@mui/material';
 import InboxIcon from '@mui/icons-material/Inbox';
@@ -11,17 +10,24 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import InventoryIcon from '@mui/icons-material/Inventory';
 import CachedIcon from '@mui/icons-material/Cached';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CloseIcon from '@mui/icons-material/Close';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Header: React.FC = () => {
-    const { width } = useWindowDimensions();
     const [open, setOpen] = React.useState(false);
     const handleToggle = (next: boolean) => () => {
         setOpen(next);
     };
 
     const hamburger = (
-        <div className='flex flex-col justify-start m-4 space-y-3'>
-            <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
+        <div className='flex flex-col align-center justify-start p-2 space-y-3 bg-green-100 h-full pt-5'>
+            <div className='h-10 flex justify-between items-center'>
+                <strong className='text-xl w-1/2'>Angel Trading</strong>
+                <div className='hover:cursor-pointer hover:bg-gray-700 hover:bg-opacity-20 rounded-full align-middle p-2'>
+                    <CloseIcon onClick={handleToggle(false)} fontSize="medium" sx={{justifyContent: 'center'}}/>
+                </div>
+            </div>
+            <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300 pt-5'>
                 <Badge className="mr-4" badgeContent={4} color="primary">
                     <InboxIcon style={{ zIndex:0 }}/>
                 </Badge>
@@ -55,18 +61,24 @@ const Header: React.FC = () => {
                     <p className='md:text-md lg:text-xl xl:text-xl text-black'>Events</p>
                 </Link>
             </div>
+            <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
+                <PersonIcon className='mr-4'/>
+                <Link to="/profile">
+                    <p className='md:text-md lg:text-xl xl:text-xl text-black'>Profile</p>
+                </Link>
+            </div>
         </div>
     )
 
     return (
         <div className='bg-green-100'>
-            <div className='flex justify-start grid-cols-3 items-center bg-yellow-200 fixed top-0 left-0 right-0 z-10 h-20 w-full gap-2 p-2'
+            <div className='flex justify-between grid-cols-3 items-center bg-yellow-200 fixed top-0 left-0 right-0 z-10 h-20 w-full gap-2 p-3'
             >
 
                 <Link to="/">
-                    <strong className='text-green-800 font-sans font-extrabold text-xl pr-2 sm:text-3xl sm:w-full'>Angel Trading</strong>
+                    <strong className='text-green-800 font-extrabold text-2xl pr-2 md:text-3xl md:w-full'>Angel Trading</strong>
                 </Link>
-                <div className='sm:flex sm:items-center hidden space-x-3 sm:text-lg flex-grow justify-center'>
+                <div className='md:flex md:items-center hidden space-x-3 md:text-lg flex-grow justify-center'>
                     <Link to="/about" className="text-black hover:text-red-400">
                         <strong>About</strong>
                     </Link>
@@ -77,11 +89,11 @@ const Header: React.FC = () => {
                         <strong>Contact</strong>
                     </Link>
                 </div>
-                <div className='flex items-center justify-center sm:justify-end'>
+                <div className='flex items-center justify-center md:justify-end place-self-center'>
                     <SearchIcon/>
                     <Search />
                 </div>
-                <div className='flex items-center justify-center pr-2 sm:hidden'>
+                <div className='flex items-center justify-center p-2 md:hidden hover:cursor-pointer hover:bg-gray-700 hover:bg-opacity-20 rounded-full align-middle'>
                     <MenuIcon onClick={handleToggle(true)} sx={{justifyContent: 'center'}}/>
                     <Drawer
                         anchor='right'
@@ -91,7 +103,7 @@ const Header: React.FC = () => {
                         {hamburger}
                     </Drawer>
                 </div>
-                <Link to="/profile" className="text-black hover:text-red-400 hidden sm:flex">
+                <Link to="/profile" className="text-black hover:text-red-400 hidden md:flex">
                     <strong>Profile</strong>
                 </Link>
             </div>

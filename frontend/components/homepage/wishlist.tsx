@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getWishlistRecommendations } from "../../api/recommendations";
 import { useAuth } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
+import { Skeleton } from "../utils/Skeleton";
 
 const Wishlist = () => {
     const { getToken } = useAuth();
@@ -41,7 +42,7 @@ const Wishlist = () => {
                 {Object.keys(data).map((key: any, index: any) => (
                     <div
                         className="pt-2 bg-yellow-200 hover:scale-110 ease-in-out duration-300
-                        flex flex-col items-center justify-center"
+                        flex flex-col items-center justify-center hover:cursor-pointer"
                         key={index}
                         onClick={() => navigate(`/product/${key}`)}
                         style={{
@@ -57,7 +58,13 @@ const Wishlist = () => {
                 ))}
             </div>
             )
-        ) : (<></>)}
+        ) : (
+            <div className="w-full grid grid-flow-col overflow-hidden">
+                {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map((key: any, index: any) => (
+                    <Skeleton key={key} className='pt-2 w-[150px] h-[150px] rounded-[10px] m-[5px]' />
+                ))}
+            </div>
+        )}
         </>
     );
 };
