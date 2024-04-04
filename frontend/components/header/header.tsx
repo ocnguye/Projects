@@ -7,16 +7,16 @@ const Header: React.FC = () => {
     return (
         <div className='bg-green-100'>
             <div className='flex justify-between w-full p-5 bg-yellow-200'
-            style={{
-                position: 'fixed',
-                top: 0,
-                zIndex: 100,
-            }}
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    zIndex: 100,
+                }}
             >
                 <div className='flex items-center justify-start mr-4 hover:scale-105 ease-in-out duration-300'>
                     <p className='md:text-3xl lg:text-5xl'>
                         <Link to="/">
-                            <strong className='text-green-600'>Angel Trading Co</strong>
+                            <h1>Angel Trading Co</h1>
                         </Link>
                     </p>
                 </div>
@@ -33,7 +33,7 @@ const Header: React.FC = () => {
                 </div>
                 <div className='flex flex-grow items-center justify-end'>
                     <div className='flex items-center hover:scale-105 ease-in-out duration-300 pr-2'>
-                        <SearchIcon style={{ marginRight: 10}}/>
+                        <SearchIcon style={{ marginRight: 10 }} />
                         <Search />
                     </div>
                     <Link to="/profile" className="mx-2 text-black hover:text-green-700 hover:scale-105 ease-in-out duration-300">
