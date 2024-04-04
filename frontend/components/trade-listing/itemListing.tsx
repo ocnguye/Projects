@@ -13,7 +13,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const ItemListing = () => {
-    const { id } = useParams();
     const location = useLocation();
     const listing: Listing = location.state;
 
@@ -23,11 +22,6 @@ const ItemListing = () => {
         }
         return series.toUpperCase()[0] + series.substring(1) + " Series";
     }
-    // need to show the image of the collectible
-    // add collectible to wishlist
-    // save post
-    // seller information
-    // pfp, name, rating, raters, link to profile
     const renderRating = (rating: number) => {
         let stars = []; 
         let i = 5;
