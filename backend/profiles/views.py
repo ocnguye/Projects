@@ -39,7 +39,6 @@ class ProfileViewSet(APIView):
         profile = Profile.objects.get(user=request.user)
         profile.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
     
 class ProfileListing(APIView):
     permission_classes = [IsAuthenticated]
@@ -62,6 +61,13 @@ class ProfileListing(APIView):
         profile.save()
         return Response(status=status.HTTP_201_CREATED)
     
+    def get(self, request):
+        profile = Profile.objects.get(user=request.user)
+        # otheruser = request.query_params.get("userId")
+        # Profile.objects.filter(user__username=otheruser).first()
+        collection = ListingSerializer(profile.collection, many=True)
+        return Response({"collection": collection.data}, status=status.HTTP_200_OK)
+    
     def delete(self, request):
         profile = Profile.objects.get(user=request.user)
         listing = Listing.objects.get(id=request.data['collectible'])
@@ -69,3 +75,4 @@ class ProfileListing(APIView):
         listing.delete()
         profile.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    

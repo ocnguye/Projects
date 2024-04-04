@@ -37,5 +37,5 @@ urlpatterns = [
     path('api/s3', S3URLView.as_view(), name="s3"),
     path('api/verify/', ImageVerification.as_view(), name="verify"),
     path('api/search', SearchCollectibles.as_view(), name="search"),
-
+    
 ]
