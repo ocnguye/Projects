@@ -6,12 +6,24 @@ import { useQuery } from "@tanstack/react-query";
 import Collection from './collections';
 import { getProfile } from "../../api/profile";
 import { useAuth } from "@clerk/clerk-react";
+import Wishlist from './wishlist';
 
+
+type ProfileData = {
+    bio: string,
+    username: string,
+    profile_img: string,
+    rating: number,
+    raters: number,
+    collection: any,
+    wishlist: any,
+    trades: any 
+}
 
 const Profile = () => { 
     const { getToken } = useAuth();
 
-    const { data, isLoading, isError }: any = useQuery({
+    const { data, isLoading, isError } = useQuery<ProfileData>({
         queryKey: ['profile'],
         queryFn: async () => {
             const token = await getToken();
@@ -39,17 +51,31 @@ const Profile = () => {
     }
 
     return (
-        <div style={{ height: 500, width: "100%", backgroundColor: "#dff0d8",}}>
+        <div style={{ height: 800, width: "100%", backgroundColor: "#dff0d8",}}>
             <UserButton afterSignOutUrl = "/" />
-            { !isLoading && !isError ? (
+            { !isLoading && !isError && data ? (
                 <>
-                    <h1>{data.username}({data.raters})</h1>
-                    {getStars(data.rating)}
+                    <h1>{data.username}</h1>
+                    {getStars(data.rating)}({data.raters})
+
+                    <div>
+                        <p>profile img: {data.profile_img}</p>
+                        <img src={data.profile_img} />
+                    </div>
+                    <div>
+                        <p> username: {data.username} </p>
+                    </div>
+                    <div>
+                        <p> bio: {data.bio} </p>
+                    </div>
+
                     <Collection/>
+                    <Wishlist/>
                 </>
                 ) 
                 : 
                 (<></>)}
+                
             
         </div>
     );

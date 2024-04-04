@@ -10,6 +10,7 @@ import SignUp from '../components/SignUp'
 import Login from '../components/Login'
 import ErrorPage from '../components/ErrorPage'
 import Trades from '../components/trades/trades';
+import Collection from '../components/collection_page/collections'
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, errorElement: <ErrorPage />,
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
         {path: 'product/:id', element: <TradeListing />},
         {path: 'trades', element: <Trades />},
         {path: 'listing/:id', element: <ItemListing />},
+        {path: 'collection', element: <Collection />}
     ]},
 
     {path : '/login', element: <Login />, },
