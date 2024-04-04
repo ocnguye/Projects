@@ -11,6 +11,8 @@ import Login from '../components/Login'
 import ErrorPage from '../components/ErrorPage'
 import Trades from '../components/trades/trades';
 import Collection from '../components/collection_page/collections'
+import Help from '../components/Help'
+import Contact from '../components/Contact'
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, errorElement: <ErrorPage />,
@@ -18,8 +20,8 @@ export const router = createBrowserRouter([
         {path: '', element: <Home />},
         {path: 'search', element: <Searched />},
         {path: 'about', element: <About />},
-        {path: 'help', element: <div>Help</div>},
-        {path: 'contactus', element: <div>Contact Us</div>},
+        {path: 'help', element: <Help />},
+        {path: 'contactus', element: <Contact />},
         {path: 'profile', element: <Profile />},
         {path: 'product/:id', element: <TradeListing />},
         {path: 'trades', element: <Trades />},
