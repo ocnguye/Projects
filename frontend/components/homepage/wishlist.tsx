@@ -19,6 +19,13 @@ const Wishlist = () => {
 
     const width = 150;
 
+    const getImage = (image: string) => {
+        image = image.replace(/https:\/\/smiski.com\/e/g, '');
+        image = `https://smiski.com/e${image.substring(1, image.length)}`;
+        console.log(image);
+        return image;
+    }
+
     return (
         <>
         { !isLoading && !isError ? (
@@ -52,7 +59,7 @@ const Wishlist = () => {
                             margin: '5px',
                         }}
                     >
-                        <img src={ data[key][0].split(',')[1] } alt={key} style={{height: '85%'}} />
+                        <img src={ getImage(data[key][0].split(',')[1]) } alt={key} style={{height: '85%'}} />
                         <p className="self-start pl-3">{data[key][0].split(',')[0]} Trades</p>
                     </div>
                 ))}
