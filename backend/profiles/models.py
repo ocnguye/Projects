@@ -11,6 +11,7 @@ class Profile(models.Model):
     raters = models.IntegerField(default=0)
     username = models.CharField(max_length=100, default="")
     profile_img = models.CharField(max_length=255, default="", blank=True)
+    favorites = models.ManyToManyField('trades.Listing', related_name="favorites", blank=True, default=None)
     
     def __str__(self):
         return self.user.username

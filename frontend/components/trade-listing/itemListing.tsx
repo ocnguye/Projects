@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { Listing } from '../../api/search';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import Avatar from '@mui/material/Avatar';
@@ -10,10 +10,15 @@ import { cleanImage } from '../utils/images';
 import useWindowDimensions from '../../utils/window';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import Tooltip from '@mui/material/Tooltip';
+import Favorite from './favorite';
+
 
 const ItemListing = () => {
     const location = useLocation();
     const listing: Listing = location.state;
+    const { id } = useParams<{id: string}>();
 
     const formatSeries = ( series: string ) => {
         if (series.includes("-")) {
@@ -82,9 +87,15 @@ const ItemListing = () => {
                         {listing.description}
                     </p>
                 </div>
-                <div className="hover:cursor-pointer flex justify-center items-center hover:scale-102 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 w-full" 
-                >
-                    <p className='text-md'>Message User</p>
+                <div className='flex space-x-2'>
+                    <div className="hover:cursor-pointer flex justify-center items-center hover:scale-102 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 w-full" 
+                    >
+                        <p className='text-md'>Message User</p>
+                    </div>
+                    <Favorite id={id}/>
+                    <Tooltip title="Add to Wishlist" arrow>
+                        <BookmarkBorderIcon fontSize='large' />
+                    </Tooltip>
                 </div>
                 <div className='space-y-2 w-full sm:col-span-2'>
                     <h1 className='text-3xl'>User Information</h1>
