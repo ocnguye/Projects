@@ -16,7 +16,7 @@ const Header: React.FC = () => {
                 <div className='flex items-center justify-start mr-4 hover:scale-105 ease-in-out duration-300'>
                     <p className='md:text-3xl lg:text-5xl'>
                         <Link to="/">
-                            <strong className='text-green-800'>Angel Trading Co</strong>
+                            <strong className='text-green-600'>Angel Trading Co</strong>
                         </Link>
                     </p>
                 </div>
