@@ -81,7 +81,7 @@ const Help: React.FC = () => {
             <div className="bg-green-150 w-3/4 md:w-1/2 lg:w-2/5 h-24 rounded-3xl flex items-center justify-center mb-24 shadow-lg">
                 <p className="text-pink-300 text-3xl font-bold">Hi Pookie, how may we help?</p>
             </div>
-            <div className="w-full max-w-6xl flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-4">
                 {rows.map((row, index) => (
                     <div key={index} className="bg-green-150 rounded-xl shadow-md overflow-hidden">
                         <div 
