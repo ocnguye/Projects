@@ -47,7 +47,7 @@ const Search: React.FC = () => {
         <Link to={`/search`} state={{searchTerm: debouncedSearchTerm}} className='flex'>
             <form onSubmit={handleSubmit} >
             <input
-                className='rounded-lg border-none bg-gray-300 p-1 text-black text-md h-8'
+                className='rounded-lg w-full border-none bg-gray-300 p-1 text-black text-md h-8'
                 type="text"
                 placeholder="Search..."
                 value={searchTerm}
