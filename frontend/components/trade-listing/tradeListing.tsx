@@ -37,7 +37,7 @@ const TradeListing = () => {
                     >
                         <img src={ getProductImage(data.collectible.image) } className='object-cover h-32 rounded-xl col-span-1' />
                         <div className='col-span-2'>
-                            <h1>{formatSeries(data.collectible.series)}</h1>
+                            <h1 className='text-2xl md:text-3xl'>{formatSeries(data.collectible.series) }</h1>
                             <p>{data.collectible.name}</p>
                         </div>
                     </div>
