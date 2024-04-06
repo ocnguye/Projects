@@ -34,7 +34,7 @@ class CollectiblesByID(APIView):
         except:
             return Response({
                 'error': 'Collectible not found'
-            }, status=status.HTTP_404_NOT_FOUND)
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 class SearchCollectibles(APIView):
     permission_classes = [IsAuthenticated]

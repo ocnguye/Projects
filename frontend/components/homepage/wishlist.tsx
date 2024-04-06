@@ -4,6 +4,7 @@ import { useAuth } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "../utils/Skeleton";
 import { getProductImage } from "../../utils/images";
+import { ScrollArea, ScrollBar } from '../utils/ScrollArea';
 
 const Wishlist = () => {
     const { getToken } = useAuth();
@@ -18,7 +19,6 @@ const Wishlist = () => {
         } 
     });
 
-    const width = 150;
 
     return (
         <>
@@ -39,10 +39,11 @@ const Wishlist = () => {
             </div>
             </> 
             ) : (
-            <div style={{ display: 'flex', width: width*Object.keys(data).length }}>
-                {Object.keys(data).map((key: any, index: any) => (
+                <ScrollArea className="w-full whitespace-nowrap rounded-md scroll-p-2">
+                <div className="flex w-max space-x-2">
+                    {Object.keys(data).map((key:any, index:any) => (
                     <div
-                        className="pt-2 bg-yellow-200 hover:scale-110 ease-in-out duration-300
+                        className="pt-2 bg-yellow-200 hover:scale-102 ease-in-out duration-300
                         flex flex-col items-center justify-center hover:cursor-pointer"
                         key={index}
                         onClick={() => navigate(`/product/${key}`)}
@@ -50,14 +51,15 @@ const Wishlist = () => {
                             width: '150px',
                             height: '150px',
                             borderRadius: '10px',
-                            margin: '5px',
                         }}
                     >
                         <img src={ getProductImage(data[key][0].split(',')[1]) } alt={key} style={{height: '85%'}} />
                         <p className="self-start pl-3">{data[key][0].split(',')[0]} Trades</p>
                     </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+                <ScrollBar orientation="horizontal" />
+            </ScrollArea>
             )
         ) : (
             <div className="w-full grid grid-flow-col overflow-hidden">

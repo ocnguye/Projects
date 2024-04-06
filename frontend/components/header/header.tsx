@@ -71,8 +71,8 @@ const Header: React.FC = () => {
     )
 
     return (
-        <div className='bg-green-100'>
-            <div className='flex justify-between grid-cols-3 items-center bg-yellow-200 fixed top-0 left-0 right-0 z-10 h-20 w-full gap-2 p-3'
+        <div className='bg-green-100 w-full'>
+            <div className='flex justify-center grid-cols-3 items-center bg-yellow-200 h-20 gap-2 pt-2 px-2'
             >
                 <Link to="/">
                     <strong className='text-green-800 font-extrabold text-xl sm:text-2xl pr-2 md:text-3xl md:w-full'>Angel Trading</strong>
@@ -107,7 +107,7 @@ const Header: React.FC = () => {
                 </Link>
             </div>
 
-            <div className='px-5 pb-10 mt-24 flex overflow-clip'>
+            <div className='pb-10 h-screen bg-green-100 flex mx-2 mt-2'>
                 <Outlet />
             </div>
         </div>
