@@ -72,7 +72,7 @@ const Header: React.FC = () => {
 
     return (
         <div className='bg-green-100 w-full'>
-            <div className='flex justify-between grid-cols-3 items-center bg-yellow-200 h-20 gap-2 pt-2 px-2'
+            <div className='flex justify-between grid-cols-3 items-center bg-yellow-200 h-20 gap-2 pt-2 px-2 '
             >
                 <Link to="/">
                     <strong className='text-green-800 font-extrabold text-2xl sm:text-3xl pr-2 md:text-4xl md:w-full'>Angel Trading</strong>

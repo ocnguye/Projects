@@ -29,13 +29,13 @@ const theme = createTheme({
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-<ThemeProvider theme={theme}>
   <React.StrictMode>
+    <ThemeProvider theme={theme}>
     <QueryClientProvider client={queryClient}>
         <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
             <RouterProvider router={router} />
         </ClerkProvider>
     </QueryClientProvider>
+    </ThemeProvider>
   </React.StrictMode>
-</ThemeProvider>
 )
