@@ -21,7 +21,7 @@ const Searched = () => {
     });
 
     return (
-        <div>
+        <div className='h-screen'>
             <p>Showing results for "{searched ? searched : "All"}"</p>
             <div
                 style={{

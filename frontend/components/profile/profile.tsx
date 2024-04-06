@@ -51,7 +51,7 @@ const Profile = () => {
     }
 
     return (
-        <div style={{ height: 800, width: "100%", backgroundColor: "#dff0d8",}}>
+        <div style={{width: "100%", backgroundColor: "#dff0d8",}} className="h-screen">
             <UserButton afterSignOutUrl = "/" />
             { !isLoading && !isError && data ? (
                 <>

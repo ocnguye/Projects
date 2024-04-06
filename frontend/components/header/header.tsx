@@ -107,7 +107,7 @@ const Header: React.FC = () => {
                 </Link>
             </div>
 
-            <div className='pb-10 h-screen bg-green-100 flex mx-2 mt-2'>
+            <div className='pb-10 bg-green-100 flex mx-2 mt-2'>
                 <Outlet />
             </div>
         </div>

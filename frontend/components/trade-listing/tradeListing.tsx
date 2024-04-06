@@ -28,7 +28,7 @@ const TradeListing = () => {
     }
 
     return (
-        <div>
+        <div className='h-screen'>
             { !isLoading && !isError && data ? (
                 <div className='grid justify-start grid-cols-3 space-y-2'>
                     <div

@@ -41,8 +41,8 @@ const Login: React.FC = () => {
           }
      
         } catch (err: any) {
-            alert("Account not found, please try again.")
-            console.error("error", err.errors[0].longMessage)
+            alert("Account not found, please try again.");
+            console.error("error", err.errors[0].longMessage);
         }
       };
 

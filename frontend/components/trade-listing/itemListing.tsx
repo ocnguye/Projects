@@ -51,7 +51,7 @@ const ItemListing = () => {
 
     const { width } = useWindowDimensions();
     return (
-        <section className='grid w-full gap-3 sm:grid-cols-2'>
+        <section className='grid w-full gap-3 sm:grid-cols-2 h-screen'>
             <div className='flex-1 align-items-center justify-center'>
                 <div className='grid row-start-1 col-start-1 items-center'>
                     <img src={images[imageIndex]} alt={listing.collectible.name} className='object-cover rounded-lg row-start-1 col-start-1' style={{width: width, height: width > 640 ? width/2 : width}}/>
