@@ -13,7 +13,7 @@ import Missing from './missing';
 
 const Home: React.FC = () => {
     return (
-        <div className='w-full md:flex md:justify-between'>
+        <div className='w-full md:flex md:justify-between h-screen'>
             <div className='w-full md:w-[78%] lg:w-[83%] xl:w-[84%] 2xl:w-[87%]'>
                 <Featured />
                 <p className='text-lg'>Missing From Your Collection</p>

@@ -12,7 +12,6 @@ type FavoriteProps = {
 const Favorite = ({id} : FavoriteProps) => {
 
     const handleFavorite = () => {
-        console.log(id);
         return (
             <Tooltip title="Add to Favorites" arrow>
                 <div>

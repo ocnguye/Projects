@@ -2,7 +2,7 @@ import NewTrade from './newTrade';
 
 const Trades = () => {
     return (
-        <div>
+        <div className='h-screen'>
             <h1>Trades</h1>
             <NewTrade />
         </div>
