@@ -52,7 +52,7 @@ const Collection = () => {
         // render collectibles
         return Object.entries(collectiblesBySeries).map(([series, seriesCollectibles]) => (
             <div key={series} className="flex flex-wrap">
-                <div className="bg-yellow-350 w-full mb-2 pl-3">{formatSeries(series)}</div>
+                <div className="bg-yellow-350 w-full mb-2 pl-3 text-transform: uppercase text-lg">{formatSeries(series)}</div>
                 {seriesCollectibles.map((collection: PCollection) => (
                     <div key={collection.id} className="w-1/6 p-4 flex flex-col items-center"> 
                         <img src={getProductImage(collection.image)} className={`w-50 h-50 object-cover rounded-lg opacity-${collection.owned ? "100" : "30"}`} alt={collection.name} />
