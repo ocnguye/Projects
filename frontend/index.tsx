@@ -4,15 +4,15 @@ import React from 'react';
 // header: the text in the header.
 // content: text, can include any content. should follow the "white" color scheme.
 // wrap inside a div of proper size.
-const whitePaper = ({ header, content }) => {
+const whitePaper = ({ header, text }) => {
     return (
         <div className='bg-white flex flex-col h-full w-full px-6 pt-4 space-y-2 shadow-2x1'>
             <h3 className='white'>
                 {header}
             </h3>
-            <div>
-                {content}
-            </div>
+            <p className='white'>
+                {text}
+            </p>
 
         </div>
     );
