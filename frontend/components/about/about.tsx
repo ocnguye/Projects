@@ -4,8 +4,8 @@ import realpicofpookies from './realpicofpookies.png';
 
 const About: React.FC = () => {
     return (
-        <div className="bg-[#DFF0D8] flex justify-evenly items-center h-screen w-screen px-10 py-4 space-x-8">
-            <div className="bg-transparent flex flex-col justify-evenly h-full w-1/2 px-15 space-y-6">
+        <div className="bg-[#DFF0D8] md:flex md:justify-evenly md:items-center md:h-screen md:w-screen md:px-10 md:py-4 md:space-x-8 grid grid-cols-1 gap-3 ">
+            <div className="bg-transparent flex flex-col justify-evenly md:h-full md:w-1/2 px-15 space-y-6">
 
                 <img src={realpicofpookies} alt="Real picture of The Pookies" className="bg-yellow-100 rounded-xl flex h-1/3 w-full"></img>
 
@@ -21,7 +21,7 @@ const About: React.FC = () => {
 
             </div>
 
-            <div className="bg-transparent flex flex-col justify-evenly h-full w-1/2 px-15 space-y-4">
+            <div className="bg-transparent md:flex md:flex-col md:justify-evenly md:h-full md:w-1/2 px-15 space-y-4">
                 <div className="bg-[#C3F49D] rounded-xl flex flex-col h-2/3 w-full">
                     <h3 className="text-green-600 text-3xl text-right font-bold px-4 py-2 pt-4"> Angel Trading Co. </h3>
                     <p className='text-right px-4'>The long-awaited site for Smiski trading is here! Angel Trading Co. provides a space to keep track of what Smiskis you already own in your Collection, create a Wishlist of Smiskis you’re looking for, and plan Smiski trades with other users!
