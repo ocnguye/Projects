@@ -13,9 +13,14 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Tooltip from '@mui/material/Tooltip';
 import Favorite from './favorite';
+import { postChat } from '../../api/api';
+import { useAuth } from '@clerk/clerk-react';
+import { useNavigate } from 'react-router-dom';
 
 
 const ItemListing = () => {
+    const { getToken } = useAuth();
+    const navigate = useNavigate();
     const location = useLocation();
     const listing: Listing = location.state;
     const { id } = useParams<{id: string}>();
@@ -89,6 +94,12 @@ const ItemListing = () => {
                 </div>
                 <div className='flex space-x-2'>
                     <div className="hover:cursor-pointer flex justify-center items-center hover:scale-102 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 w-full" 
+                    onClick={async () => {
+                            navigate(`/messages`);
+                            const token = await getToken();
+                            await postChat(`contacts/${listing.user.user}`, listing, token);
+                        }
+                    }
                     >
                         <p className='text-md'>Message User</p>
                     </div>
