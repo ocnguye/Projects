@@ -14,13 +14,13 @@ import Missing from './missing';
 const Home: React.FC = () => {
     return (
         <div className='w-full md:flex md:justify-between h-screen'>
-            <div className='w-full md:w-[78%] lg:w-[83%] xl:w-[84%] 2xl:w-[87%]'>
+            <div className='w-full md:w-[78%] lg:w-[83%] xl:w-[84%] 2xl:w-[87%] space-y-8'>
                 <Featured />
-                <div className="bg-white shadow-2xl">
+                <div className="bg-white shadow-md px-4 py-4">
                     <h3 className='white'>MISSING FROM YOUR COLLECTION</h3>
                     <Missing />
                 </div>
-                <div className="bg-white shadow-2xl">
+                <div className="bg-white shadow-md px-4 py-4">
                     <h3 className='white'>WISHLIST RECOMMENDATIONS</h3>
                     <Wishlist />
                 </div>
@@ -68,7 +68,7 @@ const Home: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

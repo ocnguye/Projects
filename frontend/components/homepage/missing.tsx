@@ -33,7 +33,7 @@ const Missing = () => {
                                 margin: '5px',
                             }}
                         >
-                            <p>We couldn't find any results, come back later and there may be more trades available! :]</p>
+                            <p>We couldn't find any results, come back later and there may be more trades available! :&gt;</p>
                         </div>
                     </>
                 ) : (
