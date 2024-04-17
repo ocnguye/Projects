@@ -1,11 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Titan+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Viga&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
 :root {
-  font-family: Syne Mono;
   line-height: 1.5;
   font-weight: 400;
 
@@ -19,13 +20,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 a {
+  /* font-family: Montserrat; */
+  /*Temporary, to change appearance of all current text*/
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  color: #E25463;
 }
 
 body {
@@ -36,9 +41,56 @@ body {
   flex-direction: column;
 }
 
+/*essentially for logo use only*/
 h1 {
-  font-size: 3.2em;
+  font-family: Titan One;
+  color: #79BD44;
+}
+
+/* big title text */
+h2 {
+  color: #A1DF51;
+  font-family: Titan One;
+  font-size: 3em;
   line-height: 1.1;
+}
+
+/* headers */
+h3 {
+  font-family: Viga;
+  font-size: 1.6em;
+  line-height: 1.1;
+}
+
+h3.green {
+  color: #79BD44;
+}
+
+h3.white {
+  color: #A1DF51;
+}
+
+h3.yellow {
+  color: #F1BE0A;
+}
+
+/* normal body text */
+p {
+  font-family: Montserrat;
+  font-size: 1.2em;
+  line-height: 1.4;
+}
+
+p.green {
+  color: #2B542C;
+}
+
+p.white {
+  color: #666666;
+}
+
+p.yellow {
+  color: #666666;
 }
 
 button {
@@ -52,9 +104,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

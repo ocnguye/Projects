@@ -24,31 +24,31 @@ const Header: React.FC = () => {
             <div className='h-10 flex justify-between items-center'>
                 <strong className='text-xl w-1/2'>Angel Trading</strong>
                 <div className='hover:cursor-pointer hover:bg-gray-700 hover:bg-opacity-20 rounded-full align-middle p-2'>
-                    <CloseIcon onClick={handleToggle(false)} fontSize="medium" sx={{justifyContent: 'center'}}/>
+                    <CloseIcon onClick={handleToggle(false)} fontSize="medium" sx={{ justifyContent: 'center' }} />
                 </div>
             </div>
             <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300 pt-5'>
                 <Badge className="mr-4" badgeContent={4} color="primary">
-                    <InboxIcon style={{ zIndex:0 }}/>
+                    <InboxIcon style={{ zIndex: 0 }} />
                 </Badge>
                 <Link to="/messages">
                     <p className='text-black'>Messages</p>
                 </Link>
             </div>
             <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-                <FavoriteBorderOutlinedIcon className='mr-4'/>
+                <FavoriteBorderOutlinedIcon className='mr-4' />
                 <Link to="/favorites">
                     <p className='md:text-md lg:text-xl xl:text-xl text-black'>Favorites</p>
                 </Link>
             </div>
             <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-                <InventoryIcon className='mr-4'/>
+                <InventoryIcon className='mr-4' />
                 <Link to="/collection">
                     <p className='md:text-md lg:text-xl xl:text-xl text-black'>Collection</p>
                 </Link>
             </div>
             <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-                <CachedIcon className='mr-4'/>
+                <CachedIcon className='mr-4' />
                 <Link to="/trades">
                     <p className='md:text-md lg:text-xl xl:text-xl text-black'>Trades</p>
                 </Link>
@@ -62,7 +62,7 @@ const Header: React.FC = () => {
                 </Link>
             </div>
             <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-                <PersonIcon className='mr-4'/>
+                <PersonIcon className='mr-4' />
                 <Link to="/profile">
                     <p className='md:text-md lg:text-xl xl:text-xl text-black'>Profile</p>
                 </Link>
@@ -72,28 +72,28 @@ const Header: React.FC = () => {
 
     return (
         <div className='bg-green-100 w-full'>
-            <div className='flex justify-between grid-cols-3 items-center bg-yellow-200 h-20 gap-2 pt-2 px-2 '
+            <div className='flex justify-between grid-cols-3 items-center bg-white h-20 gap-2 pt-2 px-2 '
             >
                 <Link to="/">
-                    <strong className='text-green-800 font-extrabold text-2xl sm:text-3xl pr-2 md:text-4xl md:w-full'>Angel Trading</strong>
+                    <h1 className='font-extrabold text-2xl sm:text-3xl pr-2 md:text-4xl md:w-full'>Angel Trading</h1>
                 </Link>
                 <div className='md:flex md:items-center hidden space-x-3 md:text-lg flex-grow justify-center'>
-                    <Link to="/about" className="text-black hover:text-red-400">
-                        <strong>About</strong>
+                    <Link to="/about" className="text-gray-600 hover:text-pink-500">
+                        <p>About</p>
                     </Link>
-                    <Link to="/help" className="text-black hover:text-red-400">
-                        <strong>Help</strong>
+                    <Link to="/help" className="text-gray-600 hover:text-pink-500">
+                        <p>Help</p>
                     </Link>
-                    <Link to="/contactus" className="text-black hover:text-red-400 ">
-                        <strong>Contact</strong>
+                    <Link to="/contactus" className="text-gray-600 hover:text-pink-500">
+                        <p>Contact</p>
                     </Link>
                 </div>
-                <div className='flex flex-shrink items-center justify-center md:justify-end place-self-center'>
-                    <SearchIcon/>
+                <div className='text-yellow-500 flex flex-shrink items-center justify-center md:justify-end place-self-center'>
+                    <SearchIcon style={{ marginRight: 10 }} />
                     <Search />
                 </div>
                 <div className='flex items-center justify-center p-2 md:hidden hover:cursor-pointer hover:bg-gray-700 hover:bg-opacity-20 rounded-full align-middle'>
-                    <MenuIcon onClick={handleToggle(true)} sx={{justifyContent: 'center'}}/>
+                    <MenuIcon onClick={handleToggle(true)} sx={{ justifyContent: 'center' }} />
                     <Drawer
                         anchor='right'
                         open={open}
@@ -102,8 +102,8 @@ const Header: React.FC = () => {
                         {hamburger}
                     </Drawer>
                 </div>
-                <Link to="/profile" className="text-black hover:text-red-400 hidden md:flex">
-                    <strong>Profile</strong>
+                <Link to="/profile" className="text-gray-600 hover:text-pink-500 hidden md:flex">
+                    <p>Profile</p>
                 </Link>
             </div>
 
