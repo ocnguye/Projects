@@ -26,7 +26,7 @@ const addMessage = async (userA, userB, message) => {
 };
 
 const createContact = async (sender, receiver, listing, mId=null) => {
-    if (key !== null) { 
+    if (mId !== null) { 
         const contactsRef = doc(db, "users", sender, "contacts", mId); 
         await setDoc(contactsRef, {name: receiver, created_at: serverTimestamp(), listing: {
             user: {

@@ -1,13 +1,17 @@
 // should render the chats for a given chatId
 //@ts-nocheck
 import { send } from 'process';
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { useParams } from 'react-router-dom';
 import { get, getChat } from '../../api/api';
 import { useAuth } from '@clerk/clerk-react';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'react-router-dom';
+import { TextField } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import Divider from '@mui/material/Divider';
+import { MessageState } from './messages';
 
 const chatDomain = import.meta.env.VITE_CHAT_URL;
 
@@ -22,18 +26,21 @@ type Message = {
     time_sent: Time;
 }
 
-const Chat: React.FC = () => {
+type ChatProps = {
+    state: MessageState;
+    id: string;
+}
+
+const Chat: React.FC = ({state, id}: ChatProps) => {
 
     const { getToken, userId } = useAuth();
-    const { state } = useLocation();
 
     const socket = io.connect(chatDomain, { auth: { "self": state.self, "other": state.other, "id": state.id } });
     
 
     const [messages, setMessages] = useState([]);
-    const [messageText, setMessageText] = useState(""); // possibly turn into length 2 array [text, "me" or "other"]?
+    const [messageText, setMessageText] = useState("");
     const [room, setRoom] = useState("");
-    const { id } = useParams();
 
     const joinRoom = () => {
         if (room !== "") 
@@ -43,6 +50,7 @@ const Chat: React.FC = () => {
     }
 
     const sendMessage = () => {
+        if (messageText === "") return;
         const newMessage = { text: messageText, isOutgoing: true, room: room };
         socket.emit("send_msg", { messageText, room });
         setMessageText("");
@@ -53,13 +61,14 @@ const Chat: React.FC = () => {
     };
 
     useEffect(() => {
+        setMessages([]);
         socket.on("receive_msg", receiveMessage);
 
         return () => {
             socket.off("receive_msg", receiveMessage);
             setMessages([]);
         };
-    }, []);
+    }, [state]);
 
     const { data, isLoading, isError } = useQuery<Message[]>({
         queryKey: ['messages', id],
@@ -82,24 +91,30 @@ const Chat: React.FC = () => {
         }
     }, [data]);
 
-    return (
-        <div className = "bg-yellow-200 w-96 h-[90svh] flex flex-col">
-            {/* Top border with username and buttons */}
-            <div className="flex-grow overflow-auto">
-                <div className="bg-gray-200 w-full flex flex-row items-center text-black justify-between">
-                    <button className="text-m bg-transparent"> &lt; Back </button>
-                    <h2 className="text-xl"> Dr. Epstein </h2>
-                    <button className="text-m bg-transparent"> Requests </button>
-                </div>
+    const messagesEndRef = React.useRef<HTMLDivElement | null>(null);
 
-                {/* Main chat area with messages */}
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [messages]);
+
+    return (
+        <div className = "bg-yellow-200 h-full flex flex-col">
+            <div className="bg-gray-200 h-10 p-2 flex flex-row items-center text-black ">
+                <h2 className="text-lg">{state.username}</h2>
+            </div>
+            <Divider />
+            <div className="flex-grow overflow-auto">
+
                 { !isLoading && !isError ? (
-                <div className="messages flex flex-col">
+                <div className="flex flex-col">
                     {messages.map((message, index) => (
                         <div key={index} className={`message m-2 p-2 rounded inline-block max-w-xs break-words ${message.sender === userId ? 'self-end bg-green-150' : 'self-start bg-gray-200 '}`}>
                             {message.text}
                         </div>
                     ))}
+                    <div ref={messagesEndRef} />
                 </div> ) : (
                     <div>
                         <h2>Loading...</h2>
@@ -108,26 +123,24 @@ const Chat: React.FC = () => {
 
             </div>
 
-            <div className="flex flex-col space-y-2 p-2">
+            <div className="flex flex-col">
                 <div className="flex items-center">
-                    <input 
-                        placeholder='Type a message...' 
-                        value = {messageText}
-                        onChange={(event) => {setMessageText(event.target.value)}} 
-                        onKeyDown={(event) => {
-                            if (event.key === "Enter" && messageText !== "") {
-                                sendMessage();
-                                event.preventDefault(); 
-                            }
-                        }}
-                        className="flex-grow bg-gray-200 p-2 rounded-lg rounded-r-none"
-                    />
-                    {
-                        messageText !== "" ?
-                        <button onClick={sendMessage} className="bg-green-150 p-2 rounded-lg rounded-l-none hover:bg-green-250 active:bg-green-350 "> Send </button>
-                        :
-                        <button className="bg-gray-100 p-2 rounded-lg rounded-l-none "> Send </button>
-                    }
+                    <div className='flex w-full'>
+                        <textarea 
+                            placeholder='Message...' 
+                            rows="1"
+                            value = {messageText}
+                            onChange={(event) => {setMessageText(event.target.value)}} 
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter" && messageText !== "" && !event.shiftKey) {
+                                    event.preventDefault();
+                                    sendMessage();
+                                }
+                            }}
+                            className="bg-gray-200 p-2 rounded-lg m-1"
+                            style={{width: '100%'}}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

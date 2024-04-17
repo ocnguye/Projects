@@ -28,7 +28,7 @@ const RenderListings = ({data}: ListingsParams) => {
         >
             {
                 data.map((listing) => (
-                    <div className='bg-yellow-200 rounded-lg p-2 space-y-2 hover:scale-101 ease-in-out duration-300 hover:cursor-pointer'>
+                    <div key={listing.id} className='bg-yellow-200 rounded-lg p-2 space-y-2 hover:scale-101 ease-in-out duration-300 hover:cursor-pointer'>
                         <img src={cleanImage(listing.images)} alt="" className='rounded-2xl object-cover h-44 w-full'
                         onClick={() => navigate(`/listing/${listing.id}`, { state: listing })}
                         />

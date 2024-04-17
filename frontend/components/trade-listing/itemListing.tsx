@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Listing } from '../../api/search';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import Avatar from '@mui/material/Avatar';
-import StarIcon from '@mui/icons-material/Star';
-import StarHalf from '@mui/icons-material/StarHalf';
-import StarBorder from '@mui/icons-material/StarBorder';
+import { renderRating } from '../utils/renderRating';
 import { cleanImage } from '../utils/images';
 import useWindowDimensions from '../../utils/window';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -31,18 +29,6 @@ const ItemListing = () => {
         }
         return series.toUpperCase()[0] + series.substring(1) + " Series";
     }
-    const renderRating = (rating: number) => {
-        let stars = []; 
-        let i = 5;
-        while (i > 0) {
-            if (rating >= 1) stars.push(<StarIcon color="success"/>);
-            else if (rating >= 0.5) stars.push(<StarHalf color="success"/>);
-            else stars.push(<StarBorder color="success"/>);
-            i--;
-            rating--;
-        }
-        return stars;
-    }
 
 
     const getImages = (images: string) => {
@@ -67,7 +53,7 @@ const ItemListing = () => {
                 </div>
                 <div className='flex flex-wrap'>
                     {images.map((image, index) => (
-                        <div className='pr-1 pt-1' key={index}
+                        <div className='pr-1 pt-1' key={image}
                             onClick={() => setImageIndex(index)}
                         >
                             <img src={image} alt={listing.collectible.name} className='object-cover w-16 h-16 rounded-xl hover:cursor-pointer'
@@ -95,9 +81,9 @@ const ItemListing = () => {
                 <div className='flex space-x-2'>
                     <div className="hover:cursor-pointer flex justify-center items-center hover:scale-102 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 w-full" 
                     onClick={async () => {
-                            navigate(`/messages`);
-                            const token = await getToken();
-                            await postChat(`contacts/${listing.user.user}`, listing, token);
+                        navigate(`/messages`);
+                        const token = await getToken();
+                        await postChat(`contacts/${listing.user.user}`, listing, token);
                         }
                     }
                     >

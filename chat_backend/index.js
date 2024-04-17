@@ -45,6 +45,7 @@ app.get(
     ClerkExpressRequireAuth(),
     (req, res) => {
         try {
+            console.log("GET /contacts/")
             const user = req.auth.userId;
             getContacts(user).then(contacts => {
                 const resp = contacts.map(doc => {
@@ -71,6 +72,7 @@ app.post(
     ClerkExpressRequireAuth(),
     async (req, res) => {
         try {
+            console.log("POST /contacts/:other")
             const user = req.auth.userId;
             const listing = req.body;
             listing.user = {
@@ -95,6 +97,7 @@ app.get(
     ClerkExpressRequireAuth(),
     (req, res) => {
         try {
+            console.log("GET /messages/:mId")
             const user = req.auth.userId;
             const mId = req.params.mId;
             markUnreadStatus(user, mId, false);

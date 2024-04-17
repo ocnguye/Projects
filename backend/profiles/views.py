@@ -76,3 +76,18 @@ class ProfileListing(APIView):
         profile.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+class ProfileContact(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        otheruser = request.query_params.get("userId")
+        profile = Profile.objects.get(user__username=otheruser)
+        profile = ProfileSerializer(profile).data
+        data = {
+            "profile_img": profile["profile_img"],
+            "username": profile["username"],
+            "rating": profile["rating"],
+            "raters": profile["raters"],
+        }
+        return Response( data , status=status.HTTP_200_OK)
+    
