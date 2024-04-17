@@ -53,7 +53,7 @@ const ContactsBar = ({messageState, setMessageState}: any) => {
     });
 
     React.useEffect(() => {
-        if (data) setMessageState({self: userId, other: data[0].other, id: data[0].id, username: data[0].listing?.user.username});
+        if (data && data.length > 0) setMessageState({self: userId, other: data[0].other, id: data[0].id, username: data[0].listing?.user.username});
     }, [data]);
 
     React.useEffect(() => {
