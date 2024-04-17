@@ -34,7 +34,7 @@ const Wishlist = () => {
                                 margin: '5px',
                             }}
                         >
-                            <p>We couldn't find any results. Try adding more items to your wishlist :&gt;</p>
+                            <p className="white">We couldn't find any results. Try adding more items to your wishlist :&gt;</p>
                         </div>
                     </>
                 ) : (
