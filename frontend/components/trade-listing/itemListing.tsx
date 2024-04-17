@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Listing } from '../../api/search';
 import VerifiedIcon from '@mui/icons-material/Verified';
