@@ -35,6 +35,9 @@ class JWTAuthenticationMiddleware(BaseAuthentication):
             return None
         else:
             if found:
+                profile = Profile.objects.get(user=user)
+                profile.username = info["username"]
+                profile.save()
                 user.email = info["email_address"]
                 user.first_name = info["first_name"]
                 user.last_name = info["last_name"]
@@ -83,6 +86,7 @@ class ClerkSDK:
                 "last_login": datetime.datetime.fromtimestamp(
                     data["last_sign_in_at"] / 1000, tz=pytz.UTC
                 ),
+                "username": data["username"] if data["username"] else "",
             }, True
         else:
             return {
