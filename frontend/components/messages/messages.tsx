@@ -98,6 +98,9 @@ const ContactsBar = ({messageState, setMessageState}: any) => {
     }
         
     function stringAvatar(name: string) {
+        if (!name) return;
+        if (name.length === 0) return;
+        if (name[0].length === 0) return;
         return {
             sx: {
             bgcolor: stringToColor(name),
