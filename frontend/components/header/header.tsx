@@ -72,23 +72,23 @@ const Header: React.FC = () => {
 
     return (
         <div className='bg-green-100 w-full'>
-            <div className='flex justify-between grid-cols-3 items-center bg-yellow-200 h-20 gap-2 pt-2 px-2 '
+            <div className='flex justify-between grid-cols-3 items-center bg-white h-20 gap-2 pt-2 px-2 '
             >
                 <Link to="/">
-                    <h1 className='text-green-800 font-extrabold text-2xl sm:text-3xl pr-2 md:text-4xl md:w-full'>Angel Trading</h1>
+                    <h1 className='font-extrabold text-2xl sm:text-3xl pr-2 md:text-4xl md:w-full'>Angel Trading</h1>
                 </Link>
                 <div className='md:flex md:items-center hidden space-x-3 md:text-lg flex-grow justify-center'>
-                    <Link to="/about" className="text-black hover:text-red-400">
-                        <strong>About</strong>
+                    <Link to="/about" className="text-gray-600 hover:text-pink-500">
+                        <p>About</p>
                     </Link>
-                    <Link to="/help" className="text-black hover:text-red-400">
-                        <strong>Help</strong>
+                    <Link to="/help" className="text-gray-600 hover:text-pink-500">
+                        <p>Help</p>
                     </Link>
-                    <Link to="/contactus" className="text-black hover:text-red-400 ">
-                        <strong>Contact</strong>
+                    <Link to="/contactus" className="text-gray-600 hover:text-pink-500">
+                        <p>Contact</p>
                     </Link>
                 </div>
-                <div className='flex flex-shrink items-center justify-center md:justify-end place-self-center'>
+                <div className='text-yellow-500 flex flex-shrink items-center justify-center md:justify-end place-self-center'>
                     <SearchIcon style={{ marginRight: 10 }} />
                     <Search />
                 </div>
@@ -102,8 +102,8 @@ const Header: React.FC = () => {
                         {hamburger}
                     </Drawer>
                 </div>
-                <Link to="/profile" className="text-black hover:text-red-400 hidden md:flex">
-                    <strong>Profile</strong>
+                <Link to="/profile" className="text-gray-600 hover:text-pink-500 hidden md:flex">
+                    <p>Profile</p>
                 </Link>
             </div>
 

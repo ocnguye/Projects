@@ -16,39 +16,43 @@ const Home: React.FC = () => {
         <div className='w-full md:flex md:justify-between h-screen'>
             <div className='w-full md:w-[78%] lg:w-[83%] xl:w-[84%] 2xl:w-[87%]'>
                 <Featured />
-                <p className='text-lg'>Missing From Your Collection</p>
-                <Missing />
-                <p className='text-lg'>Wishlist Recommendations</p>
-                <Wishlist />
+                <div className="bg-white shadow-2xl">
+                    <h3 className='white'>MISSING FROM YOUR COLLECTION</h3>
+                    <Missing />
+                </div>
+                <div className="bg-white shadow-2xl">
+                    <h3 className='white'>WISHLIST RECOMMENDATIONS</h3>
+                    <Wishlist />
+                </div>
             </div>
             <div className='px-3'>
-                <Divider orientation="vertical"/>
+                <Divider orientation="vertical" />
             </div>
             <div className='hidden md:flex mt-3'>
                 <div>
                     <div className='flex flex-col justify-start space-y-3'>
                         <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
                             <Badge className="mr-4" badgeContent={4} color="primary">
-                                <InboxIcon style={{ zIndex:0 }}/>
+                                <InboxIcon style={{ zIndex: 0 }} />
                             </Badge>
                             <Link to="/messages">
                                 <p className='md:text-md lg:text-xl xl:text-xl text-black'>Messages</p>
                             </Link>
                         </div>
                         <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-                            <FavoriteBorderOutlinedIcon className='mr-4'/>
+                            <FavoriteBorderOutlinedIcon className='mr-4' />
                             <Link to="/favorites">
                                 <p className='md:text-md lg:text-xl xl:text-xl text-black'>Favorites</p>
                             </Link>
                         </div>
                         <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-                            <InventoryIcon className='mr-4'/>
+                            <InventoryIcon className='mr-4' />
                             <Link to="/collection">
                                 <p className='md:text-md lg:text-xl xl:text-xl text-black'>Collection</p>
                             </Link>
                         </div>
                         <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-                            <CachedIcon className='mr-4'/>
+                            <CachedIcon className='mr-4' />
                             <Link to="/trades">
                                 <p className='md:text-md lg:text-xl xl:text-xl text-black'>Trades</p>
                             </Link>
