@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import useWindowDimensions from '../../utils/window';
 
 function useDebounce(value: string, delay: number) {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -19,7 +18,6 @@ function useDebounce(value: string, delay: number) {
 }
 
 const Search: React.FC = () => {
-    const { width } = useWindowDimensions();
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
@@ -46,16 +44,12 @@ const Search: React.FC = () => {
     
 
     return (
-        <Link to={`/search`} state={{searchTerm: debouncedSearchTerm}} >
+        <Link to={`/search`} state={{searchTerm: debouncedSearchTerm}} className='flex'>
             <form onSubmit={handleSubmit} >
             <input
-                className='bg-yellow-100'
-                style={{borderRadius: 10, borderWidth: 0, paddingTop: 5, paddingBottom: 5, 
-                paddingLeft: 10, paddingRight: 10, backgroundColor: "#D9D9D9", width: width*0.25, height: 30,
-                color: "black", fontSize: 15,
-                }}
+                className='rounded-lg border-none bg-gray-300 p-1 text-black text-md h-8'
                 type="text"
-                placeholder="What are you looking for?"
+                placeholder="Search..."
                 value={searchTerm}
                 onChange={handleSearch}
             />

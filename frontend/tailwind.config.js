@@ -7,6 +7,7 @@ export default {
   ],
   theme: {
     screens: {
+        'xs': '470px',
         'sm': '640px',
         'md': '768px',
         'lg': '1024px',  
@@ -24,6 +25,7 @@ export default {
             green : {
                 100: "#DFF0D8",
                 150: "#D4FFB2",
+                250: "#BAF194",
                 350: "#BBF670",
                 450: "#A1DF51",
                 600: "#79BD44",

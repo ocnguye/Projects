@@ -1,17 +1,28 @@
 from django.db import models
 
-class Trade(models.Model):
-    trading = models.ForeignKey('collectibles.Collectible', on_delete=models.CASCADE, related_name="trading")
-    requesting1 = models.ForeignKey('collectibles.Collectible', on_delete=models.CASCADE, related_name="requesting1", null=True, blank=True)
-    requesting2 = models.ForeignKey('collectibles.Collectible', on_delete=models.CASCADE, related_name="requesting2", null=True, blank=True)
-    requesting3 = models.ForeignKey('collectibles.Collectible', on_delete=models.CASCADE, related_name="requesting3", null=True, blank=True)
+class Listing(models.Model):
+    collectible = models.ForeignKey('collectibles.Collectible', on_delete=models.CASCADE, related_name="trading")
+    available = models.BooleanField(default=False, blank=True)
     price = models.DecimalField(decimal_places=2, default=0.00, max_digits=10, blank=True, null=True)
     description = models.TextField(default="", blank=True, null=True)
     images = models.TextField(default="", blank=True, null=True)
     verified = models.BooleanField(default=False, blank=True)
+    user = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, related_name="listings", blank=True, null=True)
 
     def __str__(self):
-        return self.trading.name
+        return self.collectible.name
+    
+class Trade(models.Model):
+    profileOne = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, related_name="profileOne", blank=True, null=True)
+    profileTwo = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, related_name="profileTwo", blank=True, null=True)
+    givingOne = models.ManyToManyField('trades.Listing', related_name="givingOne", blank=True)
+    givingTwo = models.ManyToManyField('trades.Listing', related_name="givingTwo", blank=True)
+    status = models.IntegerField(default=0, blank=True)
+    profileOneAccepted = models.BooleanField(default=False, blank=True)
+    profileTwoAccepted = models.BooleanField(default=False, blank=True)
+
+    def __str__(self):
+        return self.profileOne.username + " and " + self.profileTwo.username
 
 class Image(models.Model):
     url = models.CharField(max_length=255, default="", blank=True)
