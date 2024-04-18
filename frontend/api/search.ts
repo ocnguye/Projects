@@ -40,12 +40,19 @@ export type Profile = {
     raters: number,
     username: string,
     profile_img: string,
+    user: User,
 }
 
 export type SearchData = {
     results: number,
     listings: Listing[],
     series: string[],
+}
+
+export type User = {
+    id: number,
+    username: string,
+    email: string,
 }
 
 

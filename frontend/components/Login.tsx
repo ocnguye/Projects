@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { useState } from 'react';
 import image1 from './image1.png';
@@ -40,8 +41,8 @@ const Login: React.FC = () => {
           }
      
         } catch (err: any) {
-            alert("Account not found, please try again.")
-            console.error("error", err.errors[0].longMessage)
+            alert("Account not found, please try again.");
+            console.error("error", err.errors[0].longMessage);
         }
       };
 

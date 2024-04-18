@@ -41,7 +41,18 @@ To run the app locally, you need to:
 
 9. Run `python manage.py runserver` to start the development server.
 
-10. Congrats your backend and frontend are communicating like best buddies.
+
+# Running the Chat Backend
+
+1. Set the required environment variables for the chat backend as shown in `./chat_backend/.env`.
+
+2. Go to the folder, `cd chat_backend`.
+
+3. Run `npm install` to install all the dependencies, you should have node install btw.
+
+4. To start the server run `npm run start`.
+
+5. Congrats your backend and frontend are communicating like best buddies.
 
 ## Making Changes
 
@@ -54,6 +65,8 @@ So by now you should have both a frontend and backend up and running.
     You can make changes to the frontend and those changes should automatically get updated by Vite and you can see what is happening.
 
     On the backend, if you make changes to a model, you will need to also run `python manage.py makemigrations`, this will generate the necessary database migrations inside of each apps 'migrations' folder. Now to apply those migrations locally you can run `python manage.py migrate` and those new attributes or tables will be generated.
+
+    When adding dependecies to the frontend that should be done using the command `pnpm add {package}`
 
 3. Test your changes and make sure everything is good. When you are ready to open a PR, run `git add [changes]` and then `git commit -m "Brief Description of Changes"` and then `git push origin feature/newFeature` to push your branch with new changes.
 

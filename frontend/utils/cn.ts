@@ -1,4 +1,3 @@
-// takes a two strings and returns them concatenated with a space in between
-export const cn = (s: string, t: string) => {
+export const cn = (s: string | undefined, t: string | undefined) => {
     return `${s} ${t}`
 }

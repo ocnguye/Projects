@@ -21,7 +21,7 @@ const Featured = () => {
         if (isLoading || isError) return;
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
-        }, 3000);
+        }, 5000);
         return () => clearInterval(interval);
     }, [data]);
 

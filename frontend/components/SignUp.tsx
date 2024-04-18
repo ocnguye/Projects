@@ -46,7 +46,7 @@ const SignUp: React.FC = () => {
             
         } catch (err: any) {
             console.error(JSON.stringify(err, null, 2));
-            alert("There was an error signing up.");
+            alert(err.errors[0].message);
         }
     };
 

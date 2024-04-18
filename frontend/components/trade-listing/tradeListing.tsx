@@ -4,6 +4,7 @@ import { useAuth } from '@clerk/clerk-react';
 import { getCollectible, CollectibleIdData } from '../../api/collectibles';
 import CircularProgress from '@mui/material/CircularProgress';
 import RenderListings from '../utils/renderListings';
+import { getProductImage } from '../../utils/images';
 
 const TradeListing = () => {
     const { id } = useParams();
@@ -27,16 +28,16 @@ const TradeListing = () => {
     }
 
     return (
-        <div>
+        <div className='h-screen'>
             { !isLoading && !isError && data ? (
                 <div className='grid justify-start grid-cols-3 space-y-2'>
                     <div
                         className="pt-2 hover:scale-101 ease-in-out duration-300
                         flex flex-row justify-start items-center col-span-3"
                     >
-                        <img src={ data.collectible.image } className='object-cover h-32 rounded-xl col-span-1' />
+                        <img src={ getProductImage(data.collectible.image) } className='object-cover h-32 rounded-xl col-span-1' />
                         <div className='col-span-2'>
-                            <h1>{formatSeries(data.collectible.series)}</h1>
+                            <h1 className='text-2xl md:text-3xl'>{formatSeries(data.collectible.series) }</h1>
                             <p>{data.collectible.name}</p>
                         </div>
                     </div>

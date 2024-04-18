@@ -1,8 +1,9 @@
-import {getProfileCollection} from "../../api/pfpcollection"
-import {useAuth} from "@clerk/clerk-react"
-import {useQuery} from "@tanstack/react-query"
-import {getProductImage} from "../../utils/images"
-
+import { getProfileCollection } from "../../api/pfpcollection";
+import { useAuth } from "@clerk/clerk-react";
+import { useQuery } from "@tanstack/react-query";
+import { getProductImage } from "../../utils/images";
+import { Listing } from "../../api/search";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 type CollectionData = {
     collectibles: PCollection[],
@@ -26,10 +27,10 @@ const Collection = () => {
             const token = await getToken();
             const resp = await getProfileCollection(token);
             return resp!.data;
-        } 
+        }
     });
 
-    const formatSeries = ( series: string ) => {
+    const formatSeries = (series: string) => {
         if (series.includes("-")) {
             return series.split("-")[0].toUpperCase()[0] + series.split("-")[0].substring(1) + " " + series.split("-")[1].toUpperCase()[0] + series.split("-")[1].substring(1);
         }
