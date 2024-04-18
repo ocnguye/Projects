@@ -2,8 +2,6 @@ import { getProfileCollection } from "../../api/pfpcollection";
 import { useAuth } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { getProductImage } from "../../utils/images";
-import { Listing } from "../../api/search";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 type CollectionData = {
     collectibles: PCollection[],
