@@ -11,6 +11,7 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import React from 'react';
 import AlertDialog from './deleteListingDialog';
+import { Tooltip } from '@mui/material';
 
 const Listings = () => {
     const { getToken } = useAuth();
@@ -48,7 +49,12 @@ const Listings = () => {
                             <div className=''>
                                 <div className='flex justify-between items-center'>
                                     <div className='flex'>${<Price data={listing.price} />}</div>
-                                    {listing.verified ? <VerifiedIcon color="success" fontSize='large'/> : null}
+                                    {listing.verified ? 
+                                        <Tooltip title="Verified Smiski copyright" arrow>
+                                            <VerifiedIcon color="success" fontSize='large'/>
+                                        </Tooltip>
+                                        : null
+                                    }
                                 </div>
                                 <div className='flex'>{formatSeries(listing.collectible.series)}</div>
                                 <div className='flex justify-between space-x-1 items-center'>
