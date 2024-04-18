@@ -1,4 +1,4 @@
-import { Box, Card, CardActionArea, CardMedia, Typography } from '@mui/material';
+import { Card, CardActionArea, CardMedia, Typography } from '@mui/material';
 import React from 'react';
 
 const ItemBox = ({ imageUrl, linkUrl, title }) => (
