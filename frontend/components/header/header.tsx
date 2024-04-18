@@ -12,6 +12,9 @@ import CachedIcon from '@mui/icons-material/Cached';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CloseIcon from '@mui/icons-material/Close';
 import PersonIcon from '@mui/icons-material/Person';
+import InfoIcon from '@mui/icons-material/Info';
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
 
 const Header: React.FC = () => {
     const [open, setOpen] = React.useState(false);
@@ -22,7 +25,7 @@ const Header: React.FC = () => {
     const hamburger = (
         <div className='flex flex-col align-center justify-start p-2 space-y-3 bg-green-100 h-full pt-5'>
             <div className='h-10 flex justify-between items-center'>
-                <strong className='text-xl w-1/2'>Angel Trading</strong>
+                <h1 className='text-xl w-1/2'>Angel Trading</h1>
                 <div className='hover:cursor-pointer hover:bg-gray-700 hover:bg-opacity-20 rounded-full align-middle p-2'>
                     <CloseIcon onClick={handleToggle(false)} fontSize="medium" sx={{ justifyContent: 'center' }} />
                 </div>
@@ -67,6 +70,24 @@ const Header: React.FC = () => {
                     <p className='md:text-md lg:text-xl xl:text-xl text-black'>Profile</p>
                 </Link>
             </div>
+            <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
+                <InfoIcon className='mr-4' />
+                <Link to="/about">
+                    <p className='md:text-md lg:text-xl xl:text-xl text-black'>About</p>
+                </Link>
+            </div>
+            <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
+                <HelpCenterIcon className='mr-4' />
+                <Link to="/help">
+                    <p className='md:text-md lg:text-xl xl:text-xl text-black'>Help</p>
+                </Link>
+            </div>
+            <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
+                <ContactPageIcon className='mr-4' />
+                <Link to="/contactus">
+                    <p className='md:text-md lg:text-xl xl:text-xl text-black'>Contact</p>
+                </Link>
+            </div>
         </div>
     )
 
@@ -92,7 +113,7 @@ const Header: React.FC = () => {
                     <SearchIcon style={{ marginRight: 10 }} />
                     <Search />
                 </div>
-                <div className='flex items-center justify-center p-2 md:hidden hover:cursor-pointer hover:bg-gray-700 hover:bg-opacity-20 rounded-full align-middle'>
+                <div className='flex items-center justify-center p-2 hover:cursor-pointer hover:bg-gray-700 hover:bg-opacity-20 rounded-full align-middle'>
                     <MenuIcon onClick={handleToggle(true)} sx={{ justifyContent: 'center' }} />
                     <Drawer
                         anchor='right'
@@ -102,9 +123,6 @@ const Header: React.FC = () => {
                         {hamburger}
                     </Drawer>
                 </div>
-                <Link to="/profile" className="text-gray-600 hover:text-pink-500 hidden md:flex">
-                    <p>Profile</p>
-                </Link>
             </div>
 
             <div className='pb-10 bg-green-100 flex mx-2 mt-2'>
