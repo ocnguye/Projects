@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { renderRating } from "../utils/renderRating";
 import { Avatar } from "@mui/material";
 
-type ProfileData = {
+export type ProfileData = {
     bio: string,
     username: string,
     profile_img: string,

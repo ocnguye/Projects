@@ -13,12 +13,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getCollectibles } from "../../api/collectibles";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { CircularProgress, Input } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { postImgToS3 } from '../../utils/s3utils';
 import LinearProgress from '@mui/material/LinearProgress';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { postTrade } from '../../api/profile';
-import {submitForVerificaiton, submitForVerification} from '../../api/verify';
+import {submitForVerification} from '../../api/verify';
 import { Switch } from '@mui/material';
 
 type Collectible = {
@@ -34,7 +34,7 @@ type Image = {
     file: string;
 };
 
-const NewTrade = () => {
+const NewListing = () => {
     const [open , setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -85,8 +85,8 @@ const NewTrade = () => {
 
     const onImageChange = (event: any) => {
         if (event.target.files && event.target.files[0]) {
-            let reader = new FileReader();
-            let file = event.target.files[0];
+            const reader = new FileReader();
+            const file = event.target.files[0];
             reader.onloadend = () => {
                 setImages([ { imagePreview: reader.result as string, file: file }, ...images ]);
             };
@@ -96,8 +96,8 @@ const NewTrade = () => {
     
     const onVerifyChange = (event: any) => {
         if (event.target.files && event.target.files[0]) {
-            let reader = new FileReader();
-            let file = event.target.files[0];
+            const reader = new FileReader();
+            const file = event.target.files[0];
             reader.onloadend = () => {
                 setVerifyImage({ imagePreview: reader.result as string, file: file });
             };
@@ -133,7 +133,7 @@ const NewTrade = () => {
     const handleCreate = async () => {
         if (disabled) {
             return;
-        };
+        }
         setIsUploading(true);
         const form = {
             collectible: collectible.id,
@@ -173,7 +173,7 @@ const NewTrade = () => {
         <>
             <div className="fixed bottom-10 right-10" onClick={handleClickOpen}> 
                 <div className="flex justify-center items-center text-xl hover:scale-110 h-6 w-50 px-5 py-6 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 hover:cursor-pointer" >
-                    New Trade
+                    New Listing
                 </div>
             </div>
             <Dialog
@@ -183,7 +183,7 @@ const NewTrade = () => {
                 aria-labelledby="responsive-dialog-title"
             >
                     <p className='pt-6 pl-6 text-xl'>
-                        Create a new trade!
+                        Create a new listing!
                     </p>
                 <DialogContent>
                     <div className = "flex flex-col">
@@ -210,7 +210,7 @@ const NewTrade = () => {
                                         }}
                                         id="controllable-states-demo"
                                         sx={{ width: "100%", marginBottom: 2, }}
-                                        renderInput={(params) => <TextField {...params} color="success" label="Select a Smiski to trade" />}
+                                        renderInput={(params) => <TextField {...params} color="success" label="Select a Smiski to trade or sell" />}
                                     />
                                     <div style={{width: "100%", marginBottom: 15}}>
                                     Make this collectible available for trading or selling?
@@ -371,4 +371,4 @@ const NewTrade = () => {
       );
 };
 
-export default NewTrade;
+export default NewListing;
