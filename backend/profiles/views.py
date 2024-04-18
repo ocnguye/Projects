@@ -62,11 +62,9 @@ class ProfileListing(APIView):
         return Response(status=status.HTTP_201_CREATED)
     
     def get(self, request):
-        profile = Profile.objects.get(user=request.user)
-        # otheruser = request.query_params.get("userId")
-        # Profile.objects.filter(user__username=otheruser).first()
-        collection = ListingSerializer(profile.collection, many=True)
-        return Response({"collection": collection.data}, status=status.HTTP_200_OK)
+        all_collectibles = Collectible.objects.all()
+        serializer = CollectibleSerializer(all_collectibles, many=True, context = {'request': request})
+        return Response({"collectibles": serializer.data}, status=status.HTTP_200_OK)
     
     def delete(self, request):
         profile = Profile.objects.get(user=request.user)
