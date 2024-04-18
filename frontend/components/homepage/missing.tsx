@@ -4,19 +4,19 @@ import { useAuth } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "../utils/Skeleton";
 import { getProductImage } from "../../utils/images";
-import { ScrollArea, ScrollBar } from '../utils/ScrollArea';
+import { ScrollArea, ScrollBar } from "../utils/ScrollArea";
 
 const Missing = () => {
     const { getToken } = useAuth();
     const navigate = useNavigate();
 
     const { data, isLoading, isError }: any = useQuery({
-        queryKey: ['missing'],
+        queryKey: ["missing"],
         queryFn: async () => {
             const token = await getToken();
             const resp = await getMFCRecommendations(token);
             return resp!.data;
-        }
+        },
     });
 
     return (
@@ -27,13 +27,16 @@ const Missing = () => {
                         <div
                             className="flex flex-col items-center justify-center"
                             style={{
-                                width: '100%',
-                                height: '150px',
-                                borderRadius: '10px',
-                                margin: '5px',
+                                width: "100%",
+                                height: "150px",
+                                borderRadius: "10px",
+                                margin: "5px",
                             }}
                         >
-                            <p className="white">We couldn't find any results, come back later and there may be more trades available! :&gt;</p>
+                            <p className="white">
+                                We couldn't find any results, come back later
+                                and there may be more trades available! :&gt;
+                            </p>
                         </div>
                     </>
                 ) : (
@@ -46,13 +49,21 @@ const Missing = () => {
                                     key={index}
                                     onClick={() => navigate(`/product/${key}`)}
                                     style={{
-                                        width: '150px',
-                                        height: '150px',
-                                        borderRadius: '10px',
+                                        width: "150px",
+                                        height: "150px",
+                                        borderRadius: "10px",
                                     }}
                                 >
-                                    <img src={getProductImage(data[key][0].split(',')[1])} alt={key} style={{ height: '85%' }} />
-                                    <p className="self-start pl-3">{data[key][0].split(',')[0]} Trades</p>
+                                    <img
+                                        src={getProductImage(
+                                            data[key][0].split(",")[1],
+                                        )}
+                                        alt={key}
+                                        style={{ height: "85%" }}
+                                    />
+                                    <p className="self-start pl-3">
+                                        {data[key][0].split(",")[0]} Trades
+                                    </p>
                                 </div>
                             ))}
                         </div>
@@ -61,8 +72,14 @@ const Missing = () => {
                 )
             ) : (
                 <div className="w-full grid grid-flow-col overflow-hidden">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((key: any) => (
-                        <Skeleton key={key} className='pt-2 w-[150px] h-[150px] rounded-[10px] m-[5px]' />
+                    {[
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+                        17, 18, 19, 20,
+                    ].map((key: any) => (
+                        <Skeleton
+                            key={key}
+                            className="pt-2 w-[150px] h-[150px] rounded-[10px] m-[5px]"
+                        />
                     ))}
                 </div>
             )}
