@@ -53,10 +53,8 @@ const SignUp: React.FC = () => {
   return (
     <div className="bg-green-150 flex justify-center items-center h-screen w-screen">
       <div className="flex flex-row items-center justify-center h-full bg-transparent p-5 sm:p-10 md:p-20">
-        {/* <div className="flex flex-row items-center justify-center bg-transparent h-3/4 w-4/5"> */}
         <div className="bg-green-350 md:flex flex-col justify-between hidden h-full w-2/5 shadow-2xl">
           <h1 className="text-3xl font-bold pl-4 pt-4"> Angel Trading Co. </h1>
-          {/* <img src={image1} alt="img" className="object-cover h-3/5 pl-4"></img> */}
           <img src={image1} alt="img" className="object-contain h-4/5 w-full"></img>
           <p className="text-gray-800 text-l p-4 text-center"> The premier Smiski trading platform. </p>
         </div>
@@ -158,16 +156,13 @@ const SignUp: React.FC = () => {
                   </div>
                 </form>
               </div>
-
             </div>
             <div className="hidden lg:flex place-self-end">
               <img src={image2} alt="img" className="h-96 w-64 object-cover"></img>
             </div>
           </div>
-
         </div>
       </div>
-
     </div>
   );
 };
