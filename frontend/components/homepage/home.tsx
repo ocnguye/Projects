@@ -53,8 +53,8 @@ const Home: React.FC = () => {
                         </div>
                         <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
                             <CachedIcon className='mr-4' />
-                            <Link to="/trades">
-                                <p className='md:text-md lg:text-xl xl:text-xl text-black'>Trades</p>
+                            <Link to="/listings">
+                                <p className='md:text-md lg:text-xl xl:text-xl text-black'>Listings</p>
                             </Link>
                         </div>
                         <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>

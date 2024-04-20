@@ -9,7 +9,7 @@ import About from '../components/about/about';
 import SignUp from '../components/SignUp';
 import Login from '../components/Login';
 import ErrorPage from '../components/ErrorPage';
-import Trades from '../components/trades/trades';
+import Listings from '../components/trades/listings';
 import Collection from '../components/collection_page/collections';
 import Help from '../components/Help';
 import Contact from '../components/Contact';
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
         {path: 'contactus', element: <Contact />},
         {path: 'profile', element: <Profile />},
         {path: 'product/:id', element: <TradeListing />},
-        {path: 'trades', element: <Trades />},
+        {path: 'listings', element: <Listings />},
         {path: 'listing/:id', element: <ItemListing />},
         {path: 'collection', element: <Collection />}, 
         {path: 'messages', element: <Messages />},

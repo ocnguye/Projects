@@ -1,3 +1,4 @@
+import { Tooltip } from '@mui/material';
 import { Listing } from '../../api/search';
 import Price from '../search/price';
 import VerifiedIcon from '@mui/icons-material/Verified';
@@ -35,7 +36,12 @@ const RenderListings = ({data}: ListingsParams) => {
                         <div className=''>
                             <div className='flex justify-between items-center'>
                                 <div className='flex'>${<Price data={listing.price} />}</div>
-                                {listing.verified ? <VerifiedIcon color="success" fontSize='large'/> : null}
+                                {listing.verified ? 
+                                    <Tooltip title="Verified Smiski copyright" arrow>
+                                        <VerifiedIcon color="success" fontSize='large'/>
+                                    </Tooltip>
+                                    : null
+                                }
                             </div>
                             <div className='flex'>{formatSeries(listing.collectible.series)}</div>
                             <div className='flex opacity-70'>{listing.collectible.name}</div>

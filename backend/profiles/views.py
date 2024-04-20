@@ -61,6 +61,7 @@ class ProfileListing(APIView):
         profile.save()
         return Response(status=status.HTTP_201_CREATED)
     
+    
     def get(self, request):
         all_collectibles = Collectible.objects.all()
         serializer = CollectibleSerializer(all_collectibles, many=True, context = {'request': request})
@@ -68,7 +69,7 @@ class ProfileListing(APIView):
     
     def delete(self, request):
         profile = Profile.objects.get(user=request.user)
-        listing = Listing.objects.get(id=request.data['collectible'])
+        listing = Listing.objects.get(id=request.data['listing'])
         profile.collection.remove(listing)
         listing.delete()
         profile.save()
@@ -88,4 +89,3 @@ class ProfileContact(APIView):
             "raters": profile["raters"],
         }
         return Response( data , status=status.HTTP_200_OK)
-    

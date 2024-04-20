@@ -39,13 +39,13 @@ const Contact: React.FC = () => {
 
     return (
         <div className="bg-transparent flex flex-col justify-center items-center h-screen w-screen">
-            <div className="flex flex-col justify-center items-center h-screen">
+            <div className="flex flex-col justify-center items-center pb-10">
                 <h2 className="pb-6"> Contact Us </h2>
                 <h3 className="green"> Need additional help? Submit a form! </h3>
                 <h3 className="green"> Our team will get back to you within 2 business days. </h3>
             </div>
 
-            <div className="bg-white flex flex-col justify-between h-2/3 pt-4 pb-20 px-10 shadow-lg">
+            <div className="bg-white flex flex-col justify-between pt-4 pb-20 px-10 shadow-lg h-fit">
                 <form ref={form} onSubmit={sendEmail}>
 
                     {/* name input field */}
