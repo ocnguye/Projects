@@ -11,7 +11,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Tooltip from '@mui/material/Tooltip';
 import Favorite from './favorite';
-import { postChat } from '../../api/api';
+import { post } from '../../api/api';
 import { useAuth } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -83,7 +83,11 @@ const ItemListing = () => {
                     onClick={async () => {
                         navigate(`/messages`);
                         const token = await getToken();
-                        await postChat(`contacts/${listing.user.user}`, listing, token);
+                        const data = {
+                          otherId: listing.user.user,
+                          channelName: formatSeries(listing.collectible.series) + " " + listing.collectible.name
+                        }
+                        await post(`channel/`, data, token);
                         }
                     }
                     >

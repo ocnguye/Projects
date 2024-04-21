@@ -92,7 +92,6 @@ class StreamView(APIView):
                 "role": "user",
                 "image": profile.profile_img,
             })
-            print("resp:", resp)
             url = f"https://api.clerk.com/v1/users/{userId}/metadata"
             headers = {
                 'Authorization': f'Bearer {CLERK_SECRET_KEY}',
@@ -112,7 +111,6 @@ class StreamView(APIView):
     
             return Response(status=status.HTTP_200_OK)
         except Exception as e:
-            print(e)
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class StreamTokenView(APIView):
@@ -123,8 +121,24 @@ class StreamTokenView(APIView):
             chat = StreamChat(api_key=STREAM_API, api_secret=STREAM_SECRET)
             userId = request.data['userId']
             token = chat.create_token(userId)
-            print("userId:", userId)
-            print("token:", token)
             return Response({'userId': userId,'token': token}, status=status.HTTP_200_OK)
         except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            
+class StreamChannelView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            chat = StreamChat(api_key=STREAM_API, api_secret=STREAM_SECRET)
+            userId = str(request.user)
+            other = request.data['otherId']
+            channelName = request.data['channelName']
+            channelName = userId[:30] + "-" + other[:30]
+            channel = chat.channel("messaging", channelName)
+            channel.create(userId)
+            channel.add_members([userId, other])
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
