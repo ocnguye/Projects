@@ -14,7 +14,9 @@ import Collection from '../components/collection_page/collections';
 import Help from '../components/Help';
 import Contact from '../components/Contact';
 import Messages from '../components/messages/messages';
+import ChatView from '../components/messages/message';
 import Chat from '../components/messages/chat';
+import StreamMessages from '../components/messages/streamMessages';
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, errorElement: <ErrorPage />,
@@ -29,7 +31,10 @@ export const router = createBrowserRouter([
         {path: 'listings', element: <Listings />},
         {path: 'listing/:id', element: <ItemListing />},
         {path: 'collection', element: <Collection />}, 
-        {path: 'messages', element: <Messages />},
+        // {path: 'messages', element: <Messages />},
+        // {path: 'messages', element: <StreamMessages />},
+        {path: 'messages', element: <ChatView />},
+        
         {path: 'messages/:id', element: <Chat />},
     ]},
 

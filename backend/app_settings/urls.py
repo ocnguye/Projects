@@ -21,7 +21,7 @@ from collectibles.views import CollectibleViewSet, SearchCollectibles, Collectib
 from profiles.views import ProfileViewSet, ProfileListing, ProfileContact
 from trades.views import WishListRecommendations, MFCRecommendations
 from featured.views import FeaturedViewSet
-from app_settings.views import S3URLView, ImageVerification
+from app_settings.views import S3URLView, ImageVerification, StreamView, StreamTokenView
 
 router = routers.DefaultRouter()
 urlpatterns = [
@@ -38,5 +38,7 @@ urlpatterns = [
     path('api/verify/', ImageVerification.as_view(), name="verify"),
     path('api/search', SearchCollectibles.as_view(), name="search"),
     path('api/contacts/', ProfileContact.as_view(), name="contact"),
+    path('api/register-user/', StreamView.as_view(), name="stream"),
+    path('api/token/', StreamTokenView.as_view(), name='token')
     
 ]
