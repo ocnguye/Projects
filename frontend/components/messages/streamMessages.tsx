@@ -14,6 +14,7 @@ import { useState } from 'react';
 import 'stream-chat-react/dist/css/v2/index.css';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
+import { CircularProgress } from '@mui/material';
 
 const StreamMessage = ({ apiKey, user, token }: { apiKey: string; user: User; token: string; }) => {
 
@@ -41,7 +42,11 @@ const StreamMessage = ({ apiKey, user, token }: { apiKey: string; user: User; to
     return "450px";
   };
 
-  if (!client) return <div>Setting up client & connection...</div>;
+  if (!client) return (
+    <div className='flex flex-col w-[100vw] h-[100vh] justify-center items-center'>
+      <CircularProgress color="success" size={100} />
+    </div>
+  );
 
   return (
     <Chat client={client}>
