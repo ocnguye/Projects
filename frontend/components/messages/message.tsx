@@ -43,7 +43,6 @@ export default function ChatView() {
       !myUser?.publicMetadata.streamRegistered
     ) {
       registerUser().then(() => {
-        // console.log('[Page - useEffect] Result: ', result);
         getUserToken(
           myUser.id,
           myUser?.username || 'Unknown'
