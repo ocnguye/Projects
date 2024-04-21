@@ -12,7 +12,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Tooltip from '@mui/material/Tooltip';
 import Favorite from './favorite';
 import { post } from '../../api/api';
-import { useAuth } from '@clerk/clerk-react';
+import { useAuth, useClerk } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -22,6 +22,7 @@ const ItemListing = () => {
     const location = useLocation();
     const listing: Listing = location.state;
     const { id } = useParams<{id: string}>();
+    const { user } = useClerk();
 
     const formatSeries = ( series: string ) => {
         if (series.includes("-")) {
@@ -84,8 +85,9 @@ const ItemListing = () => {
                         navigate(`/messages`);
                         const token = await getToken();
                         const data = {
+                          username: user?.username,
+                          otherName: listing.user.username,
                           otherId: listing.user.user,
-                          channelName: formatSeries(listing.collectible.series) + " " + listing.collectible.name
                         }
                         await post(`channel/`, data, token);
                         }

@@ -73,7 +73,32 @@ class ImageVerification(APIView):
             Image.objects.get_or_create(url=image, verified=False)
             resp = False
         return Response({'verified': resp}, status=status.HTTP_200_OK)
-        
+
+def registerUser(chat, profile, userId, name):
+    resp = chat.upsert_user({
+        "id": userId, 
+        "name": name,
+        "role": "user",
+        "image": profile.profile_img,
+    })
+    url = f"https://api.clerk.com/v1/users/{userId}/metadata"
+    headers = {
+        'Authorization': f'Bearer {CLERK_SECRET_KEY}',
+        'Content-type': 'application/json'
+    }
+    data = {
+        "public_metadata": {
+            "streamRegistered": True
+        }
+    }
+    requests.patch(url, headers=headers, json=data)
+    
+    response = {
+        "userId": userId,
+        "userName": name,
+    }
+    return response
+    
 class StreamView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -83,32 +108,8 @@ class StreamView(APIView):
             profile = Profile.objects.get(user=request.user)
             userId = request.data['userId']
             name = request.data['name']
-            
-            if not userId or not name: 
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-            resp = chat.upsert_user({
-                "id": userId, 
-                "name": name,
-                "role": "user",
-                "image": profile.profile_img,
-            })
-            url = f"https://api.clerk.com/v1/users/{userId}/metadata"
-            headers = {
-                'Authorization': f'Bearer {CLERK_SECRET_KEY}',
-                'Content-type': 'application/json'
-            }
-            data = {
-                "public_metadata": {
-                    "streamRegistered": True
-                }
-            }
-            requests.patch(url, headers=headers, json=data)
-            
-            response = {
-                "userId": userId,
-                "userName": name,
-            }
-    
+            if not userId or not name: return Response(status=status.HTTP_400_BAD_REQUEST)
+            registerUser(chat, profile, userId, name)
             return Response(status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -131,9 +132,15 @@ class StreamChannelView(APIView):
     def post(self, request):
         try:
             chat = StreamChat(api_key=STREAM_API, api_secret=STREAM_SECRET)
+            profile = Profile.objects.get(user=request.user)
+            profileOther = Profile.objects.get(user__username=request.data['otherId'])
             userId = str(request.user)
+            username = request.data['username']
             other = request.data['otherId']
-            channelName = request.data['channelName']
+            otherName = request.data['otherName']
+            registerUser(chat, profile, userId, username)
+            registerUser(chat, profileOther, other, otherName)
+            
             channelName = userId[:30] + "-" + other[:30]
             channel = chat.channel("messaging", channelName)
             channel.create(userId)
