@@ -7,12 +7,18 @@ import boto3
 from environ import Env
 from openai import OpenAI
 from trades.models import Image
+from stream_chat import StreamChat
+from profiles.models import Profile
+import requests
 
 env = Env()
 env.read_env()
 access = env.str('AWS_ACCESS_KEY_ID')
 secret = env.str('AWS_SECRET_KEY')
 region = env.str('AWS_REGION')
+STREAM_SECRET = env.str('STREAM_SECRET')
+STREAM_API = env.str('STREAM_API')
+CLERK_SECRET_KEY = env.str("CLERK_SECRET_KEY")
 
 s3_client = boto3.client('s3', 
                       aws_access_key_id=access, 
@@ -67,3 +73,72 @@ class ImageVerification(APIView):
             Image.objects.get_or_create(url=image, verified=False)
             resp = False
         return Response({'verified': resp}, status=status.HTTP_200_OK)
+        
+class StreamView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            chat = StreamChat(api_key=STREAM_API, api_secret=STREAM_SECRET)
+            profile = Profile.objects.get(user=request.user)
+            userId = request.data['userId']
+            name = request.data['name']
+            
+            if not userId or not name: 
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            resp = chat.upsert_user({
+                "id": userId, 
+                "name": name,
+                "role": "user",
+                "image": profile.profile_img,
+            })
+            url = f"https://api.clerk.com/v1/users/{userId}/metadata"
+            headers = {
+                'Authorization': f'Bearer {CLERK_SECRET_KEY}',
+                'Content-type': 'application/json'
+            }
+            data = {
+                "public_metadata": {
+                    "streamRegistered": True
+                }
+            }
+            requests.patch(url, headers=headers, json=data)
+            
+            response = {
+                "userId": userId,
+                "userName": name,
+            }
+    
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+class StreamTokenView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            chat = StreamChat(api_key=STREAM_API, api_secret=STREAM_SECRET)
+            userId = request.data['userId']
+            token = chat.create_token(userId)
+            return Response({'userId': userId,'token': token}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            
+class StreamChannelView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            chat = StreamChat(api_key=STREAM_API, api_secret=STREAM_SECRET)
+            userId = str(request.user)
+            other = request.data['otherId']
+            channelName = request.data['channelName']
+            channelName = userId[:30] + "-" + other[:30]
+            channel = chat.channel("messaging", channelName)
+            channel.create(userId)
+            channel.add_members([userId, other])
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)

@@ -13,8 +13,7 @@ import Listings from '../components/trades/listings';
 import Collection from '../components/collection_page/collections';
 import Help from '../components/Help';
 import Contact from '../components/Contact';
-import Messages from '../components/messages/messages';
-import Chat from '../components/messages/chat';
+import ChatView from '../components/messages/message';
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, errorElement: <ErrorPage />,
@@ -29,8 +28,7 @@ export const router = createBrowserRouter([
         {path: 'listings', element: <Listings />},
         {path: 'listing/:id', element: <ItemListing />},
         {path: 'collection', element: <Collection />}, 
-        {path: 'messages', element: <Messages />},
-        {path: 'messages/:id', element: <Chat />},
+        {path: 'messages', element: <ChatView />}
     ]},
 
     {path : '/login', element: <Login />, },
