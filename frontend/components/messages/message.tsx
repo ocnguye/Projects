@@ -21,7 +21,6 @@ export default function ChatView() {
 
   const registerUser = useCallback(
     async function registerUser() {
-      console.log('[registerUser] myUser:', myUser);
       const userId = myUser?.id;
       const name = myUser?.username;
       if (userId && name) {
@@ -30,9 +29,7 @@ export default function ChatView() {
           "userId": userId,
           "name": name,
         }, token);
-        console.log("[registerUser] Stream response:", streamResponse)
         const responseBody = streamResponse?.config?.data;
-        console.log('[registerUser] Stream response body:', responseBody);
         return responseBody;
       }
     },
@@ -45,9 +42,8 @@ export default function ChatView() {
       myUser?.primaryEmailAddress?.emailAddress &&
       !myUser?.publicMetadata.streamRegistered
     ) {
-      console.log('[Page - useEffect] Registering user on Stream backend');
-      registerUser().then((result) => {
-        console.log('[Page - useEffect] Result: ', result);
+      registerUser().then(() => {
+        // console.log('[Page - useEffect] Result: ', result);
         getUserToken(
           myUser.id,
           myUser?.username || 'Unknown'
@@ -56,10 +52,6 @@ export default function ChatView() {
     } else {
       // take user and get token
       if (myUser?.id) {
-        console.log(
-          '[Page - useEffect] User already registered on Stream backend: ',
-          myUser?.id
-        );
         getUserToken(
           myUser?.id || 'Unknown',
           myUser?.username || 'Unknown'
@@ -82,9 +74,7 @@ export default function ChatView() {
       console.error("Couldn't retrieve token.");
       return;
     }
-    console.log('[getUserToken] responseBody:', responseBody);
     const token = responseBody?.data?.token;
-    console.log('[getUserToken] token:', token);
     
     if (!token) {
       console.error("Couldn't retrieve token.");
