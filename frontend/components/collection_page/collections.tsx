@@ -2,6 +2,9 @@ import { getProfileCollection } from "../../api/pfpcollection";
 import { useAuth } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { getProductImage } from "../../utils/images";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 
 type CollectionData = {
     collectibles: PCollection[],
@@ -14,6 +17,7 @@ type PCollection = {
     image: string,
     product: string,
     owned: boolean,
+    wishlisted: boolean,
 }
 
 const Collection = () => {
