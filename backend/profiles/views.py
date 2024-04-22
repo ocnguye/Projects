@@ -89,3 +89,12 @@ class ProfileContact(APIView):
             "raters": profile["raters"],
         }
         return Response( data , status=status.HTTP_200_OK)
+
+class ProfileWishlist(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        pass
+    def delete(self, request):
+        pass
+
