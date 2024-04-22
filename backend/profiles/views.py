@@ -94,7 +94,14 @@ class ProfileWishlist(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        pass
-    def delete(self, request):
-        pass
-
+        id = request.query_params.get("id")
+        profile = Profile.objects.get(user=request.user)
+        collectible = Collectible.objects.get(id=id)
+        if collectible in profile.wishlist.all():
+            profile.wishlist.remove(collectible)
+        else:
+            profile.wishlist.add(collectible)
+        profile.save()
+        all_collectibles = Collectible.objects.all()
+        serializer = CollectibleSerializer(all_collectibles, many=True, context = {'request': request})
+        return Response({"collectibles": serializer.data}, status=status.HTTP_200_OK)

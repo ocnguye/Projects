@@ -1,9 +1,10 @@
 import { getProfileCollection } from "../../api/pfpcollection";
 import { useAuth } from "@clerk/clerk-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { getProductImage } from "../../utils/images";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { post } from "../../api/api";
 
 
 type CollectionData = {
@@ -22,9 +23,10 @@ type PCollection = {
 
 const Collection = () => {
     const { getToken } = useAuth();
+    const queryClient = useQueryClient()
 
     const { data, isLoading, isError } = useQuery<CollectionData>({
-        queryKey: ['profile'],
+        queryKey: ['pCollection'],
         queryFn: async () => {
             const token = await getToken();
             const resp = await getProfileCollection(token);
@@ -39,9 +41,18 @@ const Collection = () => {
         return series.toUpperCase()[0] + series.substring(1) + " Series";
     }
 
-    const toggleWishlist = async (id: number) => {
-
+    const toggleWishlist = async ({id} : {id: number;}) => {
+      const token = await getToken();
+      const resp = await post(`profiles/wishlist/?id=${id}`, {}, token);
+      return resp?.data;
     }
+    
+    const mutation = useMutation({
+      mutationFn: toggleWishlist,
+      onSuccess: (data) => {
+        queryClient.setQueryData(['pCollection'], data)
+      },
+    })
 
     const sortBySeries = (collectibles: PCollection[]) => {
         if (!collectibles) return (<></>);
@@ -65,7 +76,7 @@ const Collection = () => {
                         <div key={collection.id} className="w-full p-4 flex flex-col items-center"> 
                             <img src={getProductImage(collection.image)} style={{ opacity: collection.owned ? 1 : 0.3 }} className="w-50 h-50 object-cover rounded-lg" alt={collection.name} />
                             <div className="text-center">{collection.name}</div> 
-                            <div onClick = {() => toggleWishlist(collection.id)}> 
+                            <div onClick = {() => mutation.mutate({id: collection.id})}> 
                                 {collection.wishlisted ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                             </div>
                         </div>
