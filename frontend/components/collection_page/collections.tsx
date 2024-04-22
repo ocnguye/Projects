@@ -39,6 +39,10 @@ const Collection = () => {
         return series.toUpperCase()[0] + series.substring(1) + " Series";
     }
 
+    const toggleWishlist = async (id: number) => {
+
+    }
+
     const sortBySeries = (collectibles: PCollection[]) => {
         if (!collectibles) return (<></>);
 
@@ -61,6 +65,9 @@ const Collection = () => {
                         <div key={collection.id} className="w-full p-4 flex flex-col items-center"> 
                             <img src={getProductImage(collection.image)} style={{ opacity: collection.owned ? 1 : 0.3 }} className="w-50 h-50 object-cover rounded-lg" alt={collection.name} />
                             <div className="text-center">{collection.name}</div> 
+                            <div onClick = {() => toggleWishlist(collection.id)}> 
+                                {collection.wishlisted ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                            </div>
                         </div>
                     ))}
                 </div>
