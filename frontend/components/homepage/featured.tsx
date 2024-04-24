@@ -39,7 +39,7 @@ const Featured = () => {
                 borderWidth: 3,
                 borderColor: '#79BD44',
             }}
-            className='h-[250px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[550px] xl:h-[650px] 2xl:h-[750px] overflow-hidden rounded-[20px]'
+            className='h-[250px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] xl:h-[550px] 2xl:h-[600px] overflow-hidden rounded-[20px]'
             >
                 <img src={ cleanImage(data[currentIndex].image) } alt={data[currentIndex].name} 
                     style={{
