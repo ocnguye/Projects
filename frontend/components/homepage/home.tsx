@@ -36,7 +36,7 @@ const Home: React.FC = () => {
   );
 
   return (
-    <div className='w-full md:flex md:justify-between h-screen p-4'>
+    <div className='w-full md:flex md:justify-between h-full p-4'>
       <div className='w-full md:w-[78%] lg:w-[83%] xl:w-[84%] 2xl:w-[87%] space-y-8'>
         <Featured />
         <div className="bg-white shadow-md px-4 py-4">

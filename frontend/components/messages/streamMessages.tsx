@@ -49,10 +49,10 @@ const StreamMessage = ({ apiKey, user, token }: { apiKey: string; user: User; to
   );
 
   return (
+    <div className='flex flex-col h-screen pb-24 pt-3'>
     <Chat client={client}>
-      <section className='flex h-[85vh] sm:h-[90vh] w-[95vw] md:w-[100vw]' style={{
-      }}>
-        <div className='overflow-auto bg-white rounded-l-lg' style={{
+      <section className='flex h-full w-full'>
+        <div className='bg-white rounded-l-lg overflow-y-auto' style={{
           width: `${channelWidth()}`
         }}>
           <div onClick={() => setOpen(!open)}>
@@ -72,6 +72,7 @@ const StreamMessage = ({ apiKey, user, token }: { apiKey: string; user: User; to
         </div>
       </section>
     </Chat>
+    </div>
   );
 };
 

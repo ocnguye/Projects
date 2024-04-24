@@ -92,8 +92,8 @@ const Header: React.FC = () => {
   )
 
   return (
-    <div className='bg-green-100 w-full pb-32 lg:pb-60 xl:pb-80 2xl:pb-96'>
-      <div className='flex justify-between grid-cols-3 items-center bg-white h-20 gap-2 pt-2 px-2 '
+    <div className='bg-green-100 w-full h-screen overflow-y-auto'>
+      <div className='flex justify-between grid-cols-3 items-center bg-white h-20 gap-2 pt-2 px-2 absolute top-0 z-10 w-full'
       >
         <Link to="/">
           <h1 className='font-extrabold text-2xl sm:text-3xl pr-2 md:text-4xl md:w-full'>Angel Trading</h1>
@@ -125,8 +125,9 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      <div className='bg-green-100 flex mx-2 mt-2'>
+      <div className='bg-green-100 flex flex-col px-3 w-screen h-auto mt-20'>
         <Outlet />
+        {/* <div className='h-full w-full bg-red-200'> oops </div> */}
       </div>
     </div>
   );
