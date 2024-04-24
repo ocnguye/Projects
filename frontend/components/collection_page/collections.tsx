@@ -71,10 +71,12 @@ const Collection = () => {
         return Object.entries(collectiblesBySeries).map(([series, seriesCollectibles]) => (
             <div key={series} className="flex flex-wrap">
                 <div className="bg-yellow-350 w-full mb-2 pl-3 text-transform: uppercase text-lg">{formatSeries(series)}</div>
-                <div className="grid grid-cols-3 md:grid-cols-6">
+                <div className="grid grid-cols-3 md:grid-cols-6 w-full">
                     {seriesCollectibles.map((collection: PCollection) => (
                         <div key={collection.id} className="w-full p-4 flex flex-col items-center"> 
-                            <img src={getProductImage(collection.image)} style={{ opacity: collection.owned ? 1 : 0.3 }} className="w-50 h-50 object-cover rounded-lg" alt={collection.name} />
+                            <div className="w-50 h-50">
+                                <img src={getProductImage(collection.image)} style={{ opacity: collection.owned ? 1 : 0.3 }} className="w-full object-cover rounded-lg" alt={collection.name} />
+                            </div>
                             <div className="text-center">{collection.name}</div> 
                             <div onClick = {() => mutation.mutate({id: collection.id})}> 
                                 {collection.wishlisted ? <FavoriteIcon /> : <FavoriteBorderIcon />}
