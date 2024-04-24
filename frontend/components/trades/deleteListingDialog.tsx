@@ -7,6 +7,8 @@ import { Listing } from '../../api/search';
 import { formatSeries } from '../utils/utils';
 import { deleteListing } from '../../api/profile';
 import { useAuth } from '@clerk/clerk-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getProfile } from '../../api/profile';
 type Props = {
   open: boolean,
   handleClose: () => void,
@@ -15,18 +17,23 @@ type Props = {
 
 export default function AlertDialog({open, handleClose, listing}: Props) {
     const { getToken } = useAuth();
+    const queryClient = useQueryClient();
     
     const handleDelete = async () => {
         if (!listing) return;
-        try {
-            const token = await getToken();
-            await deleteListing(token, {"listing": listing.id});
-            handleClose();
-        } catch (error) {
-            console.error(error);
-            handleClose();
-        }
+        const token = await getToken();
+        await deleteListing(token, {"listing": listing.id});
+        const resp = await getProfile(token);
+        handleClose();
+        return resp?.data;
     }
+    
+    const mutation = useMutation({
+      mutationFn: handleDelete,
+      onSuccess: (data) => {
+        queryClient.setQueryData(['listings'], data)
+      },
+    });
 
     return (
         <>
@@ -59,7 +66,7 @@ export default function AlertDialog({open, handleClose, listing}: Props) {
                     Cancel
                 </div>
                 <div className="hover:cursor-pointer flex justify-center items-center text-md hover:scale-102 w-50 px-2 py-1 bg-red-500 text-black rounded-lg transition duration-300 ease-in-out hover:bg-red-600 outline outline-red-700 outline-3" 
-                    onClick={handleDelete}
+                    onClick={() => mutation.mutate()}
                 >
                     Delete
                 </div>

@@ -19,7 +19,7 @@ const Listings = () => {
     const [open, setOpen] = React.useState(false);
     const [selectedListing, setSelectedListing] = React.useState<Listing | undefined>();
     const { data, isLoading, isError } = useQuery<ProfileData>({
-        queryKey: ['profile'],
+        queryKey: ['listings'],
         queryFn: async () => {
             const token = await getToken();
             const resp = await getProfile(token);
@@ -36,11 +36,11 @@ const Listings = () => {
     };
     
     return (
-        <div className='h-screen'>
-            <h1 className = "text-3xl text-transform: mb-5 uppercase"> Your Listings </h1>
+        <div className='h-screen pt-2 pb-10'>
+            <h1 className = "text-3xl text-transform: mb-2 uppercase"> Your Listings </h1>
             { !isLoading && !isError && data && data.collection? 
             (
-                <div className='grid grid-cols-2 gap-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 w-full'>
+                <div className='grid grid-cols-2 gap-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 w-full pb-28'>
                     {data.collection.map((listing: Listing) => (
                         <div key={listing.id} className='bg-yellow-200 rounded-lg p-2 space-y-2 hover:scale-101 ease-in-out duration-300 hover:cursor-pointer'>
                             <img src={cleanImage(listing.images)} alt="" className='rounded-2xl object-cover h-44 w-full'

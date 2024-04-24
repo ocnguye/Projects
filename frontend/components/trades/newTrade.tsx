@@ -9,7 +9,7 @@ import DialogContent from '@mui/material/DialogContent';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useAuth } from "@clerk/clerk-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getCollectibles } from "../../api/collectibles";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -18,8 +18,9 @@ import { postImgToS3 } from '../../utils/s3utils';
 import LinearProgress from '@mui/material/LinearProgress';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { postTrade } from '../../api/profile';
-import {submitForVerification} from '../../api/verify';
+import { submitForVerification } from '../../api/verify';
 import { Switch } from '@mui/material';
+import { getProfile } from '../../api/profile';
 
 type Collectible = {
     id: string;
@@ -68,7 +69,6 @@ const NewListing = () => {
         setOpen(false);
     };
 
-    
     const [collectible, setCollectible] = React.useState<Collectible | null>(null);
     const [available, setAvailable] = React.useState(false);
 
@@ -158,6 +158,23 @@ const NewListing = () => {
             setIsUploading(false);
         }
     };
+    
+    const queryClient = useQueryClient();
+    
+    const handleUpdate = async () => {
+      if (disabled) return;
+      await handleCreate();
+      const token = await getToken();
+      const resp = await getProfile(token);
+      return resp?.data;
+    }
+
+    const mutation = useMutation({
+      mutationFn: handleUpdate,
+      onSuccess: (data) => {
+        queryClient.setQueryData(['listings'], data)
+      },
+    })
 
     const verify = async () => {
         setVerifying(true);
@@ -356,7 +373,8 @@ const NewListing = () => {
                         Cancel
                     </div>
                     <div className="hover:cursor-pointer flex justify-center items-center text-md hover:scale-110 w-50 px-2 py-1 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3" 
-                        onClick={handleCreate}
+                        // onClick={handleCreate}
+                        onClick={ () => mutation.mutate() }
                         style={{
                             opacity: disabled ? 0.5 : 1,
                             pointerEvents: disabled ? 'none' : 'auto',
