@@ -31,9 +31,7 @@ const Header: React.FC = () => {
         </div>
       </div>
       <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300 pt-5'>
-        <Badge className="mr-4" badgeContent={4} color="primary">
-          <InboxIcon style={{ zIndex: 0 }} />
-        </Badge>
+        <InboxIcon className='mr-4' />
         <Link to="/messages">
           <p className='text-black'>Messages</p>
         </Link>
