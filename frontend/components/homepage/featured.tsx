@@ -13,7 +13,7 @@ const Featured = () => {
         queryFn: async () => {
             const token = await getToken();
             const resp = await getFeatured(token);
-            return resp!.data;
+            return resp?.data;
         }
     })
 

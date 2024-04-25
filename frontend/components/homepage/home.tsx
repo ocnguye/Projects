@@ -86,9 +86,7 @@ const Home: React.FC = () => {
               </Link>
             </div>
             <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-              <Badge className="mr-4" badgeContent={2} color="primary">
-                <CalendarMonthIcon />
-              </Badge>
+              <CalendarMonthIcon className='mr-4'/>
               <Link to="/events">
                 <p className='md:text-md lg:text-xl xl:text-xl text-black'>Events</p>
               </Link>

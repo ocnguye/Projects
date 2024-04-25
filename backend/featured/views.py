@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 class FeaturedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Featured
-        fields = ['name', 'description', 'link', 'address', 'image']
+        fields = ['name', 'description', 'link', 'address', 'image', 'id']
 
 class FeaturedViewSet(APIView):
     permission_classes = [IsAuthenticated] 
