@@ -76,6 +76,27 @@ class ProfileListing(APIView):
         listing.delete()
         profile.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ProfileCollection(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        try:
+            id = request.query_params.get("id")
+            cId = request.query_params.get("cId")
+            profile = Profile.objects.get(user=request.user)
+            if (profile.user.username != id): return Response(status=status.HTTP_403_FORBIDDEN)
+            collectible = Collectible.objects.get(id=cId)
+            if collectible in profile.in_collection.all():
+                profile.in_collection.remove(collectible)
+            else:
+                profile.in_collection.add(collectible)
+            profile.save()
+            all_collectibles = Collectible.objects.all()
+            serializer = CollectibleSerializer(all_collectibles, many=True, context = {'request': request})
+            return Response({"collectibles": serializer.data}, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     
 class ProfileContact(APIView):
     permission_classes = [IsAuthenticated]

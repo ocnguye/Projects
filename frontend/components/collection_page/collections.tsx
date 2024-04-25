@@ -8,13 +8,14 @@ import { post } from "../../api/api";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import AddCollectible from "./AddCollectible";
 
 
 type CollectionData = {
     collectibles: PCollection[],
 }
 
-type PCollection = {
+export type PCollection = {
     id: number,
     name: string,
     series: string,
@@ -85,16 +86,21 @@ const Collection = () => {
           {Object.entries(collectiblesBySeries).map(([series, seriesCollectibles]) => (
             <div key={series} className="flex flex-col">
                 <p className="bg-yellow-350 w-full mb-2 pl-3 uppercase text-lg">{formatSeries(series)}</p>
-                <div className="grid grid-cols-3 md:grid-cols-6 w-full">
+                <div className="grid grid-cols-3 md:grid-cols-6 w-full h-fit">
                     {seriesCollectibles.map((collection: PCollection) => (
-                        <div key={collection.id} className="w-full p-4 flex flex-col items-center"> 
+                        <div key={collection.id} className="w-full p-4 flex h-full flex-col items-center"> 
                             <div className="w-50 h-50">
                                 <img src={getProductImage(collection.image)} style={{ opacity: collection.owned ? 1 : 0.3 }} className="w-full object-cover rounded-lg" alt={collection.name} />
                             </div>
-                            <div className="text-center">{collection.name}</div> 
-                            { editable && <div onClick = {() => mutation.mutate({id: collection.id})}> 
-                                {collection.wishlisted ? <FavoriteIcon className = "text-pink-400" /> : <FavoriteBorderIcon className = "text-pink-400" />}
-                            </div> }
+                            <div className="flex flex-col h-full justify-between">
+                              <div className="text-center">{collection.name}</div>
+                              <div className="flex w-full justify-evenly">
+                                { editable && <div onClick = {() => mutation.mutate({id: collection.id})}> 
+                                    {collection.wishlisted ? <FavoriteIcon fontSize="large" className = "text-pink-400" /> : <FavoriteBorderIcon fontSize="large" className = "text-pink-400" />}
+                                </div> }
+                                <AddCollectible collectible={collection} id={urlId} />
+                              </div>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -106,16 +112,25 @@ const Collection = () => {
     return (
         // page ui
         <section className="flex flex-col w-full h-full overflow-y-auto bg-green-150 p-5 my-3 rounded-lg">
-          <div className="flex flex-row w-full justify-between align-center pb-3">
+          <div className="flex flex-row w-full space-x-5 justify-between align-center pb-3">
             {editable ? 
-              <h1 className="text-3xl uppercase flex-1 pb-2"> Your Collection </h1> :
+              <h1 className="text-2xl sm:text-3xl uppercase flex-1 pb-2"> Your Collection </h1> :
               <h1 className="text-3xl uppercase flex-1 pb-2"> Collection </h1> 
             }
             <div
-              className="flex justify-center items-center align-text-top px-2 text-sm bg-green-350 text-black rounded-full transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 hover:cursor-pointer"
+              className="flex space-x-1 justify-center h-fit items-center align-text-top p-2 text-sm bg-green-350 text-black rounded-full transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 hover:cursor-pointer"
               onClick={() => navigator.clipboard.writeText(window.location.href)}
-            ><InsertLinkIcon /> Copy Link</div>
+            >
+              <InsertLinkIcon /> 
+              <p className="text-sm">Copy</p>
+              <p className="text-sm">Link</p>
+            </div>
           </div>
+          { editable ? 
+            <p className="pb-2"> Add a collectible to your collection or heart a collectible to add it to your wishlist. Collectibles for listings you've posted will automatically appear in your collection. </p>
+            :
+            <></>
+          }
           <div className="flex flex-col w-full bg-white rounded-lg">
             {!isLoading && !isError && data ? sortBySeries(data.collectibles) : <> Loading </>}
           </div>

@@ -12,7 +12,9 @@ class CollectibleSerializer(serializers.ModelSerializer):
         urlId = request.query_params.get('id')
         profile = Profile.objects.get(user__username=urlId)
         collectibles = [listing.collectible.id for listing in profile.collection.all()]
-        return obj.id in collectibles
+        collection = [collectible.id for collectible in profile.in_collection.all()]
+        is_owned = obj.id in collectibles or obj.id in collection
+        return is_owned
 
     def get_wishlisted(self, obj) -> bool:
         request = self.context.get('request')
@@ -24,4 +26,4 @@ class CollectibleSerializer(serializers.ModelSerializer):
         
     class Meta:
         model = Collectible
-        fields = ['product', 'series', 'name', 'image', 'id', 'owned', 'wishlisted']
+        fields = ['product', 'series', 'name', 'image', 'id', 'owned', 'wishlisted', 'in_collection']

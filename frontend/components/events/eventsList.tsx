@@ -3,14 +3,6 @@ import { getFeatured } from '../../api/featured';
 import { useAuth } from '@clerk/clerk-react';
 import { Skeleton } from '../utils/Skeleton';
 
-/*
-name = models.CharField(max_length=100)
-description = models.TextField(default="")
-link = models.TextField(default="")
-address = models.TextField(default="")
-image = models.TextField(default="")
-*/
-
 type FeaturedEvent = {
   id: string;
   name: string;
@@ -36,7 +28,7 @@ const EventsList = () => {
     {!isLoading && !isError && data ? (
       <div className='max-w-[800px] space-y-2'>
         {data.map((event: FeaturedEvent) => (
-          <a href={event.link} className='flex flex-col items-center sm:flex-row w-full h-96 p-2 rounded-lg bg-yellow-300 border-yellow-500 border-2 border-opacity-40 shadow-lg hover:bg-yellow-200'>
+          <a key={event.id} href={event.link} className='flex flex-col items-center sm:flex-row w-full h-96 p-2 rounded-lg bg-yellow-300 border-yellow-500 border-2 border-opacity-40 shadow-lg hover:bg-yellow-200'>
             <img src={event.image} alt={event.name} className='w-full h-3/5 sm:h-full sm:w-3/5 object-cover rounded-xl'/>
             <div className='sm:items-start sm:h-full sm:p-2'>
               <h1 className='text-xl'>{event.name}</h1>
