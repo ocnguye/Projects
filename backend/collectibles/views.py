@@ -7,6 +7,7 @@ from django.db.models import Q
 from trades.models import Listing
 from trades.serializers import ListingSerializer
 from .serializers import CollectibleSerializer
+from profiles.models import Profile
 
 class CollectibleViewSet(APIView):
     permission_classes = [IsAuthenticated]
@@ -35,6 +36,31 @@ class CollectiblesByID(APIView):
             return Response({
                 'error': 'Collectible not found'
             }, status=status.HTTP_400_BAD_REQUEST)
+
+class ListingSaved(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        profile = Profile.objects.get(user=request.user)
+        id = request.query_params.get('id')
+        listing = Listing.objects.get(id=id)
+        data = {
+            'saved': listing in profile.saved.all()
+        }
+        return Response(data, status=status.HTTP_200_OK)
+        
+    def post(self, request):
+        profile = Profile.objects.get(user=request.user)
+        id = request.query_params.get('id')
+        listing = Listing.objects.get(id=id)
+        if listing in profile.saved.all():
+            profile.saved.remove(listing)
+        else:
+            profile.saved.add(listing)
+        profile.save()
+        return Response({
+            'saved': listing in profile.saved.all()
+        }, status=status.HTTP_200_OK)
 
 class SearchCollectibles(APIView):
     permission_classes = [IsAuthenticated]

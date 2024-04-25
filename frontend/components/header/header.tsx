@@ -123,7 +123,6 @@ const Header: React.FC = () => {
 
       <div className='bg-green-100 flex flex-col px-3 w-screen h-auto mt-20'>
         <Outlet />
-        {/* <div className='h-full w-full bg-red-200'> oops </div> */}
       </div>
     </div>
   );

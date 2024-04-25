@@ -8,9 +8,8 @@ import { cleanImage } from '../utils/images';
 import useWindowDimensions from '../../utils/window';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Tooltip from '@mui/material/Tooltip';
-import Favorite from './favorite';
+import SaveListing from './SaveListing';
 import { post } from '../../api/api';
 import { useAuth, useClerk } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
@@ -43,7 +42,7 @@ const ItemListing = () => {
 
     const { width } = useWindowDimensions();
     return (
-        <section className='grid w-full gap-3 sm:grid-cols-2 h-screen'>
+        <section className='grid w-full gap-3 sm:grid-cols-2 h-full pt-3'>
             <div className='flex-1 align-items-center justify-center'>
                 <div className='grid row-start-1 col-start-1 items-center'>
                     <img src={images[imageIndex]} alt={listing.collectible.name} className='object-cover rounded-lg row-start-1 col-start-1' style={{width: width, height: width > 640 ? width/2 : width}}/>
@@ -95,10 +94,7 @@ const ItemListing = () => {
                     >
                         <p className='text-md'>Message User</p>
                     </div>
-                    <Favorite id={id}/>
-                    <Tooltip title="Add to Wishlist" arrow>
-                        <BookmarkBorderIcon fontSize='large' />
-                    </Tooltip>
+                    <SaveListing listing={listing}/>
                 </div>
                 <div className='space-y-2 w-full sm:col-span-2'>
                     <h1 className='text-3xl'>User Information</h1>

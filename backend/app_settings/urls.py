@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from collectibles.views import CollectibleViewSet, SearchCollectibles, CollectiblesByID
+from collectibles.views import CollectibleViewSet, SearchCollectibles, CollectiblesByID, ListingSaved
 from profiles.views import ProfileViewSet, ProfileListing, ProfileContact, ProfileWishlist
 from trades.views import WishListRecommendations, MFCRecommendations
 from featured.views import FeaturedViewSet
@@ -32,6 +32,7 @@ urlpatterns = [
     path('api/profiles/', ProfileViewSet.as_view(), name="profiles"),
     path('api/profiles/trades/', ProfileListing.as_view(), name="listings"),
     path('api/profiles/wishlist/', ProfileWishlist.as_view(), name = "wishlist"),
+    path('api/profiles/saved/', ListingSaved.as_view(), name="saved"),
     path('api/recommendations/wishlist/', WishListRecommendations.as_view(), name="wishlist-recommendations"),
     path('api/recommendations/mfc/', MFCRecommendations.as_view(), name="mfc-recommendations"),
     path('api/featured/', FeaturedViewSet.as_view(), name="featured"),
