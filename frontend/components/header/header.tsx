@@ -14,12 +14,14 @@ import PersonIcon from '@mui/icons-material/Person';
 import InfoIcon from '@mui/icons-material/Info';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
+import { useClerk } from '@clerk/clerk-react';
 
 const Header: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const handleToggle = (next: boolean) => () => {
     setOpen(next);
   };
+  const { user: myUser } = useClerk();
 
   const hamburger = (
     <div className='flex flex-col align-center justify-start p-2 space-y-3 bg-green-100 h-full pt-5'>
@@ -43,7 +45,7 @@ const Header: React.FC = () => {
       </div>
       <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
         <InventoryIcon className='mr-4' />
-        <Link to="/collection">
+        <Link to={`/collection/${myUser?.id}`}>
           <p className='md:text-md lg:text-xl xl:text-xl text-black'>Collection</p>
         </Link>
       </div>

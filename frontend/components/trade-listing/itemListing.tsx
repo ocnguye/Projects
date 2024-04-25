@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Listing } from '../../api/search';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import Avatar from '@mui/material/Avatar';
@@ -8,7 +8,6 @@ import { cleanImage } from '../utils/images';
 import useWindowDimensions from '../../utils/window';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Tooltip from '@mui/material/Tooltip';
 import SaveListing from './SaveListing';
 import { post } from '../../api/api';
 import { useAuth, useClerk } from '@clerk/clerk-react';
@@ -20,7 +19,6 @@ const ItemListing = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const listing: Listing = location.state;
-    const { id } = useParams<{id: string}>();
     const { user } = useClerk();
 
     const formatSeries = ( series: string ) => {

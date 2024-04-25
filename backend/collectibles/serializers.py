@@ -9,14 +9,16 @@ class CollectibleSerializer(serializers.ModelSerializer):
     def get_owned(self, obj) -> bool:
         request = self.context.get('request')
         if not request: return False
-        profile = Profile.objects.get(user=request.user)
+        urlId = request.query_params.get('id')
+        profile = Profile.objects.get(user__username=urlId)
         collectibles = [listing.collectible.id for listing in profile.collection.all()]
         return obj.id in collectibles
 
     def get_wishlisted(self, obj) -> bool:
         request = self.context.get('request')
         if not request: return False
-        profile = Profile.objects.get(user=request.user)
+        urlId = request.query_params.get('id')
+        profile = Profile.objects.get(user__username=urlId)
         wishlist = [collectible.id for collectible in profile.wishlist.all()]
         return obj.id in wishlist
         

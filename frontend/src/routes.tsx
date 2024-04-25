@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
         {path: 'product/:id', element: <TradeListing />},
         {path: 'listings', element: <ListingsPage />},
         {path: 'listing/:id', element: <ItemListing />},
-        {path: 'collection', element: <Collection />}, 
+        {path: 'collection/:id', element: <Collection />}, 
         {path: 'messages', element: <ChatView />},
         {path: 'events', element: <Events />},
     ]},

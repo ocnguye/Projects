@@ -1,10 +1,13 @@
 import { getProfileCollection } from "../../api/pfpcollection";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useClerk } from "@clerk/clerk-react";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { getProductImage } from "../../utils/images";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { post } from "../../api/api";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
 
 
 type CollectionData = {
@@ -24,12 +27,21 @@ type PCollection = {
 const Collection = () => {
     const { getToken } = useAuth();
     const queryClient = useQueryClient()
-
+    const { id: urlId } = useParams<{id: string}>();
+    const { user: myUser } = useClerk();
+    const [editable, setEditable] = useState(false);
+    
+    useEffect(() => {
+        if (myUser?.id === urlId) setEditable(true); 
+        else setEditable(false);
+    }, [myUser, urlId]);
+    
     const { data, isLoading, isError } = useQuery<CollectionData>({
-        queryKey: ['pCollection'],
+        queryKey: ['pCollection', urlId],
         queryFn: async () => {
+            if (urlId === undefined) return undefined;
             const token = await getToken();
-            const resp = await getProfileCollection(token);
+            const resp = await getProfileCollection(urlId, token);
             return resp!.data;
         }
     });
@@ -43,14 +55,14 @@ const Collection = () => {
 
     const toggleWishlist = async ({id} : {id: number;}) => {
       const token = await getToken();
-      const resp = await post(`profiles/wishlist/?id=${id}`, {}, token);
+      const resp = await post(`profiles/wishlist/?id=${urlId}&cId=${id}`, {}, token);
       return resp?.data;
     }
     
     const mutation = useMutation({
       mutationFn: toggleWishlist,
       onSuccess: (data) => {
-        queryClient.setQueryData(['pCollection'], data)
+        queryClient.setQueryData(['pCollection', urlId], data)
       },
     })
 
@@ -80,9 +92,9 @@ const Collection = () => {
                                 <img src={getProductImage(collection.image)} style={{ opacity: collection.owned ? 1 : 0.3 }} className="w-full object-cover rounded-lg" alt={collection.name} />
                             </div>
                             <div className="text-center">{collection.name}</div> 
-                            <div onClick = {() => mutation.mutate({id: collection.id})}> 
+                            { editable && <div onClick = {() => mutation.mutate({id: collection.id})}> 
                                 {collection.wishlisted ? <FavoriteIcon className = "text-pink-400" /> : <FavoriteBorderIcon className = "text-pink-400" />}
-                            </div>
+                            </div> }
                         </div>
                     ))}
                 </div>
@@ -94,7 +106,16 @@ const Collection = () => {
     return (
         // page ui
         <section className="flex flex-col w-full h-full overflow-y-auto bg-green-150 p-5 my-3 rounded-lg">
-          <h1 className="text-3xl uppercase flex-1 pb-2"> Your Collection </h1>
+          <div className="flex flex-row w-full justify-between align-center pb-3">
+            {editable ? 
+              <h1 className="text-3xl uppercase flex-1 pb-2"> Your Collection </h1> :
+              <h1 className="text-3xl uppercase flex-1 pb-2"> Collection </h1> 
+            }
+            <div
+              className="flex justify-center items-center align-text-top px-2 text-sm bg-green-350 text-black rounded-full transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 hover:cursor-pointer"
+              onClick={() => navigator.clipboard.writeText(window.location.href)}
+            ><InsertLinkIcon /> Copy Link</div>
+          </div>
           <div className="flex flex-col w-full bg-white rounded-lg">
             {!isLoading && !isError && data ? sortBySeries(data.collectibles) : <> Loading </>}
           </div>

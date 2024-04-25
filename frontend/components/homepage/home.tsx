@@ -74,8 +74,7 @@ const Home: React.FC = () => {
             </div>
             <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
               <InventoryIcon className='mr-4' />
-              <Link to="/collection">
-                <p className='md:text-md lg:text-xl xl:text-xl text-black'>Collection</p>
+              <Link to={`/collection/${myUser?.id}`}> <p className='md:text-md lg:text-xl xl:text-xl text-black'>Collection</p>
               </Link>
             </div>
             <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>

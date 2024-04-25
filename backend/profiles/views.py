@@ -96,14 +96,19 @@ class ProfileWishlist(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        id = request.query_params.get("id")
-        profile = Profile.objects.get(user=request.user)
-        collectible = Collectible.objects.get(id=id)
-        if collectible in profile.wishlist.all():
-            profile.wishlist.remove(collectible)
-        else:
-            profile.wishlist.add(collectible)
-        profile.save()
-        all_collectibles = Collectible.objects.all()
-        serializer = CollectibleSerializer(all_collectibles, many=True, context = {'request': request})
-        return Response({"collectibles": serializer.data}, status=status.HTTP_200_OK)
+        try:
+            id = request.query_params.get("id")
+            cId = request.query_params.get("cId")
+            profile = Profile.objects.get(user=request.user)
+            if (profile.user.username != id): return Response(status=status.HTTP_403_FORBIDDEN)
+            collectible = Collectible.objects.get(id=cId)
+            if collectible in profile.wishlist.all():
+                profile.wishlist.remove(collectible)
+            else:
+                profile.wishlist.add(collectible)
+            profile.save()
+            all_collectibles = Collectible.objects.all()
+            serializer = CollectibleSerializer(all_collectibles, many=True, context = {'request': request})
+            return Response({"collectibles": serializer.data}, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
