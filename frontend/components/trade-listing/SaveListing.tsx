@@ -4,13 +4,12 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { post, get } from '../../api/api'
 import { useAuth } from "@clerk/clerk-react";
-import { Tooltip } from "@mui/material";
 
 type SaveData = {
   saved: boolean;
 }
 
-const SaveListing = ({ listing } : {listing : Listing}) => {
+const SaveListing = ({ listing }: { listing: Listing }) => {
   const { getToken } = useAuth();
   const { data, isLoading, isError } = useQuery<SaveData>({
     queryKey: ['saveListing', listing.id],
@@ -20,44 +19,40 @@ const SaveListing = ({ listing } : {listing : Listing}) => {
       return resp?.data;
     }
   });
-  
+
   const toggleSaved = async () => {
     const token = await getToken();
     const resp = await post(`profiles/saved/?id=${listing.id}`, {}, token);
     return resp?.data;
   }
-  
+
   const queryClient = useQueryClient();
-  
+
   const mutation = useMutation({
     mutationFn: toggleSaved,
     onSuccess: (data) => {
       queryClient.setQueryData(['saveListing', listing.id], data)
-    }
+      queryClient.invalidateQueries({ queryKey: ['savedListings'] })
+    },
+
   });
-  
+
   const Icon = () => {
     if (isLoading || isError) {
       return (
-        <Tooltip title="Save Listing" arrow>
-          <BookmarkBorderIcon fontSize='large' />
-        </Tooltip>
+        <BookmarkBorderIcon fontSize='large' />
       )
     }
     if (data?.saved) {
       return (
-        <Tooltip title="Save Listing" arrow>
-          <BookmarkIcon fontSize='large' />
-        </Tooltip>
+        <BookmarkIcon fontSize='large' />
       )
     }
     return (
-      <Tooltip title="Save Listing" arrow>
-        <BookmarkBorderIcon fontSize='large' />
-      </Tooltip>
+      <BookmarkBorderIcon fontSize='large' />
     )
   }
-  
+
   return (
     <div
       onClick={() => mutation.mutate()}

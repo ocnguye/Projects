@@ -23,6 +23,7 @@ class ProfileViewSet(APIView):
         collection = ListingSerializer(profile.collection, many=True)
         wishlist = CollectibleSerializer(profile.wishlist, many=True)
         trades = TradeSerializer(profile.trades, many=True)
+        saved = ListingSerializer(profile.saved, many=True)
         data = {
             "bio": serializer.data["bio"],
             "username": serializer.data["username"],
@@ -32,6 +33,7 @@ class ProfileViewSet(APIView):
             "collection": collection.data,
             "wishlist": wishlist.data,
             "trades": trades.data,
+            "saved": saved.data,
         }
         return Response(data, status=status.HTTP_200_OK)
     

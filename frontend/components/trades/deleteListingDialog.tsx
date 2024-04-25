@@ -9,6 +9,7 @@ import { deleteListing } from '../../api/profile';
 import { useAuth } from '@clerk/clerk-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getProfile } from '../../api/profile';
+
 type Props = {
   open: boolean,
   handleClose: () => void,

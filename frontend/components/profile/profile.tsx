@@ -13,6 +13,7 @@ import { renderRating } from "../utils/renderRating";
 import { Avatar } from "@mui/material";
 
 export type ProfileData = {
+    id: number,
     bio: string,
     username: string,
     profile_img: string,
@@ -20,7 +21,8 @@ export type ProfileData = {
     raters: number,
     collection: Listing[],
     wishlist: any,
-    trades: any
+    trades: any,
+    saved: Listing[],
 }
 
 const cleanImage = (image: string) => {

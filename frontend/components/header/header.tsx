@@ -5,7 +5,6 @@ import Search from './search';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Drawer } from '@mui/material';
 import InboxIcon from '@mui/icons-material/Inbox';
-import Badge from '@mui/material/Badge';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import CachedIcon from '@mui/icons-material/Cached';

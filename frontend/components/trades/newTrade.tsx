@@ -189,9 +189,9 @@ const NewListing = () => {
   return (
     <>
       <div className="fixed bottom-10 right-10" onClick={handleClickOpen}>
-        <div className="flex justify-center items-center text-xl hover:scale-110 h-6 w-50 px-5 py-6 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 hover:cursor-pointer" >
+        <p className="flex justify-center items-center text-sm hover:scale-110 h-6 w-50 px-5 py-6 bg-green-350 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450 outline outline-green-450 outline-3 hover:cursor-pointer" >
           New Listing
-        </div>
+        </p>
       </div>
       <Dialog
         fullScreen={fullScreen}
