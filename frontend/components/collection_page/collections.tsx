@@ -81,7 +81,7 @@ const Collection = () => {
                             </div>
                             <div className="text-center">{collection.name}</div> 
                             <div onClick = {() => mutation.mutate({id: collection.id})}> 
-                                {collection.wishlisted ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                                {collection.wishlisted ? <FavoriteIcon className = "text-pink-400" /> : <FavoriteBorderIcon className = "text-pink-400" />}
                             </div>
                         </div>
                     ))}
