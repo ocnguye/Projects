@@ -1,0 +1,16 @@
+{
+  "include": [
+    "src", "backend"
+  ],
+
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__",
+    "src/experimental",
+    "src/typestubs"
+  ],
+
+  "reportMissingImports": false,
+
+  "pythonVersion": "3.10",
+}

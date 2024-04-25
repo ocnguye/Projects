@@ -14,6 +14,7 @@ import Collection from '../components/collection_page/collections';
 import Help from '../components/Help';
 import Contact from '../components/Contact';
 import ChatView from '../components/messages/message';
+import Events from '../components/events/events';
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, errorElement: <ErrorPage />,
@@ -28,7 +29,8 @@ export const router = createBrowserRouter([
         {path: 'listings', element: <Listings />},
         {path: 'listing/:id', element: <ItemListing />},
         {path: 'collection', element: <Collection />}, 
-        {path: 'messages', element: <ChatView />}
+        {path: 'messages', element: <ChatView />},
+        {path: 'events', element: <Events />},
     ]},
 
     {path : '/login', element: <Login />, },

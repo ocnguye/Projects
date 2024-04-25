@@ -8,6 +8,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import InventoryIcon from '@mui/icons-material/Inventory';
 import CachedIcon from '@mui/icons-material/Cached';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PersonIcon from '@mui/icons-material/Person';
 import Wishlist from './wishlist';
 import Missing from './missing';
 import { useAuth, useClerk } from '@clerk/clerk-react';
@@ -35,7 +36,7 @@ const Home: React.FC = () => {
   );
 
   return (
-    <div className='w-full md:flex md:justify-between h-screen'>
+    <div className='w-full md:flex md:justify-between h-full pt-4 pb-4'>
       <div className='w-full md:w-[78%] lg:w-[83%] xl:w-[84%] 2xl:w-[87%] space-y-8'>
         <Featured />
         <div className="bg-white shadow-md px-4 py-4">
@@ -47,16 +48,21 @@ const Home: React.FC = () => {
           <Wishlist />
         </div>
       </div>
-      <div className='px-3'>
+      <div className=''>
         <Divider orientation="vertical" />
       </div>
       <div className='hidden md:flex mt-3'>
         <div>
           <div className='flex flex-col justify-start space-y-3'>
+          
+          <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
+            <PersonIcon className='mr-4' />
+            <Link to="/profile">
+              <p className='md:text-md lg:text-xl xl:text-xl text-black'>Profile</p>
+            </Link>
+          </div>
             <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-              <Badge className="mr-4" badgeContent={4} color="primary">
-                <InboxIcon style={{ zIndex: 0 }} />
-              </Badge>
+              <InboxIcon className='mr-4' />
               <Link to="/messages">
                 <p className='md:text-md lg:text-xl xl:text-xl text-black'>Messages</p>
               </Link>
@@ -80,9 +86,7 @@ const Home: React.FC = () => {
               </Link>
             </div>
             <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-              <Badge className="mr-4" badgeContent={2} color="primary">
-                <CalendarMonthIcon />
-              </Badge>
+              <CalendarMonthIcon className='mr-4'/>
               <Link to="/events">
                 <p className='md:text-md lg:text-xl xl:text-xl text-black'>Events</p>
               </Link>

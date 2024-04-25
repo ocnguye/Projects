@@ -31,9 +31,7 @@ const Header: React.FC = () => {
         </div>
       </div>
       <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300 pt-5'>
-        <Badge className="mr-4" badgeContent={4} color="primary">
-          <InboxIcon style={{ zIndex: 0 }} />
-        </Badge>
+        <InboxIcon className='mr-4' />
         <Link to="/messages">
           <p className='text-black'>Messages</p>
         </Link>
@@ -57,9 +55,7 @@ const Header: React.FC = () => {
         </Link>
       </div>
       <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-        <Badge className="mr-4" badgeContent={2} color="primary">
-          <CalendarMonthIcon />
-        </Badge>
+        <CalendarMonthIcon className='mr-4'/>
         <Link to="/events">
           <p className='md:text-md lg:text-xl xl:text-xl text-black'>Events</p>
         </Link>
@@ -92,8 +88,8 @@ const Header: React.FC = () => {
   )
 
   return (
-    <div className='bg-green-100 w-full pb-32 lg:pb-60 xl:pb-80 2xl:pb-96'>
-      <div className='flex justify-between grid-cols-3 items-center bg-white h-20 gap-2 pt-2 px-2 '
+    <div className='bg-green-100 w-full h-screen overflow-y-auto'>
+      <div className='flex justify-between grid-cols-3 items-center bg-white h-20 gap-2 pt-2 px-2 absolute top-0 z-10 w-full'
       >
         <Link to="/">
           <h1 className='font-extrabold text-2xl sm:text-3xl pr-2 md:text-4xl md:w-full'>Angel Trading</h1>
@@ -125,8 +121,9 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      <div className='bg-green-100 flex mx-2 mt-2'>
+      <div className='bg-green-100 flex flex-col px-3 w-screen h-auto mt-20'>
         <Outlet />
+        {/* <div className='h-full w-full bg-red-200'> oops </div> */}
       </div>
     </div>
   );
