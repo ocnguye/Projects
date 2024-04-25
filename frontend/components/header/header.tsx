@@ -89,7 +89,8 @@ const Header: React.FC = () => {
 
   return (
     <div className='bg-green-100 w-full h-screen overflow-y-auto'>
-      <div className='flex justify-between grid-cols-3 items-center bg-white h-20 gap-2 pt-2 px-2 absolute top-0 z-10 w-full'
+      <div className='flex justify-between grid-cols-3 items-center h-20 gap-2 pt-2 px-2 absolute top-0 z-10 w-full rounded-b-3xl'
+        style={{ backgroundColor: '#f9f9f9' }}
       >
         <Link to="/">
           <h1 className='font-extrabold text-2xl sm:text-3xl pr-2 md:text-4xl md:w-full'>Angel Trading</h1>
