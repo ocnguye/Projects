@@ -126,3 +126,22 @@ input { min-width: 0 }
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+::-webkit-scrollbar-track {
+    display: none;
+}
+
+
+::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    display: none;
+}

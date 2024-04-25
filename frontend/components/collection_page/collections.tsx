@@ -93,7 +93,7 @@ const Collection = () => {
 
     return (
         // page ui
-        <section className="flex flex-col w-full h-full overflow-y-auto bg-green-150 p-3 my-3 rounded-lg">
+        <section className="flex flex-col w-full h-full overflow-y-auto bg-green-150 p-5 my-3 rounded-lg">
           <h1 className="text-3xl uppercase flex-1 pb-2"> Your Collection </h1>
           <div className="flex flex-col w-full bg-white rounded-lg">
             {!isLoading && !isError && data ? sortBySeries(data.collectibles) : <> Loading </>}

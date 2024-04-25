@@ -3,7 +3,6 @@ import Featured from './featured';
 import Divider from '@mui/material/Divider';
 import InboxIcon from '@mui/icons-material/Inbox';
 import { Link } from 'react-router-dom';
-import Badge from '@mui/material/Badge';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import CachedIcon from '@mui/icons-material/Cached';
@@ -51,7 +50,7 @@ const Home: React.FC = () => {
       <div className=''>
         <Divider orientation="vertical" />
       </div>
-      <div className='hidden md:flex mt-3'>
+      <div className='hidden md:flex mt-3 pr-5'>
         <div>
           <div className='flex flex-col justify-start space-y-3'>
           
