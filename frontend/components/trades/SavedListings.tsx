@@ -1,8 +1,8 @@
 import NewTrade from './newTrade';
 import { useQuery } from '@tanstack/react-query';
 import { getProfile } from '../../api/profile';
-import { useAuth } from '@clerk/clerk-react';
-import { ProfileData } from '../profile/profile';
+import { useAuth, useClerk } from '@clerk/clerk-react';
+import { ProfileData } from '../../api/profile';
 import { Listing } from '../../api/search';
 import { formatSeries, cleanImage } from '../utils/utils';
 import { useNavigate } from 'react-router-dom';
@@ -14,12 +14,14 @@ import SaveListing from '../trade-listing/SaveListing';
 const SavedListings = () => {
   const { getToken } = useAuth();
   const navigate = useNavigate();
+  const { user: myUser } = useClerk();
   
   const { data, isLoading, isError } = useQuery<ProfileData>({
     queryKey: ['savedListings'],
     queryFn: async () => {
+      if (myUser?.id === undefined) return;
       const token = await getToken();
-      const resp = await getProfile(token);
+      const resp = await getProfile(myUser.id, token);
       return resp!.data;
     }
   });

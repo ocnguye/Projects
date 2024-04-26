@@ -41,6 +41,12 @@ body {
   flex-direction: column;
 }
 
+textarea {
+  font-family: Montserrat;
+  font-size: 1.2em;
+  line-height: 1.4;
+}
+
 /*essentially for logo use only*/
 h1 {
   font-family: Titan One;

@@ -6,7 +6,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Listing } from '../../api/search';
 import { formatSeries } from '../utils/utils';
 import { deleteListing } from '../../api/profile';
-import { useAuth } from '@clerk/clerk-react';
+import { useAuth, useClerk } from '@clerk/clerk-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getProfile } from '../../api/profile';
 
@@ -19,12 +19,14 @@ type Props = {
 export default function AlertDialog({ open, handleClose, listing }: Props) {
   const { getToken } = useAuth();
   const queryClient = useQueryClient();
+  const { user: myUser } = useClerk();
 
   const handleDelete = async () => {
     if (!listing) return;
+    if ( myUser?.id === undefined ) return;
     const token = await getToken();
     await deleteListing(token, { "listing": listing.id });
-    const resp = await getProfile(token);
+    const resp = await getProfile(myUser.id, token);
     handleClose();
     return resp?.data;
   }

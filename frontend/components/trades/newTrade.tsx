@@ -8,7 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useClerk } from "@clerk/clerk-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getCollectibles } from "../../api/collectibles";
 import Autocomplete from '@mui/material/Autocomplete';
@@ -39,6 +39,7 @@ const NewListing = () => {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const { user } = useClerk();
 
   const { getToken } = useAuth();
   const { data, isLoading, isError } = useQuery<readonly Collectible[]>({
@@ -163,9 +164,10 @@ const NewListing = () => {
 
   const handleUpdate = async () => {
     if (disabled) return;
+    if ( user?.id === undefined ) return;
     await handleCreate();
     const token = await getToken();
-    const resp = await getProfile(token);
+    const resp = await getProfile(user.id, token);
     return resp?.data;
   }
 

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from collectibles.views import CollectibleViewSet, SearchCollectibles, CollectiblesByID, ListingSaved
-from profiles.views import ProfileViewSet, ProfileListing, ProfileContact, ProfileWishlist, ProfileCollection
+from profiles.views import ProfileViewSet, ProfileListing, ProfileContact, ProfileWishlist, ProfileCollection, ProfileBio
 from trades.views import WishListRecommendations, MFCRecommendations
 from featured.views import FeaturedViewSet
 from app_settings.views import S3URLView, ImageVerification, StreamView, StreamTokenView, StreamChannelView
@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/collectibles/', CollectibleViewSet.as_view(), name="collectibles"),
     path('api/collectibles/id/', CollectiblesByID.as_view(), name="collectibles-id"),
     path('api/profiles/', ProfileViewSet.as_view(), name="profiles"),
+    path('api/profiles/bio/', ProfileBio.as_view(), name="bio"),
     path('api/profiles/trades/', ProfileListing.as_view(), name="listings"),
     path('api/profiles/wishlist/', ProfileWishlist.as_view(), name = "wishlist"),
     path('api/profiles/collection/', ProfileCollection.as_view(), name="collection"),
