@@ -11,6 +11,8 @@ import { post } from "../../api/api";
 import { postImgToS3 } from "../../utils/s3utils";
 import { cleanImage } from "../../utils/images";
 import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const ProfileInfo = () => {
@@ -18,7 +20,8 @@ const ProfileInfo = () => {
   const [editingBio, setEditingBio] = useState(false);
   const [bio, setBio] = useState('');
   
-  const { user: myUser } = useClerk();
+  const { user: myUser, signOut } = useClerk();
+  const navigate = useNavigate();
   
   const onImageChange = async (event: any) => {
     if ( myUser?.id === undefined ) return;
@@ -96,8 +99,16 @@ const ProfileInfo = () => {
               }}
             />
           </div>
-          <div>
-            <h1 className="text-3xl">{data.username}</h1>
+          <div className="flex flex-col w-full p-3">
+            <div className="flex w-full justify-between">
+              <h1 className="text-3xl">{data.username}</h1>
+              <div
+                onClick={() => signOut(() => navigate("/"))}
+                className="hover:cursor-pointer"
+              >
+                <LogoutIcon />
+              </div>
+            </div>
             <p className="flex items-center">
             { renderRating(data.rating) } 
             <p>({data.rating})</p>
