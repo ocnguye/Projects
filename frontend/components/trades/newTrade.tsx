@@ -30,7 +30,7 @@ type Collectible = {
   image: string;
 };
 
-type Image = {
+export type Image = {
   imagePreview: string;
   file: string;
 };

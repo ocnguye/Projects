@@ -40,7 +40,18 @@ class ProfileViewSet(APIView):
             return Response(data, status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-    
+            
+    def post(self, request):
+        try:
+            id = request.query_params.get('id')
+            profile = Profile.objects.get(user=request.user)
+            if (profile.user.username != id): return Response(status=status.HTTP_403_FORBIDDEN)
+            profile.profile_img = request.data['profile_img']
+            profile.save()
+            return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
     def delete(self, request):
         profile = Profile.objects.get(user=request.user)
         profile.delete()
@@ -59,6 +70,7 @@ class ProfileBio(APIView):
             return Response(status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
 class ProfileListing(APIView):
     permission_classes = [IsAuthenticated]
 

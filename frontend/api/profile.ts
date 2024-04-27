@@ -15,11 +15,13 @@ export type ProfileData = {
 }
 
 const getProfile = async (id: string, token: any) => get(`profiles/?id=${id}`, token);
+const postProfile = async (id: string, data: any, token: any) => post(`profiles/?id=${id}`, data, token);
 const postTrade = async (token: any, data: any) => post("profiles/trades/", data, token);
 const deleteListing = async (token: any, data: any) => del("profiles/trades/", data, token);
 
 export { 
     getProfile,
+    postProfile,
     postTrade,
     deleteListing,
 };

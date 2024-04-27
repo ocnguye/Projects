@@ -1,6 +1,6 @@
 import { useAuth, useClerk } from "@clerk/clerk-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getProfile, ProfileData } from "../../api/profile";
+import { getProfile, postProfile, ProfileData } from "../../api/profile";
 import { Avatar, Divider } from "@mui/material";
 import { renderRating } from "../utils/renderRating";
 import EditNoteIcon from '@mui/icons-material/EditNote';
@@ -8,13 +8,27 @@ import { useState } from "react";
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { post } from "../../api/api";
+import { postImgToS3 } from "../../utils/s3utils";
+import { cleanImage } from "../../utils/images";
+import EditIcon from '@mui/icons-material/Edit';
 
 
 const ProfileInfo = () => {
   const { getToken } = useAuth();
   const [editingBio, setEditingBio] = useState(false);
   const [bio, setBio] = useState('');
+  
   const { user: myUser } = useClerk();
+  
+  const onImageChange = async (event: any) => {
+    if ( myUser?.id === undefined ) return;
+    const token = await getToken();
+    const file = event.target.files[0];
+    const imgUrl = await postImgToS3(file, token);
+    await postProfile(myUser?.id, { "profile_img": imgUrl }, token);
+    const resp = await getProfile(myUser.id, token);
+    return resp?.data;
+  };
   
   const { data, isLoading, isError } = useQuery<ProfileData>({
     queryKey: ['profile', myUser?.id],
@@ -37,10 +51,17 @@ const ProfileInfo = () => {
   
   const mutation = useMutation({
     mutationFn: updateUserBio,
-    onSuccess: async (data) => {
+    onSuccess: (data) => {
       queryClient.setQueryData(['profile', myUser?.id], data);
     }
-  })
+  });
+  
+  const mutationImage = useMutation({
+    mutationFn: onImageChange,
+    onSuccess: (data) => {
+      queryClient.setQueryData(['profile', myUser?.id], data);
+    }
+  });
   
   return (
     <div>
@@ -49,15 +70,38 @@ const ProfileInfo = () => {
       {data && (
         <div className="flex flex-col w-full space-y-2">
         <div className="flex w-full items-center space-x-2">
-          <Avatar src={data.profile_img} 
-            sx={{
-              width: 100,
-              height: 100
-            }} 
-          />
+          <div className="grid grid-cols-1 grid-rows-1 justify-center items-center">
+            <Avatar src={cleanImage(data.profile_img)} 
+              sx={{
+                width: 100,
+                height: 100,
+                gridColumnStart: 1,
+                gridRowStart: 1,
+              }} 
+            />
+            <label htmlFor="input" className="col-start-1 row-start-1 z-10 flex w-full justify-center items-center">
+              <div className="hover:cursor-pointer opacity-0 hover:opacity-100 text-md p-2 hover:scale-101 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450">
+                <EditIcon />
+              </div>
+            </label>
+            <input
+              accept="image/*"
+              onChange={(event: any) => mutationImage.mutate(event)}
+              id="input"
+              type="file"
+              style={{
+                opacity: 0,
+                position: "absolute",
+                zIndex: -1
+              }}
+            />
+          </div>
           <div>
             <h1 className="text-3xl">{data.username}</h1>
-            { renderRating(data.rating) }
+            <p className="flex items-center">
+            { renderRating(data.rating) } 
+            <p>({data.rating})</p>
+            </p>
           </div>
         </div>
         <Divider />
