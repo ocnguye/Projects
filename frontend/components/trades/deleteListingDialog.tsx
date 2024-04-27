@@ -9,6 +9,7 @@ import { deleteListing } from '../../api/profile';
 import { useAuth, useClerk } from '@clerk/clerk-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getProfile } from '../../api/profile';
+import { getProductImage } from '../../utils/images';
 
 type Props = {
   open: boolean,
@@ -53,7 +54,7 @@ export default function AlertDialog({ open, handleClose, listing }: Props) {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <div className='flex space-x-1 items-center'>
-                <img src={listing.collectible.image} className='w-25 h-20 object-contain' />
+                <img src={getProductImage(listing.collectible.image)} className='w-25 h-20 object-contain' />
                 <div>
                   <h1 className='text-2xl'>{formatSeries(listing.collectible.series)}</h1>
                   <h1>{listing.collectible.name}</h1>

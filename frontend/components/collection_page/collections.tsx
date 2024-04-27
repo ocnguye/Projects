@@ -11,7 +11,7 @@ import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import AddCollectible from "./AddCollectible";
 
 
-type CollectionData = {
+export type CollectionData = {
     collectibles: PCollection[],
 }
 
