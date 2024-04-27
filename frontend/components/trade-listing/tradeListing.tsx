@@ -35,7 +35,7 @@ const TradeListing = () => {
                         className="pt-2 hover:scale-101 ease-in-out duration-300
                         flex flex-row justify-start items-center col-span-3"
                     >
-                        <img src={ getProductImage(data.collectible.image) } className='object-cover h-32 rounded-xl col-span-1' />
+                        <img src={ getProductImage(data.collectible.image) } className='object-cover h-32 rounded-xl col-span-1 pr-3' />
                         <div className='col-span-2'>
                             <h1 className='text-2xl md:text-3xl'>{formatSeries(data.collectible.series) }</h1>
                             <p>{data.collectible.name}</p>

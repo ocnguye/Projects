@@ -41,6 +41,12 @@ body {
   flex-direction: column;
 }
 
+textarea {
+  font-family: Montserrat;
+  font-size: 1.2em;
+  line-height: 1.4;
+}
+
 /*essentially for logo use only*/
 h1 {
   font-family: Titan One;
@@ -125,4 +131,23 @@ input { min-width: 0 }
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+::-webkit-scrollbar-track {
+    display: none;
+}
+
+
+::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    display: none;
 }

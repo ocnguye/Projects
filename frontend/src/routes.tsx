@@ -9,11 +9,12 @@ import About from '../components/about/about';
 import SignUp from '../components/SignUp';
 import Login from '../components/Login';
 import ErrorPage from '../components/ErrorPage';
-import Listings from '../components/trades/listings';
+import ListingsPage from '../components/trades/ListingsPage';
 import Collection from '../components/collection_page/collections';
 import Help from '../components/Help';
 import Contact from '../components/Contact';
 import ChatView from '../components/messages/message';
+import Events from '../components/events/events';
 
 export const router = createBrowserRouter([
     {path: '/', element: <App />, errorElement: <ErrorPage />,
@@ -25,10 +26,11 @@ export const router = createBrowserRouter([
         {path: 'contactus', element: <Contact />},
         {path: 'profile', element: <Profile />},
         {path: 'product/:id', element: <TradeListing />},
-        {path: 'listings', element: <Listings />},
+        {path: 'listings', element: <ListingsPage />},
         {path: 'listing/:id', element: <ItemListing />},
-        {path: 'collection', element: <Collection />}, 
-        {path: 'messages', element: <ChatView />}
+        {path: 'collection/:id', element: <Collection />}, 
+        {path: 'messages', element: <ChatView />},
+        {path: 'events', element: <Events />},
     ]},
 
     {path : '/login', element: <Login />, },

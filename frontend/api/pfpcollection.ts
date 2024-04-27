@@ -1,5 +1,5 @@
 import {get} from "./api"
 
-const getProfileCollection = async (token: any) => get("profiles/trades", token);
+const getProfileCollection = async (id: string, token: any) => get(`profiles/trades/?id=${id}`, token);
 
 export {getProfileCollection}

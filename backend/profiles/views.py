@@ -18,28 +18,59 @@ class ProfileViewSet(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        profile = Profile.objects.get(user=request.user)
-        serializer = ProfileSerializer(profile)
-        collection = ListingSerializer(profile.collection, many=True)
-        wishlist = CollectibleSerializer(profile.wishlist, many=True)
-        trades = TradeSerializer(profile.trades, many=True)
-        data = {
-            "bio": serializer.data["bio"],
-            "username": serializer.data["username"],
-            "profile_img": serializer.data["profile_img"],
-            "rating": serializer.data["rating"],
-            "raters": serializer.data["raters"],
-            "collection": collection.data,
-            "wishlist": wishlist.data,
-            "trades": trades.data,
-        }
-        return Response(data, status=status.HTTP_200_OK)
-    
+        try:
+            id = request.query_params.get('id')
+            profile = Profile.objects.get(user__username=id)
+            serializer = ProfileSerializer(profile)
+            collection = ListingSerializer(profile.collection, many=True)
+            wishlist = CollectibleSerializer(profile.wishlist, many=True)
+            trades = TradeSerializer(profile.trades, many=True)
+            saved = ListingSerializer(profile.saved, many=True)
+            data = {
+                "bio": serializer.data["bio"],
+                "username": serializer.data["username"],
+                "profile_img": serializer.data["profile_img"],
+                "rating": serializer.data["rating"],
+                "raters": serializer.data["raters"],
+                "collection": collection.data,
+                "wishlist": wishlist.data,
+                "trades": trades.data,
+                "saved": saved.data,
+            }
+            return Response(data, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+            
+    def post(self, request):
+        try:
+            id = request.query_params.get('id')
+            profile = Profile.objects.get(user=request.user)
+            if (profile.user.username != id): return Response(status=status.HTTP_403_FORBIDDEN)
+            profile.profile_img = request.data['profile_img']
+            profile.save()
+            return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
     def delete(self, request):
         profile = Profile.objects.get(user=request.user)
         profile.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ProfileBio(APIView):
+    permission_classes = [IsAuthenticated]
     
+    def post(self, request):
+        try:
+            id = request.query_params.get('id')
+            profile = Profile.objects.get(user=request.user)
+            if (profile.user.username != id): return Response(status=status.HTTP_403_FORBIDDEN)
+            profile.bio = request.data['bio']
+            profile.save()
+            return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
 class ProfileListing(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -74,6 +105,27 @@ class ProfileListing(APIView):
         listing.delete()
         profile.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ProfileCollection(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        try:
+            id = request.query_params.get("id")
+            cId = request.query_params.get("cId")
+            profile = Profile.objects.get(user=request.user)
+            if (profile.user.username != id): return Response(status=status.HTTP_403_FORBIDDEN)
+            collectible = Collectible.objects.get(id=cId)
+            if collectible in profile.in_collection.all():
+                profile.in_collection.remove(collectible)
+            else:
+                profile.in_collection.add(collectible)
+            profile.save()
+            all_collectibles = Collectible.objects.all()
+            serializer = CollectibleSerializer(all_collectibles, many=True, context = {'request': request})
+            return Response({"collectibles": serializer.data}, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     
 class ProfileContact(APIView):
     permission_classes = [IsAuthenticated]
@@ -89,3 +141,24 @@ class ProfileContact(APIView):
             "raters": profile["raters"],
         }
         return Response( data , status=status.HTTP_200_OK)
+
+class ProfileWishlist(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            id = request.query_params.get("id")
+            cId = request.query_params.get("cId")
+            profile = Profile.objects.get(user=request.user)
+            if (profile.user.username != id): return Response(status=status.HTTP_403_FORBIDDEN)
+            collectible = Collectible.objects.get(id=cId)
+            if collectible in profile.wishlist.all():
+                profile.wishlist.remove(collectible)
+            else:
+                profile.wishlist.add(collectible)
+            profile.save()
+            all_collectibles = Collectible.objects.all()
+            serializer = CollectibleSerializer(all_collectibles, many=True, context = {'request': request})
+            return Response({"collectibles": serializer.data}, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

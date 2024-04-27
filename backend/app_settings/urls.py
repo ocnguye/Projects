@@ -17,8 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from collectibles.views import CollectibleViewSet, SearchCollectibles, CollectiblesByID
-from profiles.views import ProfileViewSet, ProfileListing, ProfileContact
+from collectibles.views import CollectibleViewSet, SearchCollectibles, CollectiblesByID, ListingSaved
+from profiles.views import ProfileViewSet, ProfileListing, ProfileContact, ProfileWishlist, ProfileCollection, ProfileBio
 from trades.views import WishListRecommendations, MFCRecommendations
 from featured.views import FeaturedViewSet
 from app_settings.views import S3URLView, ImageVerification, StreamView, StreamTokenView, StreamChannelView
@@ -30,7 +30,11 @@ urlpatterns = [
     path('api/collectibles/', CollectibleViewSet.as_view(), name="collectibles"),
     path('api/collectibles/id/', CollectiblesByID.as_view(), name="collectibles-id"),
     path('api/profiles/', ProfileViewSet.as_view(), name="profiles"),
+    path('api/profiles/bio/', ProfileBio.as_view(), name="bio"),
     path('api/profiles/trades/', ProfileListing.as_view(), name="listings"),
+    path('api/profiles/wishlist/', ProfileWishlist.as_view(), name = "wishlist"),
+    path('api/profiles/collection/', ProfileCollection.as_view(), name="collection"),
+    path('api/profiles/saved/', ListingSaved.as_view(), name="saved"),
     path('api/recommendations/wishlist/', WishListRecommendations.as_view(), name="wishlist-recommendations"),
     path('api/recommendations/mfc/', MFCRecommendations.as_view(), name="mfc-recommendations"),
     path('api/featured/', FeaturedViewSet.as_view(), name="featured"),
@@ -40,6 +44,6 @@ urlpatterns = [
     path('api/contacts/', ProfileContact.as_view(), name="contact"),
     path('api/register-user/', StreamView.as_view(), name="stream"),
     path('api/token/', StreamTokenView.as_view(), name='token'),
-    path('api/channel/', StreamChannelView.as_view(), name='channel')
+    path('api/channel/', StreamChannelView.as_view(), name='channel'),
     
 ]

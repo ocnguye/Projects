@@ -41,6 +41,7 @@ export type Profile = {
     username: string,
     profile_img: string,
     user: User,
+    saved: Listing[],
 }
 
 export type SearchData = {
