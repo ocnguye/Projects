@@ -5,7 +5,6 @@ import Search from './search';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Drawer } from '@mui/material';
 import InboxIcon from '@mui/icons-material/Inbox';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import CachedIcon from '@mui/icons-material/Cached';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -31,16 +30,16 @@ const Header: React.FC = () => {
           <CloseIcon onClick={handleToggle(false)} fontSize="medium" sx={{ justifyContent: 'center' }} />
         </div>
       </div>
+      <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
+        <PersonIcon className='mr-4' />
+        <Link to="/profile">
+          <p className='md:text-md lg:text-xl xl:text-xl text-black'>Profile</p>
+        </Link>
+      </div>
       <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300 pt-5'>
         <InboxIcon className='mr-4' />
         <Link to="/messages">
           <p className='text-black'>Messages</p>
-        </Link>
-      </div>
-      <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-        <FavoriteBorderOutlinedIcon className='mr-4' />
-        <Link to="/favorites">
-          <p className='md:text-md lg:text-xl xl:text-xl text-black'>Favorites</p>
         </Link>
       </div>
       <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
@@ -59,12 +58,6 @@ const Header: React.FC = () => {
         <CalendarMonthIcon className='mr-4'/>
         <Link to="/events">
           <p className='md:text-md lg:text-xl xl:text-xl text-black'>Events</p>
-        </Link>
-      </div>
-      <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
-        <PersonIcon className='mr-4' />
-        <Link to="/profile">
-          <p className='md:text-md lg:text-xl xl:text-xl text-black'>Profile</p>
         </Link>
       </div>
       <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>

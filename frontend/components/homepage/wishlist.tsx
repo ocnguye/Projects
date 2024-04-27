@@ -38,7 +38,7 @@ const Wishlist = () => {
                         </div>
                     </>
                 ) : (
-                    <ScrollArea className="w-full whitespace-nowrap rounded-md scroll-p-2">
+                    <ScrollArea className="w-full whitespace-nowrap h-[155px] rounded-md scroll-p-2">
                         <div className="flex w-max space-x-2">
                             {Object.keys(data).map((key: any, index: any) => (
                                 <div
