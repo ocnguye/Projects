@@ -30,13 +30,13 @@ const Header: React.FC = () => {
           <CloseIcon onClick={handleToggle(false)} fontSize="medium" sx={{ justifyContent: 'center' }} />
         </div>
       </div>
-      <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
+      <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300 pt-5'>
         <PersonIcon className='mr-4' />
         <Link to="/profile">
           <p className='md:text-md lg:text-xl xl:text-xl text-black'>Profile</p>
         </Link>
       </div>
-      <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300 pt-5'>
+      <div className='flex flex-row items-center hover:scale-110 ease-in-out duration-300'>
         <InboxIcon className='mr-4' />
         <Link to="/messages">
           <p className='text-black'>Messages</p>
