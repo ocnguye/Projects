@@ -63,7 +63,7 @@ const ProfileInfo = () => {
         <Divider />
         <div>
           <h2 className="text-2xl">Bio</h2>
-          <div className="w-full flex flex-col justify-between bg-green-150 min-h-56 rounded-xl p-4">
+          <div className="w-full flex flex-col justify-between bg-green-150 shadow-lg min-h-56 rounded-xl p-4">
             {
               !editingBio ?
               <p>
@@ -78,7 +78,7 @@ const ProfileInfo = () => {
             }
             <div className="w-full flex justify-end ">
               { !editingBio ? 
-                <div className="bg-gray-500 bg-opacity-50 hover:bg-gray-900 hover:cursor-pointer text-white rounded-md p-2 "
+                <div className="bg-gray-500 bg-opacity-50 shadow-lg hover:bg-gray-900 hover:cursor-pointer text-white rounded-md p-2 "
                   onClick={() => {
                     setBio(data.bio);
                     setEditingBio(true);

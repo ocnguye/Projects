@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { Listing } from '../../api/search';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import Avatar from '@mui/material/Avatar';
