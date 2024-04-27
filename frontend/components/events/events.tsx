@@ -1,4 +1,4 @@
-import EventsList from './EventsList';
+import EventsList from './eventsList';
 
 const Events = () => {
   return (
