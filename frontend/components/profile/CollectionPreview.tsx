@@ -32,7 +32,7 @@ const CollectionPreview = () => {
             <h3 className='green'>Collection Preview</h3>
             <a href={`/collections/${user?.id}`} className='underline text-red-500'>View All</a>
           </div>
-          <ScrollArea className="w-full whitespace-nowrap rounded-md scroll-p-2">
+          <ScrollArea className="w-full whitespace-nowrap h-auto rounded-md scroll-p-2">
               <div className="flex w-max space-x-2 h-full">
                   {data.collectibles.map((collectible: PCollection) => (
                       collectible.owned && <div

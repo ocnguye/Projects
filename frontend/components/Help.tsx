@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React, { useState } from 'react';
-//import { Link } from 'react-router-dom';
 
 const Help: React.FC = () => {
     const [openRows, setOpenRows] = useState<boolean[]>(new Array(6).fill(false));
@@ -77,8 +76,8 @@ const Help: React.FC = () => {
     ];
 
     return (
-        <div className="bg-transparent flex flex-col items-center justify-center px-4 py-8 min-h-screen">
-            <div className="bg-white w-3/4 md:w-1/2 lg:w-2/5 h-24 rounded-3xl flex items-center justify-center mb-10 shadow-lg">
+        <div className="bg-transparent flex flex-col items-center justify-center px-4 py-8">
+            <div className="p-5 bg-white w-3/4 md:w-1/2 lg:w-2/5 h-24 rounded-3xl flex items-center justify-center mb-10 shadow-lg">
                 <h3 className="white" >Hi Pookie, how may we help?</h3>
             </div>
             <div className="w-3/4 flex flex-col gap-4">
@@ -92,7 +91,7 @@ const Help: React.FC = () => {
                             <span className="text-lg">{openRows[index] ? '-' : '+'}</span>
                         </div>
                         <div
-                            className={`transition-max-height duration-700 ease-in-out ${openRows[index] ? 'max-h-96' : 'max-h-0'} overflow-hidden`}
+                            className={`transition-max-height duration-700 ease-in-out ${openRows[index] ? 'h-fit' : 'max-h-0'} overflow-hidden`}
                         >
                             <div className="p-4 text-green-900 bg-white">
                                 {/* Display the question and answer */}

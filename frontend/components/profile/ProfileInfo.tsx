@@ -10,7 +10,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { post } from "../../api/api";
 import { postImgToS3 } from "../../utils/s3utils";
 import { cleanImage } from "../../utils/images";
-import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -45,18 +44,15 @@ const ProfileInfo = () => {
   
   const updateUserBio = async () => {
     if ( myUser?.id === undefined ) return;
+    if ( data === undefined ) return;
+    data.bio = bio;
     const token = await getToken();
     await post(`profiles/bio/?id=${myUser.id}`,{'bio': bio}, token)
-    const resp = await getProfile(myUser.id, token);
-    return resp?.data;
   }
   const queryClient = useQueryClient();
   
   const mutation = useMutation({
     mutationFn: updateUserBio,
-    onSuccess: (data) => {
-      queryClient.setQueryData(['profile', myUser?.id], data);
-    }
   });
   
   const mutationImage = useMutation({
@@ -71,50 +67,40 @@ const ProfileInfo = () => {
       {isLoading && <div>Loading...</div>}
       {isError && <div>Error</div>}
       {data && (
-        <div className="flex flex-col w-full space-y-2">
-        <div className="flex w-full items-center space-x-2">
-          <div className="grid grid-cols-1 grid-rows-1 justify-center items-center">
-            <Avatar src={cleanImage(data.profile_img)} 
-              sx={{
-                width: 100,
-                height: 100,
-                gridColumnStart: 1,
-                gridRowStart: 1,
-              }} 
-            />
-            <label htmlFor="input" className="col-start-1 row-start-1 z-10 flex w-full justify-center items-center">
-              <div className="hover:cursor-pointer opacity-0 hover:opacity-100 text-md p-2 hover:scale-101 text-black rounded-lg transition duration-300 ease-in-out hover:bg-green-450">
-                <EditIcon />
+        <div className="flex flex-col space-y-2">
+          <div className="md:flex items-center space-x-2">
+              <label htmlFor="input" className="flex hover:cursor-pointer justify-center items-center">
+                <Avatar src={cleanImage(data.profile_img)} 
+                  sx={{
+                    width: 100,
+                    height: 100,
+                  }} 
+                />
+              </label>
+              <input
+                accept="image/*"
+                onChange={(event: any) => mutationImage.mutate(event)}
+                id="input"
+                type="file"
+                style={{
+                  opacity: 0,
+                  position: "absolute",
+                  zIndex: -1
+                }}
+              />
+              <div className="flex flex-row md:w-full justify-between">
+                <div className="overflow-hidden">
+                  <h1 className="w-full md:text-3xl overflow-hidden text-ellipsis">{data.username}</h1>
+                  { renderRating(data.rating) }
+                </div>
+                <div 
+                  onClick={() => signOut(() => navigate("/"))}
+                  className="hover:cursor-pointer"
+                >
+                  <LogoutIcon />
+                </div>
               </div>
-            </label>
-            <input
-              accept="image/*"
-              onChange={(event: any) => mutationImage.mutate(event)}
-              id="input"
-              type="file"
-              style={{
-                opacity: 0,
-                position: "absolute",
-                zIndex: -1
-              }}
-            />
           </div>
-          <div className="flex flex-col w-full p-3">
-            <div className="flex w-full justify-between">
-              <h1 className="text-3xl">{data.username}</h1>
-              <div
-                onClick={() => signOut(() => navigate("/"))}
-                className="hover:cursor-pointer"
-              >
-                <LogoutIcon />
-              </div>
-            </div>
-            <p className="flex items-center">
-            { renderRating(data.rating) } 
-            <p>({data.rating})</p>
-            </p>
-          </div>
-        </div>
         <Divider />
         <div>
           <h2 className="text-2xl">Bio</h2>

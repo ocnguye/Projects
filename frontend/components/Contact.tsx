@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 import React from 'react';
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
@@ -38,20 +38,20 @@ const Contact: React.FC = () => {
     };
 
     return (
-        <div className="bg-transparent flex flex-col justify-center items-center h-screen w-screen">
+        <div className="bg-transparent flex flex-col justify-center items-center h-full w-full p-2">
             <div className="flex flex-col justify-center items-center pb-10">
                 <h2 className="pb-6"> Contact Us </h2>
                 <h3 className="green"> Need additional help? Submit a form! </h3>
                 <h3 className="green"> Our team will get back to you within 2 business days. </h3>
             </div>
 
-            <div className="bg-white flex flex-col justify-between pt-4 pb-20 px-10 shadow-lg h-fit">
+            <div className="bg-white flex flex-col items-center pt-4 pb-10 w-full sm:w-fit px-5 shadow-lg h-fit">
                 <form ref={form} onSubmit={sendEmail}>
 
                     {/* name input field */}
                     <p className=""> Name </p>
                     <label>
-                        <input name="user_name" type="name" value={userName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className="bg-gray-200 w-96 rounded-lg pl-1" />
+                        <input name="user_name" type="name" value={userName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)} className="bg-gray-200 w-full rounded-lg pl-1" />
                         <h4 className="pt-1 text-xs">
                             {
                                 userName === "" && formSubmitted ?
@@ -65,7 +65,7 @@ const Contact: React.FC = () => {
                     {/* email input field */}
                     <p className=""> Email Address </p>
                     <label>
-                        <input name="user_email" type="email" value={userEmail} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className="bg-gray-200 w-96 rounded-lg pl-1" />
+                        <input name="user_email" type="email" value={userEmail} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserEmail(e.target.value)} className="bg-gray-200 w-full rounded-lg pl-1" />
                         <h4 className="pt-1 text-xs">
                             {
                                 userEmail === "" && formSubmitted ?
@@ -83,7 +83,7 @@ const Contact: React.FC = () => {
                             name="message"
                             value={userMessage}
                             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setUserMessage(e.target.value)}
-                            className="bg-gray-200 h-48 w-96 rounded-lg pl-1"
+                            className="bg-gray-200 h-48 w-full sm:w-96 rounded-lg pl-1"
                         />
                         <h4 className="pt-1 text-xs">
                             {
