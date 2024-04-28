@@ -40,18 +40,18 @@ const ItemListing = () => {
 
     const { width } = useWindowDimensions();
     return (
-        <section className='grid w-full gap-3 sm:grid-cols-2 h-full pt-3'>
-            <div className='flex-1 align-items-center justify-center'>
-                <div className='grid row-start-1 col-start-1 items-center'>
+        <section className='grid sm:grid-cols-2 w-full justify-center h-full pt-3 p-2'>
+            <div className='flex-1 items-center w-full justify-center'>
+                <div className='grid row-start-1 w-full col-start-1 justify-center items-center sm:pr-2'>
                     <img src={images[imageIndex]} alt={listing.collectible.name} className='object-cover rounded-lg row-start-1 col-start-1' style={{width: width, height: width > 640 ? width/2 : width}}/>
                     <div className='flex row-start-1 col-start-1 justify-between'>
-                        <ArrowBackIcon onClick={() => setImageIndex(( imageIndex+images.length - 1) % images.length)} className='hover:cursor-pointer hover:bg-gray-500 rounded-full m-2' fontSize='large'/>
-                        <ArrowForwardIcon onClick={() => setImageIndex(( imageIndex + 1) % images.length )} className='hover:cursor-pointer hover:bg-gray-500 rounded-full m-2' fontSize='large'/>
+                        <ArrowBackIcon onClick={() => setImageIndex(( imageIndex+images.length - 1) % images.length)} className='hover:cursor-pointer hover:bg-gray-500 rounded-full' fontSize='large'/>
+                        <ArrowForwardIcon onClick={() => setImageIndex(( imageIndex + 1) % images.length )} className='hover:cursor-pointer hover:bg-gray-500 rounded-full' fontSize='large'/>
                     </div>
                 </div>
-                <div className='flex flex-wrap'>
+                <div className='flex flex-wrap space-x-1'>
                     {images.map((image, index) => (
-                        <div className='pr-1 pt-1' key={image}
+                        <div className='pt-1' key={image}
                             onClick={() => setImageIndex(index)}
                         >
                             <img src={image} alt={listing.collectible.name} className='object-cover w-16 h-16 rounded-xl hover:cursor-pointer'
@@ -67,7 +67,7 @@ const ItemListing = () => {
                     <h1 className='text-3xl'>{formatSeries(listing.collectible.series)}</h1>
                     <div className='flex justify-between align-middle'>
                         <h2 className='text-gray-500'>{listing.collectible.name}</h2>
-                        <div className='flex space-x-1'>
+                        <div className='flex'>
                             <p>{listing.price ? "$" + listing.price : ""}</p>
                             { listing.verified ? <VerifiedIcon color="success"/> : <></>}
                         </div>
