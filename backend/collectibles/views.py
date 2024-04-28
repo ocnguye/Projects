@@ -24,7 +24,8 @@ class CollectiblesByID(APIView):
         try:
             id = request.query_params.get('id')
             collectible = Collectible.objects.get(id=id)
-            listings = Listing.objects.filter(collectible=collectible)
+            profile = Profile.objects.get(user=request.user)
+            listings = Listing.objects.filter(collectible=collectible).exclude(user=profile)
             listings_serializer = ListingSerializer(listings, many=True)
             collectible_serializer = CollectibleSerializer(collectible)
             return Response({
