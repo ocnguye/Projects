@@ -121,9 +121,7 @@ class ProfileCollection(APIView):
             else:
                 profile.in_collection.add(collectible)
             profile.save()
-            all_collectibles = Collectible.objects.all()
-            serializer = CollectibleSerializer(all_collectibles, many=True, context = {'request': request})
-            return Response({"collectibles": serializer.data}, status=status.HTTP_200_OK)
+            return Response({}, status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
     
@@ -157,8 +155,6 @@ class ProfileWishlist(APIView):
             else:
                 profile.wishlist.add(collectible)
             profile.save()
-            all_collectibles = Collectible.objects.all()
-            serializer = CollectibleSerializer(all_collectibles, many=True, context = {'request': request})
-            return Response({"collectibles": serializer.data}, status=status.HTTP_200_OK)
+            return Response({}, status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
