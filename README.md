@@ -8,24 +8,25 @@
 
 ## Introduction
 
-Angel Trading Co. is a project that seeks to provide collectors with a place to trade and find others who are also interested in trading. We want to give collectors, enthusiasts, and new hobbyists alike a centralized place where they can find other local collectors to trade with. Currently, we are focusing on supporting Smiski communities!
+Angel Trading Co. is a project that seeks to streamline the buying, selling, and trading experience of collectors within the Smiski community. Due to the absence of a dedicated communication hub, we aspire to provide avid collectors, trade enthusiasts, and newcomers a platform where they can immerse themselves in a culture of like-minded individuals. Currently, we are focused on supporting Smiski communities but are looking to broaden our service to other collectibles!
 
 ## Web Application Link
 https://angel-trading-company.com/
 
 ## Core User Features
-1. Trading and Selling / Buying Smiski collectibles.
-2. Verified Smiski's for online authentication.
-3. Recommendations based on your collection and what you want.
-4. Showcase of events or meetups in your area.
-5. A customizable profile to show off your collection.
-6. A chat feature to talk with other collectors.
-7. Save your favorite Smiski's to your wishlist and the listings you're interested in.
-8. Help and Contact page for any questions or concerns.
+1. Trading / Selling / Buying Smiski Collectibles
+2. Smiski Verification for Authenticity
+3. User-Curated Recommendations
+4. Local Events and Meet-ups: Keep in touch with your local community by staying in the loop of all relevant events hosted by authorized retailers!
+5. Customizable Profile
+6. Chat: Discuss with other users to finalize exchange details or make some new friends!
+7. User Collection and Wishlist: Keep track of your collection and identify which figures you are actively seeking with shareable links.
+8. Saved Listings: Compare offers or take time to ponder listings by saving them all in one place. 
+9. Help and Contact Us: For questions or concerns, the Help page offers an FAQ to address them quickly, but feel free to contact the team for other inquries.
 
 ## Application Architecture
 
-The application is divided into a frontend and a backend. We are Postres as our database and Django as our backend framework with Python. The frontend is built with React, Vite, Typescript, and Tailwind CSS. For authentication we are using Clerk. Alongside Postgres we use AWS S3 with AWS Cloudfront for our media storage. Additionally we use the GPT-4 Vision API for image recognition and classification.
+Our application is divided into two main components: frontend and backend. For the frontend, we are currently using React, Vite, Typescript, and Tailwind CSS. For the backend, we are using the Django framework with Python. Additionally, we are using Postgres SQL as our database and AWS S3 with AWS Cloudfront for media storage. We are also using Clerk for user authentication and GPT-4 Vision API for image recognition and classification.
 
 <img src="./images/App_Architecture.png"/>
 
